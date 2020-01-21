@@ -1,0 +1,35 @@
+.login-page {
+    background-color: #585753;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100vh;
+}
+
+.login-page>.login-box {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: auto;
+    border: 3px solid white;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    align-items: center;
+}
+
+.login-page>.login-box>h1, .login-page>.login-box>p {
+    text-align: center;
+}
+
+.login-page button {
+    font-weight: bold;
+}
+
+.input-title {
+    justify-content: center;
+}
+
+.login-form {
+    width: 85%;
+}

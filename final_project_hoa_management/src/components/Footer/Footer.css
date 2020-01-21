@@ -1,0 +1,12 @@
+.myFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 3em;
+    position: fixed;
+    bottom: 0;
+    font-size: 0.8em;
+    background-color: #585753;
+    color: white;
+}

@@ -1,0 +1,39 @@
+.landing-page {
+    background-color: #585753;
+    color: white;
+}
+
+.lp-col {
+    padding: 35px 0;
+}
+.dashboard-title {
+    font-size: 3em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 1em 0 0.5em 0;
+}
+
+.dashboard-text {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding-bottom: 2em;
+}
+
+.lp-cont {
+    margin-bottom: 3em;
+    display: flex;
+    text-align: center;
+    /* background-color: white; */
+}
+
+span>a:link {
+    color: white;
+}
+
+span>a:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}

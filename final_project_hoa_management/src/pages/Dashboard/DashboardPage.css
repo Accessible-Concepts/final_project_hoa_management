@@ -1,0 +1,40 @@
+.dashboard-page {
+  /* display: flex; */
+  background-color: #585753;
+  /* height: 100%; */
+}
+
+.db-cont {
+  background-color: white;
+}
+
+/* .homepageTitle {
+    font-size: 3em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 1em 0 0.5em 0;
+} */
+
+/* .homepageText {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding-bottom: 2em;
+} */
+
+/* .myCont {
+    margin-bottom: 3em;
+    display: flex;
+    text-align: center;
+} */
+
+/* span > a:link {
+    color: white;
+} */
+
+/* span > a:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+} */
