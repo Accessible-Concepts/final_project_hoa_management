@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
-import "./LoginPage.css";
-import Parse from "parse";
 import UserModel from "../../models/UserModel";
+import Parse from "parse";
+import "./LoginPage.css";
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -33,33 +33,21 @@ export default class LoginPage extends Component {
   login() {
     const { handleLogin } = this.props;
     const { email, password } = this.state;
+
     // Pass the username and password to logIn function
-
-    // const newActiveUser = allUsers.find(
-    //   user =>
-    //     user.email.toLowerCase() === email.toLowerCase() &&
-    //     user.password === password
-    // );
-
     Parse.User.logIn(email, password)
       .then(parseUser => {
         // Do stuff after successful login
         const user = new UserModel(parseUser);
         console.log("Logged in user", user);
 
-        // console.log("newActiveUser: " + newActiveUser.fName);
-
-        // if (newActiveUser) {
         // 1) Updating App component on the new active user
-        // handleLogin(newActiveUser);
         handleLogin(user);
-        // handleLogin(user);
 
         // 2) navigate to dashboard
         this.setState({
           redirectToDashboard: true
         });
-        // } else {
       })
       .catch(error => {
         console.error("Error while logging in user", error);

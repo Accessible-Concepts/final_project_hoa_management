@@ -4,7 +4,7 @@ import MainNavbar from "../../components/Navbar/MainNavbar";
 import Footer from "../../components/Footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
-// import Parse from "parse";
+import Parse from "parse";
 
 export default class DashboardPage extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class DashboardPage extends Component {
     return (
       <div className="dashboard-page">
         <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
-        <div className="db-cont">Dashboard Hello {activeUser.name}</div>
+        <div className="db-cont">Dashboard Hello {activeUser.fname}</div>
         <Footer />
       </div>
     );

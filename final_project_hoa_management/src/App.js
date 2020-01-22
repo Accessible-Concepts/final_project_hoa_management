@@ -9,7 +9,6 @@ import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import IssuesPage from "./pages/IssuesPage/IssuesPage";
 import VotingPage from "./pages/VotingPage/VotingPage";
 import "./App.css";
-// import jsonUsers from "./data/usersData";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,7 +16,6 @@ export default class App extends React.Component {
 
     this.state = {
       activeUser: null
-      // allUsers: jsonUsers
     };
 
     this.handleLogout = this.handleLogout.bind(this);
