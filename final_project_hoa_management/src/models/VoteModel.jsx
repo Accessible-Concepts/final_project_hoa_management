@@ -1,8 +1,6 @@
 export default class VoteModel {
-    constructor(vote) {
-        this.VotedBy = vote.VotedBy;
-        this.vote = vote.vote;
-    }
+  constructor(vote) {
+    this.votedBy = vote.votedBy;
+    this.vote = vote.vote;
+  }
 }
-
-

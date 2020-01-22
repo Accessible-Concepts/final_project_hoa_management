@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Renovate the entrance",
+    "details": "Fix the walls and entrance door",
+    "options": ["Yes", "No"],
+    "dueDate": "2020-02-15",
+    "userId": "u0001"
+  },
+  {
+    "id": 2,
+    "title": "Elect Committee Head",
+    "details": "Elect Committee Head",
+    "options": ["John", "Jane", "Janin"],
+    "dueDate": "2020-03-15",
+    "userId": "u0001"
+  },
+  {
+    "id": 3,
+    "title": "Elevator installation Year",
+    "details": "Decide between this year and next year",
+    "options": ["This Year", "Next Year"],
+    "dueDate": "2020-04-15",
+    "userId": "u0002"
+  }
+]
