@@ -9,15 +9,15 @@ import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import IssuesPage from "./pages/IssuesPage/IssuesPage";
 import VotingPage from "./pages/VotingPage/VotingPage";
 import "./App.css";
-import jsonUsers from "./data/usersData";
+// import jsonUsers from "./data/usersData";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeUser: null,
-      allUsers: jsonUsers
+      activeUser: null
+      // allUsers: jsonUsers
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -38,7 +38,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { activeUser, allUsers } = this.state;
+    const { activeUser } = this.state;
 
     return (
       <div className="app">
@@ -50,7 +50,7 @@ export default class App extends React.Component {
             />
           </Route>
           <Route exact path="/login">
-            <LoginPage allUsers={allUsers} handleLogin={this.handleLogin} />
+            <LoginPage handleLogin={this.handleLogin} />
           </Route>
           {/* <Route exact path="/signup">
             <SignupPage />

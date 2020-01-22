@@ -4,6 +4,7 @@ import MainNavbar from "../../components/Navbar/MainNavbar";
 import Footer from "../../components/Footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
+// import Parse from "parse";
 
 export default class DashboardPage extends Component {
   constructor(props) {
