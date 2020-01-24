@@ -4,8 +4,7 @@ import MainNavbar from "../../components/Navbar/MainNavbar";
 import Footer from "../../components/Footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
-import Parse from "parse";
-
+import ClockComponent from "../../components/Clock/ClockComponent";
 export default class DashboardPage extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,11 @@ export default class DashboardPage extends Component {
     return (
       <div className="dashboard-page">
         <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
-        <div className="db-cont">Dashboard Hello {activeUser.fname}</div>
+
+        <div className="db-cont">
+          Dashboard Hello {activeUser.fname}
+          <ClockComponent />
+        </div>
         <Footer />
       </div>
     );

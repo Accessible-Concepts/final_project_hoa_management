@@ -23,12 +23,12 @@ export default class MessageComponent extends Component {
       }
     };
     console.log(message.priority);
-    // let priorityImage = "";
-    // if (message.priority === "Important") {
-    //   priorityImage = "./images/exclamation.png";
-    // } else {
-    //   priorityImage = "./images/info.png";
-    // }
+    let priorityImage = "";
+    if (message.priority === "Important") {
+      priorityImage = require("./images/exclamation.png");
+    } else {
+      priorityImage = require("./images/info.png");
+    }
 
     return (
       <Card className="message-comp">
@@ -39,18 +39,7 @@ export default class MessageComponent extends Component {
         >
           <div> {message.title}</div>
           <div>
-            <img
-              src={require("./images/info.png")}
-              // src={require({ priorityImage })}
-              alt="Information icon"
-              width="25px"
-            ></img>
-
-            <img
-              src={require("./images/exclamation.png")}
-              alt="Exclamation mark icon"
-              width="25px"
-            ></img>
+            <img src={priorityImage} alt="Information icon" width="25px"></img>
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={this.props.ind}>
