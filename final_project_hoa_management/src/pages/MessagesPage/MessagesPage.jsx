@@ -18,12 +18,6 @@ import MessageModel from "../../models/MessageModel";
 import Parse from "parse";
 import Select from "react-select";
 
-const options = [
-  { value: "info", label: "Information" },
-  { value: "important", label: "Important" },
-  { value: "noFilter", label: "Clear Filter" }
-];
-
 export default class MessagesPage extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +63,29 @@ export default class MessagesPage extends Component {
   }
 
   handleNewMessage(newMessage) {
-    this.props.handleNewMessage(newMessage);
+    // const Message = Parse.Object.extend("Message");
+    // const newParseMessage = new Message();
+    // newParseMessage.set("title", newMessage.title);
+    // newParseMessage.set("details", newMessage.details);
+    // newParseMessage.set("priority", newMessage.selectedOption.value);
+    // newParseMessage.set(
+    //   "image",
+    //   new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
+    // );
+    // newParseMessage.set("userId", Parse.User.current());
+    // newParseMessage.save().then(
+    //   theCreatedParseMessage => {
+    //     console.log("Message created", theCreatedParseMessage);
+    //     this.setState({
+    //       messages: this.state.messages.concat(
+    //         new MessageModel(theCreatedParseMessage)
+    //       )
+    //     });
+    //   },
+    //   error => {
+    //     console.error("Error while creating Message: ", error);
+    //   }
+    // );
   }
 
   handleSelectChange = selectedOption => {
@@ -82,12 +98,18 @@ export default class MessagesPage extends Component {
 
     const { activeUser, handleLogout } = this.props;
 
+    const options = [
+      { value: "info", label: "Information" },
+      { value: "important", label: "Important" },
+      { value: "", label: "Clear Filter" }
+    ];
+
     if (!activeUser) {
       return <Redirect to="/" />;
     }
     console.log("activeUser:" + this.props.activeUser.id);
 
-    let filteredMessages = messages.filter(msg => {
+    let inputFilteredMessages = messages.filter(msg => {
       let boolResultofTitle = msg.title
         .toLowerCase()
         .includes(this.state.input.toLowerCase());
@@ -97,7 +119,15 @@ export default class MessagesPage extends Component {
       return boolResultofTitle || boolResultofDetails;
     });
 
-    const messagesView = filteredMessages.map((message, index) => (
+    // let priorityFilteredMessages = inputFilteredMessages.filter(msg => {
+    //   let boolResultofPriority = msg.priority.includes(
+    //     this.state.selectedOption
+    //   );
+    //   return boolResultofPriority;
+    // });
+
+    // const messagesView = priorityFilteredMessages.map((message, index) => (
+    const messagesView = inputFilteredMessages.map((message, index) => (
       <MessageComponent ind={index} key={message.id} message={message} />
     ));
 
@@ -118,7 +148,7 @@ export default class MessagesPage extends Component {
         <Container fluid className="mp-cont">
           <Form.Group>
             <Row className="message-input-row" style={styles.row}>
-              <Col lg="7" style={styles.col}>
+              <Col lg="6" style={styles.col}>
                 <FormControl
                   // size="sm"
                   placeholder="Filter by Text in Title and Details"
@@ -128,12 +158,13 @@ export default class MessagesPage extends Component {
                   onChange={this.onChangeHandler}
                 />
               </Col>
-              <Col lg="2" style={styles.col}>
+              <Col lg="3" style={styles.col}>
                 <Select
                   value={selectedOption}
                   onChange={this.handleSelectChange}
                   options={options}
                   placeholder="Filter by Priority"
+                  className="msg-option-select"
                 />
               </Col>
               <Col lg="3" className="message-sort" style={styles.col}>

@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 
-const priorityOptions = [
-  { value: "information", label: "Information" },
-  { value: "important", label: "Important" }
-];
-
 export default class NewMessageModal extends Component {
   constructor(props) {
     super(props);
@@ -40,10 +35,11 @@ export default class NewMessageModal extends Component {
   }
 
   createMessage() {
-    const { title, details, fileImg } = this.state;
+    const { title, details, selectedOption, fileImg } = this.state;
     const newMessage = {
       title,
       details,
+      selectedOption,
       img: fileImg.URL
     };
     this.props.handleNewMessage(newMessage);
@@ -51,6 +47,7 @@ export default class NewMessageModal extends Component {
     this.setState({
       title: "",
       details: "",
+      selectedOption: { label: "Information", value: "information" },
       img: ""
     });
   }
@@ -80,6 +77,11 @@ export default class NewMessageModal extends Component {
   render() {
     const { show, handleClose } = this.props;
     const { title, details, fileImg, selectedOption } = this.state;
+
+    const priorityOptions = [
+      { value: "information", label: "Information" },
+      { value: "important", label: "Important" }
+    ];
 
     return (
       <Modal show={show} onHide={handleClose}>

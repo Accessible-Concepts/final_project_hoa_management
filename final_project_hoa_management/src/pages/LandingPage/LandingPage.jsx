@@ -29,11 +29,11 @@ export default class LandingPage extends Component {
                 Homeowner Association Management System
               </div>
               <div className="dashboard-text">
-                Homeowner Association Management System Homeowner Association
-                Management System Homeowner Association Management System
-                Homeowner Association Management System Homeowner Association
-                Management SystemHomeowner Association Management System
-                Homeowner Association Management System
+                The HOA Management System is the place where home or condo
+                owners can discuss important issues, vote on various
+                initiatives, participate in group chat or form user interest
+                groups. All important notifications go through, meaning everyone
+                is connected.
               </div>
               <Button variant="primary" href="#/login">
                 Login

@@ -66,7 +66,7 @@ export default class MainNavbar extends Component {
     // const tenantsLink = activeUser.isCommitteeMember ? (
     //   <Nav.Link href="#/tenants">Tenants</Nav.Link>
     // ) : null;
-    console.log(activeUser);
+    console.log("activeUser: " + activeUser);
     return (
       <Navbar collapseOnSelect expand="lg" variant="dark">
         <Navbar.Brand href="#/">HOA Management System</Navbar.Brand>

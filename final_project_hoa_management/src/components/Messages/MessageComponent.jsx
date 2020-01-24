@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import "./MessageComponent.css";
-import { Card, Accordion, Row, Col } from "react-bootstrap";
+import {
+  Card,
+  Accordion,
+  Row,
+  Col,
+  ButtonToolbar,
+  Button,
+  Form
+} from "react-bootstrap";
 
 export default class MessageComponent extends Component {
   constructor(props) {
@@ -18,8 +26,8 @@ export default class MessageComponent extends Component {
         marginRight: 0
       },
       col: {
-        paddingLeft: 0,
-        paddingRight: 0
+        paddingLeft: 15,
+        paddingRight: 15
       }
     };
     console.log(message.priority);
@@ -71,8 +79,33 @@ export default class MessageComponent extends Component {
                 </Row>
               </Col>
 
-              <Col lg="6">
-                <div>Comments: {message.comments}</div>
+              <Col style={styles.col} lg="6">
+                <Row className="message-row">
+                  <div>Comments: {message.comments}</div>
+                </Row>
+                <Row style={styles.row}>
+                  <Col lg="8">
+                    <Form>
+                      <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Control
+                          as="textarea"
+                          rows="2"
+                          className="comment-textArea"
+                        />
+                      </Form.Group>
+                    </Form>
+                  </Col>
+                  <Col className="comment-buttons">
+                    <ButtonToolbar>
+                      <Button type="button" size="sm">
+                        Update
+                      </Button>
+                      <Button type="button" variant="danger" size="sm">
+                        Delete
+                      </Button>
+                    </ButtonToolbar>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Card.Body>

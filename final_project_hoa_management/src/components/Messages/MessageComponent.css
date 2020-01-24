@@ -17,3 +17,12 @@
 .message-mid {
   border-right: 1px solid black;
 }
+
+.comment-textArea {
+  width: 60%;
+}
+
+.comment-buttons {
+  display: flex;
+  align-items: center;
+}
