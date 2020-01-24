@@ -1,28 +1,29 @@
 .voting-page {
-background-color: #585753;
+  background-color: #585753;
 }
 .vp-cont {
-    display: flex;
-    height: 480px;
-    padding: 30px 0;
-    background-color: white;
+  display: flex;
+  height: 480px;
+  padding: 30px 0;
+  background-color: white;
 }
 
 .vote-col {
-    border-right: 1px solid black;
+  border-right: 1px solid black;
+  width: 50%;
 }
 
 .result-graph {
-    display: none;
+  display: none;
 }
 
 .btn-input-row {
-    display: flex;
-    justify-content: flex-end;
-    margin: 5px 0;
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 0;
 }
 
 .voting-page-title {
-    font-weight: bold;
-    font-size: 1.5em;
+  font-weight: bold;
+  font-size: 1.5em;
 }

@@ -38,6 +38,21 @@ export default class MainNavbar extends Component {
       return <Redirect to="/" />;
     }
 
+    const dashboardLink = activeUser ? (
+      <Nav.Link href="#/dashboard">Dashboard</Nav.Link>
+    ) : null;
+    const tenantsLink = activeUser ? (
+      <Nav.Link href="#/tenants">Tenants</Nav.Link>
+    ) : null;
+    const messagesLink = activeUser ? (
+      <Nav.Link href="#/messages">Messages</Nav.Link>
+    ) : null;
+    const issuesLink = activeUser ? (
+      <Nav.Link href="#/issues">Issues</Nav.Link>
+    ) : null;
+    const votingLink = activeUser ? (
+      <Nav.Link href="#/voting">Voting</Nav.Link>
+    ) : null;
     const signupLink = !activeUser ? (
       <Nav.Link href="#/signup">Signup</Nav.Link>
     ) : null;
@@ -47,21 +62,22 @@ export default class MainNavbar extends Component {
     const logoutLink = activeUser ? (
       <Nav.Link onClick={this.logout}>Logout</Nav.Link>
     ) : null;
-    const tenantsLink = activeUser.isCommitteeMember ? (
-      <Nav.Link href="#/tenants">Tenants</Nav.Link>
-    ) : null;
-    console.log(activeUser.isCommitteeMember);
+
+    // const tenantsLink = activeUser.isCommitteeMember ? (
+    //   <Nav.Link href="#/tenants">Tenants</Nav.Link>
+    // ) : null;
+    console.log(activeUser);
     return (
       <Navbar collapseOnSelect expand="lg" variant="dark">
         <Navbar.Brand href="#/">HOA Management System</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#/dashboard">Dashboard</Nav.Link>
+            {dashboardLink}
             {tenantsLink}
-            <Nav.Link href="#/messages">Messages</Nav.Link>
-            <Nav.Link href="#/issues">Issues</Nav.Link>
-            <Nav.Link href="#/voting">Voting</Nav.Link>
+            {messagesLink}
+            {issuesLink}
+            {votingLink}
           </Nav>
           <Nav>
             {signupLink}

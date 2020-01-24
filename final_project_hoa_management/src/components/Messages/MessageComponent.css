@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+.message-cont {
+}
+
+.message-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-row {
+  margin-bottom: 1em;
+}
+
+.message-mid {
+  border-right: 1px solid black;
+}

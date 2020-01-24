@@ -30,7 +30,7 @@ export default class VotingComponent extends Component {
                   <div>Details: {voting.details} </div>
                 </Col>
                 <Col lg="4">
-                  <div>Due Date: </div>
+                  <div>Due Date: {voting.dueDate}</div>
                 </Col>
               </Row>
             </Container>

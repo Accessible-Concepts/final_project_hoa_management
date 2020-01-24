@@ -1,9 +1,20 @@
 .messages-page {
-    /* display: flex; */
-    background-color: #585753;
-    /* height: 100%; */
+  /* display: flex; */
+  background-color: #585753;
+  /* height: 100%; */
 }
 
-.m-cont {
-    background-color: white;
+.mp-cont {
+  /* display: flex; */
+  height: 480px;
+  padding: 30px;
+  background-color: white;
+}
+
+.message-sort {
+  display: flex;
+  align-items: center;
+}
+.my-accord {
+  width: 100%;
 }
