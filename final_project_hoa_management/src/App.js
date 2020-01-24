@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
-// import SignupPage from './pages/SignupPage/SignupPage';
+import SignupModal from "./components/Signup/Modals/SignupModal";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import TenantsPage from "./pages/TenantsPage/TenantsPage";
@@ -50,9 +50,9 @@ export default class App extends React.Component {
           <Route exact path="/login">
             <LoginPage handleLogin={this.handleLogin} />
           </Route>
-          {/* <Route exact path="/signup">
-            <SignupPage />
-          </Route> */}
+          <Route exact path="/signup">
+            <SignupModal />
+          </Route>
           <Route exact path="/dashboard">
             <DashboardPage
               activeUser={activeUser}

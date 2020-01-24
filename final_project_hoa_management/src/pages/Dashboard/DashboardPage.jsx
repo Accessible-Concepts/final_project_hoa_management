@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./DashboardPage.css";
-import MainNavbar from "../../components/Navbar/MainNavbar";
-import Footer from "../../components/Footer/Footer";
+import MainNavbar from "../../components/navbar/MainNavbar";
+import Footer from "../../components/footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
-import ClockComponent from "../../components/Clock/ClockComponent";
+import ClockComponent from "../../components/clock/ClockComponent";
 import { Container } from "react-bootstrap";
 export default class DashboardPage extends Component {
   constructor(props) {

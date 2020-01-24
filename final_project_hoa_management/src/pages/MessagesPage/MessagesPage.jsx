@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./MessagesPage.css";
-import MainNavbar from "../../components/Navbar/MainNavbar";
-import Footer from "../../components/Footer/Footer";
+import MainNavbar from "../../components/navbar/MainNavbar";
+import Footer from "../../components/footer/Footer";
 import {
   Accordion,
   Container,
@@ -63,29 +63,29 @@ export default class MessagesPage extends Component {
   }
 
   handleNewMessage(newMessage) {
-    // const Message = Parse.Object.extend("Message");
-    // const newParseMessage = new Message();
-    // newParseMessage.set("title", newMessage.title);
-    // newParseMessage.set("details", newMessage.details);
-    // newParseMessage.set("priority", newMessage.selectedOption.value);
-    // newParseMessage.set(
-    //   "image",
-    //   new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
-    // );
-    // newParseMessage.set("userId", Parse.User.current());
-    // newParseMessage.save().then(
-    //   theCreatedParseMessage => {
-    //     console.log("Message created", theCreatedParseMessage);
-    //     this.setState({
-    //       messages: this.state.messages.concat(
-    //         new MessageModel(theCreatedParseMessage)
-    //       )
-    //     });
-    //   },
-    //   error => {
-    //     console.error("Error while creating Message: ", error);
-    //   }
-    // );
+    const Message = Parse.Object.extend("Message");
+    const newParseMessage = new Message();
+    newParseMessage.set("title", newMessage.title);
+    newParseMessage.set("details", newMessage.details);
+    newParseMessage.set("priority", newMessage.selectedOption.value);
+    newParseMessage.set(
+      "image",
+      new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
+    );
+    newParseMessage.set("userId", Parse.User.current());
+    newParseMessage.save().then(
+      theCreatedParseMessage => {
+        console.log("Message created", theCreatedParseMessage);
+        this.setState({
+          messages: this.state.messages.concat(
+            new MessageModel(theCreatedParseMessage)
+          )
+        });
+      },
+      error => {
+        console.error("Error while creating Message: ", error);
+      }
+    );
   }
 
   handleSelectChange = selectedOption => {

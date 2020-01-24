@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./IssuesPage.css";
-import MainNavbar from "../../components/Navbar/MainNavbar";
-import Footer from "../../components/Footer/Footer";
+import MainNavbar from "../../components/navbar/MainNavbar";
+import Footer from "../../components/footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 

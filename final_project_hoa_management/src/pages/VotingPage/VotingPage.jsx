@@ -9,8 +9,8 @@ import {
   Col,
   Button
 } from "react-bootstrap";
-import MainNavbar from "../../components/Navbar/MainNavbar";
-import Footer from "../../components/Footer/Footer";
+import MainNavbar from "../../components/navbar/MainNavbar";
+import Footer from "../../components/footer/Footer";
 import NewVotingModal from "../../components/Voting/Modals/NewVotingModal";
 import { Redirect } from "react-router-dom";
 import VotingModel from "../../models/VotingModel";

@@ -34,11 +34,13 @@ export default class ClockComponent extends Component {
       greeting = "Good afternoon ";
     } else if (hours >= 17 && hours < 20) {
       greeting = "Good evening ";
-    } else if (hours >= 20 && hours < 6) {
+    } else if (hours >= 20 && hours < 23) {
+      greeting = "Good night";
+    } else if (hours >= 0 && hours < 6) {
       greeting = "Good night";
     }
     return (
-      <div className="clock-comp">
+      <div>
         {/* <p className="App-clock">The time is {timeHHMM}</p> */}
         {/* <div>{this.state.hours}</div> */}
         <p>
