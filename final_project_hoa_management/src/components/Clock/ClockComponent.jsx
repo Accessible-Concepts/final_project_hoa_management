@@ -23,23 +23,27 @@ export default class ClockComponent extends Component {
   }
 
   render() {
-    const h = this.state.hours;
+    const { hours, time } = this.state;
+    let timeHHMM = time.slice(0, -3);
+
     let greeting;
-    console.log(h);
-    if (h >= 6 && h < 12) {
+    console.log(hours);
+    if (hours >= 6 && hours < 12) {
       greeting = "Good morning ";
-    } else if (h >= 12 && h < 17) {
+    } else if (hours >= 12 && hours < 17) {
       greeting = "Good afternoon ";
-    } else if (h >= 17 && h < 20) {
+    } else if (hours >= 17 && hours < 20) {
       greeting = "Good evening ";
-    } else if (h >= 20 && h < 6) {
+    } else if (hours >= 20 && hours < 6) {
       greeting = "Good night";
     }
     return (
       <div className="clock-comp">
-        <p className="App-clock">The time is {this.state.time}</p>
-        <div>{this.state.hours}</div>
-        <div> {greeting}</div>
+        {/* <p className="App-clock">The time is {timeHHMM}</p> */}
+        {/* <div>{this.state.hours}</div> */}
+        <p>
+          {greeting} {this.props.name}
+        </p>
       </div>
     );
   }

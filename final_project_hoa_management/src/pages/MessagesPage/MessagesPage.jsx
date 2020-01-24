@@ -19,9 +19,9 @@ import Parse from "parse";
 import Select from "react-select";
 
 const options = [
-  { value: "info", label: "Info" },
+  { value: "info", label: "Information" },
   { value: "important", label: "Important" },
-  { value: "no-filter", label: "No Filter" }
+  { value: "noFilter", label: "Clear Filter" }
 ];
 
 export default class MessagesPage extends Component {
@@ -30,6 +30,7 @@ export default class MessagesPage extends Component {
 
     this.state = {
       showNewMessageModal: false,
+      input: "",
       messages: [],
       selectedOption: null
     };
@@ -56,6 +57,11 @@ export default class MessagesPage extends Component {
     console.log(this.state.messages);
   }
 
+  onChangeHandler = ev => {
+    this.setState({ input: ev.target.value });
+    console.log("this.state.input: " + this.state.input);
+  };
+
   handleClose() {
     this.setState({
       showNewMessageModal: false
@@ -72,7 +78,7 @@ export default class MessagesPage extends Component {
   };
 
   render() {
-    const { showNewMessageModal, messages, selectedOption } = this.state;
+    const { showNewMessageModal, input, messages, selectedOption } = this.state;
 
     const { activeUser, handleLogout } = this.props;
 
@@ -81,7 +87,17 @@ export default class MessagesPage extends Component {
     }
     console.log("activeUser:" + this.props.activeUser.id);
 
-    const messagesView = messages.map((message, index) => (
+    let filteredMessages = messages.filter(msg => {
+      let boolResultofTitle = msg.title
+        .toLowerCase()
+        .includes(this.state.input.toLowerCase());
+      let boolResultofDetails = msg.details
+        .toLowerCase()
+        .includes(this.state.input.toLowerCase());
+      return boolResultofTitle || boolResultofDetails;
+    });
+
+    const messagesView = filteredMessages.map((message, index) => (
       <MessageComponent ind={index} key={message.id} message={message} />
     ));
 
@@ -108,6 +124,8 @@ export default class MessagesPage extends Component {
                   placeholder="Filter by Text in Title and Details"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  value={input}
+                  onChange={this.onChangeHandler}
                 />
               </Col>
               <Col lg="2" style={styles.col}>
