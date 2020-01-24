@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import MessageComponent from "../../components/Messages/MessageComponent";
-import NewMessageModal from "../../models/NewMessageModal";
+import NewMessageModal from "../../components/Messages/Modals/NewMessageModal";
 import MessageModel from "../../models/MessageModel";
 import Parse from "parse";
 import Select from "react-select";
