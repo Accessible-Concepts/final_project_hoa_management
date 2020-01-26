@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import SignupModal from "./components/Signup/Modals/SignupModal";
+import SignupPage from "./pages/SignupPage/SignupPage";
+// import SignupModal from "./components/Signup/Modals/SignupModal";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import TenantsPage from "./pages/TenantsPage/TenantsPage";
@@ -26,7 +27,7 @@ export default class App extends React.Component {
     this.setState({
       activeUser: user
     });
-    console.log(this.state.activeUser);
+    // console.log(this.state.activeUser);
   }
 
   handleLogout() {
@@ -51,7 +52,7 @@ export default class App extends React.Component {
             <LoginPage handleLogin={this.handleLogin} />
           </Route>
           <Route exact path="/signup">
-            <SignupModal />
+            <SignupPage />
           </Route>
           <Route exact path="/dashboard">
             <DashboardPage

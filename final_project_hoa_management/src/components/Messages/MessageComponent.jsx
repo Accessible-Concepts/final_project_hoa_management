@@ -100,7 +100,14 @@ export default class MessageComponent extends Component {
                       <Button type="button" size="sm">
                         Update
                       </Button>
-                      <Button type="button" variant="danger" size="sm">
+                      <Button
+                        type="button"
+                        variant="danger"
+                        size="sm"
+                        onClick={() => {
+                          console.log(message.id); //TODO:How to delete the message both from the parse server and from the array?
+                        }}
+                      >
                         Delete
                       </Button>
                     </ButtonToolbar>

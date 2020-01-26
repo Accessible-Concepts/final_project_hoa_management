@@ -3,8 +3,8 @@ export default class UserModel {
     this.id = parseUser.id;
     this.email = parseUser.get("email");
     this.password = parseUser.get("password");
-    this.fname = parseUser.get("fName");
-    this.lname = parseUser.get("lName");
+    this.fName = parseUser.get("fName");
+    this.lName = parseUser.get("lName");
     this.address1 = parseUser.get("address1");
     this.address2 = parseUser.get("address2");
     this.city = parseUser.get("city");

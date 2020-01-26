@@ -30,6 +30,7 @@ export default class MessagesPage extends Component {
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleNewMessage = this.handleNewMessage.bind(this);
+    this.deleteMessage = this.deleteMessage.bind(this);
   }
 
   componentDidMount() {
@@ -71,7 +72,7 @@ export default class MessagesPage extends Component {
     newParseMessage.set(
       "image",
       new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
-    );
+    ); //TODO:files are not being uplodaded
     newParseMessage.set("userId", Parse.User.current());
     newParseMessage.save().then(
       theCreatedParseMessage => {
@@ -93,6 +94,24 @@ export default class MessagesPage extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
+  deleteMessage() {
+    // const { title, details, selectedOption, fileImg } = this.state;
+    // const newMessage = {
+    //   title,
+    //   details,
+    //   selectedOption,
+    //   img: fileImg.URL
+    // };
+    // this.props.handleNewMessage(newMessage);
+    // this.props.handleClose();
+    // this.setState({
+    //   title: "",
+    //   details: "",
+    //   selectedOption: { label: "Information", value: "information" },
+    //   img: ""
+    // });
+  }
+
   render() {
     const { showNewMessageModal, input, messages, selectedOption } = this.state;
 
@@ -107,7 +126,7 @@ export default class MessagesPage extends Component {
     if (!activeUser) {
       return <Redirect to="/" />;
     }
-    console.log("activeUser:" + this.props.activeUser.id);
+    // console.log("activeUser:" + this.props.activeUser.id);
 
     let inputFilteredMessages = messages.filter(msg => {
       let boolResultofTitle = msg.title

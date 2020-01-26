@@ -27,7 +27,7 @@ export default class ClockComponent extends Component {
     let timeHHMM = time.slice(0, -3);
 
     let greeting;
-    console.log(hours);
+    // console.log(hours);
     if (hours >= 6 && hours < 12) {
       greeting = "Good morning ";
     } else if (hours >= 12 && hours < 17) {

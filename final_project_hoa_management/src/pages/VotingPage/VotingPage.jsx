@@ -80,8 +80,8 @@ export default class VotingPage extends Component {
         <Container fluid className="vp-cont">
           <Row>
             <Col className="my-col vote-col" lg="6">
-              <row className="voting-page-title"> Active Votings</row>
-              <row className="btn-input-row">
+              <Row className="voting-page-title"> Active Votings</Row>
+              <Row className="btn-input-row">
                 <Button
                   size="sm"
                   onClick={() => {
@@ -90,23 +90,23 @@ export default class VotingPage extends Component {
                 >
                   New Voting
                 </Button>
-              </row>
+              </Row>
               <Row>
                 <Accordion defaultActiveKey="1">{votingsComp}</Accordion>
               </Row>
             </Col>
             <Col className="my-col" lg="6">
-              <row>
+              <Row>
                 <div className="voting-page-title">Votings Results</div>
-              </row>
-              <row className="btn-input-row">
+              </Row>
+              <Row className="btn-input-row">
                 <FormControl
                   size="sm"
                   placeholder="Filter by Text in Title and Details"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                 />
-              </row>
+              </Row>
               <VotingComponent />
             </Col>
           </Row>

@@ -1,0 +1,26 @@
+.signup-page {
+    background-color: #585753;
+}
+
+.su-cont {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+    background-color: #585753;
+    margin: auto;
+}
+
+.su-form {
+    background-color: #585753;
+    border: 3px solid white;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 100px;
+    padding: 25px 50px;
+    width: 700px;
+}
+
+h1 {
+    padding-bottom: 25px;
+    text-align: center;
+}
