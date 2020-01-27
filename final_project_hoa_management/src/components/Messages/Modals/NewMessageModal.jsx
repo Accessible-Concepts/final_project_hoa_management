@@ -40,7 +40,7 @@ export default class NewMessageModal extends Component {
       title,
       details,
       selectedOption,
-      img: fileImg.URL
+      fileImg
     };
     this.props.handleNewMessage(newMessage);
     this.props.handleClose();

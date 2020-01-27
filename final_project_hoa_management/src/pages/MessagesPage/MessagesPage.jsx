@@ -72,7 +72,8 @@ export default class MessagesPage extends Component {
     newParseMessage.set(
       "image",
       new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
-    ); //TODO:files are not being uplodaded
+    );
+
     newParseMessage.set("userId", Parse.User.current());
     newParseMessage.save().then(
       theCreatedParseMessage => {
@@ -94,22 +95,31 @@ export default class MessagesPage extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
-  deleteMessage() {
-    // const { title, details, selectedOption, fileImg } = this.state;
-    // const newMessage = {
-    //   title,
-    //   details,
-    //   selectedOption,
-    //   img: fileImg.URL
-    // };
-    // this.props.handleNewMessage(newMessage);
-    // this.props.handleClose();
-    // this.setState({
-    //   title: "",
-    //   details: "",
-    //   selectedOption: { label: "Information", value: "information" },
-    //   img: ""
-    // });
+  deleteMessage(messageId) {
+    const Message = Parse.Object.extend("Message");
+    const query = new Parse.Query(Message);
+    // here you put the objectId that you want to delete
+    query.get(messageId).then(object => {
+      object.destroy().then(
+        response => {
+          console.log("Message deleted");
+        },
+        error => {
+          console.error("Error while deleting Message: ", error);
+        }
+      );
+    });
+    const { messages } = this.state;
+    let messagesDel = messages;
+    let messageDelId = messages.findIndex(
+      messageToDelete => messageToDelete.id === messageId
+    );
+
+    messagesDel.splice(messageDelId, 1);
+    console.log(messagesDel);
+    this.setState({
+      messages: messagesDel
+    });
   }
 
   render() {
@@ -147,7 +157,12 @@ export default class MessagesPage extends Component {
 
     // const messagesView = priorityFilteredMessages.map((message, index) => (
     const messagesView = inputFilteredMessages.map((message, index) => (
-      <MessageComponent ind={index} key={message.id} message={message} />
+      <MessageComponent
+        ind={index}
+        key={message.id}
+        message={message}
+        deleteMessage={this.deleteMessage}
+      />
     ));
 
     const styles = {
@@ -160,6 +175,7 @@ export default class MessagesPage extends Component {
         paddingRight: 0
       }
     };
+    console.log(messages);
 
     return (
       <div className="messages-page">

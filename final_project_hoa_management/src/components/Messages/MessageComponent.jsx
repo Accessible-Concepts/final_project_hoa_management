@@ -9,6 +9,7 @@ import {
   Button,
   Form
 } from "react-bootstrap";
+import Parse from "parse";
 
 export default class MessageComponent extends Component {
   constructor(props) {
@@ -105,6 +106,8 @@ export default class MessageComponent extends Component {
                         variant="danger"
                         size="sm"
                         onClick={() => {
+                          const func = this.props.deleteMessage;
+                          func(message.id);
                           console.log(message.id); //TODO:How to delete the message both from the parse server and from the array?
                         }}
                       >
