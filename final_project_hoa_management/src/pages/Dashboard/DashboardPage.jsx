@@ -6,16 +6,12 @@ import Footer from "../../components/footer/Footer";
 import { Redirect } from "react-router-dom";
 import ClockComponent from "../../components/clock/ClockComponent";
 import { Container } from "react-bootstrap";
+
 export default class DashboardPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      // showNewRecipeModal: false
-    };
-
-    // this.handleClose = this.handleClose.bind(this);
-    // this.handleNewRecipe = this.handleNewRecipe.bind(this);
+    this.state = {};
   }
   render() {
     const { activeUser, handleLogout } = this.props;

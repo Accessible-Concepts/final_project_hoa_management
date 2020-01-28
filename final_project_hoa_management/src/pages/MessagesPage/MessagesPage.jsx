@@ -67,9 +67,11 @@ export default class MessagesPage extends Component {
   //Function that handles the radio field changes
   handleSortChange = ev => {
     this.setState({
-      handleSortChange: ev.target.value
+      selectedSortOption: ev.target.value
     });
-    console.log("this.state.handleSortChange: " + this.state.handleSortChange);
+    console.log(
+      "this.state.handleSortChange: " + this.state.selectedSortOption
+    );
   };
 
   //Function that handles the modals components to close
@@ -174,19 +176,27 @@ export default class MessagesPage extends Component {
       return boolResultofPriority; //TODO: check/fix the issue of
     });
 
+    //Sorting the messages by date or by priority
     let sortedMessages = priorityFilteredMessages;
     if (this.state.selectedSortOption === "date") {
-      sortedMessages = priorityFilteredMessages.sort(
-        (a, b) => a.createdAt < b.createdAt
-      );
+      sortedMessages = priorityFilteredMessages.sort(function(a, b) {
+        return a.createdAt < b.createdAt;
+      });
+      console.log(sortedMessages);
     } else if (this.state.selectedSortOption === "priority") {
-      sortedMessages = priorityFilteredMessages.sort(
-        (a, b) => a.selectedOption.value < b.selectedOption.value
-      );
+      sortedMessages = priorityFilteredMessages.sort(function(a, b) {
+        if (a.selectedOption.value < b.selectedOption.value) {
+          return -1;
+        }
+        if (a.selectedOption.value > b.selectedOption.value) {
+          return 1;
+        }
+        return 0;
+      });
     }
     console.log(sortedMessages);
+
     const messagesView = sortedMessages.map((message, index) => (
-      // const messagesView = inputFilteredMessages.map((message, index) => (
       <MessageComponent
         ind={index}
         key={message.id}
