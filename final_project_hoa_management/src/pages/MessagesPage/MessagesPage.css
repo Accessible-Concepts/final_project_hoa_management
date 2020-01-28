@@ -11,9 +11,12 @@
   background-color: white;
 }
 
-.message-sort {
+.message-sort,
+.radio-btns,
+.message-radio-buttons {
   display: flex;
   align-items: center;
+  margin-bottom: 0 !important;
 }
 .my-accord {
   width: 100%;

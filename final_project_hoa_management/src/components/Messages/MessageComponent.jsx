@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./MessageComponent.css";
+import EditMessageModal from "../../components/Messages/Modals/EditMessageModal";
+import CommentModel from "../../models/CommentModel";
 import {
   Card,
   Accordion,
@@ -9,17 +11,61 @@ import {
   Button,
   Form
 } from "react-bootstrap";
-import Parse from "parse";
 
 export default class MessageComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      showEditMessageModal: false,
+      input: "",
+      comment: "",
+      readMessageState: false
+    };
+    // this.handleClose = this.handleClose.bind(this);
+    // this.addComment = this.addComment.bind(this);
   }
+
+  onChangeHandler = ev => {
+    this.setState({ input: ev.target.value });
+    console.log("this.state.input: " + this.state.input);
+  };
+
+  handleSelectChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
+
+  changeReadMessageState = message => {
+    this.setState({
+      readMessageState: true
+    });
+    console.log(this.state.readMessageState);
+  };
+
+  handleClose = () => {
+    this.setState({
+      showEditMessageModal: false
+    });
+  };
+
+  // addComment(message, event) {
+  //   const { input } = this.state;
+  //   // Function that is triggered only by the Enter key
+  //   if (event.keyCode === 13) {
+  //     event.preventDefault();
+  //     const comment = new CommentModel(input);
+  //     this.setState({
+  //       comments: this.state.comments.concat(comment),
+  //       input: ""
+  //     });
+  //     //     // console.log(this.state.list)
+  //   }
+  // }
 
   render() {
     const { message } = this.props;
+    const { showEditMessageModal } = this.state;
 
     const styles = {
       row: {
@@ -33,20 +79,30 @@ export default class MessageComponent extends Component {
     };
     console.log(message.priority);
     let priorityImage = "";
-    if (message.priority === "Important") {
+    if (message.selectedOption.value === "Important") {
       priorityImage = require("./images/exclamation.png");
     } else {
       priorityImage = require("./images/info.png");
     }
+
+    const readClass = this.state.readMessageState
+      ? "message-title-read"
+      : "message-title-unread";
+    console.log("readclass", this.state.readMessageState);
 
     return (
       <Card className="message-comp">
         <Accordion.Toggle
           as={Card.Header}
           eventKey={this.props.ind}
-          className="message-title"
+          className={readClass}
+          onClick={() => {
+            const changeReadMessageState = this.changeReadMessageState;
+            changeReadMessageState(message);
+            // console.log(message);
+          }}
         >
-          <div> {message.title}</div>
+          <div className="message-title"> {message.title}</div>
           <div>
             <img src={priorityImage} alt="Information icon" width="25px"></img>
           </div>
@@ -59,12 +115,12 @@ export default class MessageComponent extends Component {
                   <Col lg="3">
                     <Card.Img variant="top" src={message.img} />
                   </Col>
-                  <Col lg="9" style={styles.col}>
+                  <Col lg="9" style={styles.col} className="message-mid-col">
                     <Row style={styles.row} className="message-row">
                       <Col lg="3" style={styles.col}>
                         Details:
                       </Col>
-                      <Col lg="9" style={styles.col} className="message-mid">
+                      <Col lg="9" style={styles.col}>
                         {message.details}
                       </Col>
                     </Row>
@@ -92,13 +148,22 @@ export default class MessageComponent extends Component {
                           as="textarea"
                           rows="2"
                           className="comment-textArea"
+                          // onChange={this.onChangeHandler}
+                          // onKeyUp={this.addComment(message)}
                         />
                       </Form.Group>
                     </Form>
                   </Col>
                   <Col className="comment-buttons">
                     <ButtonToolbar>
-                      <Button type="button" size="sm">
+                      <Button
+                        type="button"
+                        size="sm"
+                        onClick={() => {
+                          this.setState({ showEditMessageModal: true });
+                        }}
+                        handleClose={this.handleClose}
+                      >
                         Update
                       </Button>
                       <Button
@@ -106,9 +171,9 @@ export default class MessageComponent extends Component {
                         variant="danger"
                         size="sm"
                         onClick={() => {
-                          const func = this.props.deleteMessage;
-                          func(message.id);
-                          console.log(message.id); //TODO:How to delete the message both from the parse server and from the array?
+                          const deleteMessage = this.props.deleteMessage;
+                          deleteMessage(message.id);
+                          console.log(message.id);
                         }}
                       >
                         Delete
@@ -120,6 +185,12 @@ export default class MessageComponent extends Component {
             </Row>
           </Card.Body>
         </Accordion.Collapse>
+        <EditMessageModal
+          show={showEditMessageModal}
+          handleClose={this.handleClose}
+          handleEditMessage={this.handleEditMessage}
+          message={this.props.message}
+        />
       </Card>
     );
   }

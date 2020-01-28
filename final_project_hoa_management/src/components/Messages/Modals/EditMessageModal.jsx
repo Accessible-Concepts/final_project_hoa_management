@@ -1,27 +1,33 @@
 import React, { Component } from "react";
 import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
+import Parse from "parse";
 
-export default class NewMessageModal extends Component {
+export default class EditMessageModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      deails: "",
-      comments: [],
-      createdBy: "",
-      createdAt: "",
-      selectedOption: { label: "Information", value: "Information" },
+      id: this.props.message.id,
+      title: this.props.message.title,
+      details: this.props.message.details,
+      comments: this.props.message.comments,
+      createdBy: this.props.message.createdBy,
+      createdAt: this.props.message.createdAt,
+      selectedOption: this.props.message.selectedOption,
       fileImg: {
         file: undefined,
         URL: undefined
       }
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.editMessage = this.editMessage.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
   }
 
-  handleInputChange = event => {
+  handleInputChange(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -29,27 +35,42 @@ export default class NewMessageModal extends Component {
     this.setState({
       [name]: value
     });
-  };
+  }
 
-  createMessage = () => {
+  editMessage(message) {
     const { title, details, selectedOption, fileImg } = this.state;
-    const newMessage = {
-      title,
-      details,
-      selectedOption,
-      fileImg
-    };
-    this.props.handleNewMessage(newMessage);
-    this.props.handleClose();
-    this.setState({
-      title: "",
-      details: "",
-      selectedOption: { label: "Information", value: "Information" },
-      img: ""
+    console.log(message.id);
+    console.log("title", this.state.title);
+    const Message = Parse.Object.extend("Message");
+    const query = new Parse.Query(Message);
+    // here you put the objectId that you want to update
+    query.get(message.id).then(object => {
+      object.set("title", title);
+      object.set("details", details);
+      object.set("selectedOption", selectedOption);
+      object.set("image", new Parse.File(fileImg.file.name, fileImg.file));
+      object.save().then(
+        console.log("message was updated") //TODO: Check how to change the message in the state
+        // response => {
+        //   // You can use the "get" method to get the value of an attribute
+        //   // Ex: response.get("<ATTRIBUTE_NAME>")
+        //   if (typeof document !== "undefined")
+        //     document.write(`Updated Message: ${JSON.stringify(response)}`);
+        //   console.log("Updated Message", response);
+        // },
+        // error => {
+        //   if (typeof document !== "undefined")
+        //     document.write(
+        //       `Error while updating Message: ${JSON.stringify(error)}`
+        //     );
+        //   console.error("Error while updating Message", error);
+        // }
+      );
     });
-  };
+    this.props.handleClose();
+  }
 
-  handleFileChange = event => {
+  handleFileChange(event) {
     let newFileImg;
     if (event.target.files[0]) {
       newFileImg = {
@@ -64,26 +85,35 @@ export default class NewMessageModal extends Component {
     }
 
     this.setState({ fileImg: newFileImg });
-  };
+  }
 
   handleSelectChange = selectedOption => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
 
+  //   handleClose() {
+  //     this.setState({
+  //       showEditMessageModal: false
+  //     });
+  //   }
+
   render() {
-    const { show, handleClose } = this.props;
+    const { show, handleClose, message } = this.props;
     const { title, details, fileImg, selectedOption } = this.state;
 
     const priorityOptions = [
       { value: "Information", label: "Information" },
       { value: "Important", label: "Important" }
     ];
+    console.log("selectedOption", this.state.selectedOption);
+    console.log("details", this.state.details);
+    console.log("massage", this.props.message);
 
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Message</Modal.Title>
+          <Modal.Title>Edit Message</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -94,7 +124,7 @@ export default class NewMessageModal extends Component {
               <Col lg={9}>
                 <Form.Control
                   type="text"
-                  placeholder="Enter new message title"
+                  placeholder="Edit message title"
                   name="title"
                   value={title}
                   onChange={this.handleInputChange}
@@ -111,11 +141,12 @@ export default class NewMessageModal extends Component {
                 <Form.Control
                   as="textarea"
                   rows="3"
+                  type="text"
+                  placeholder="Edit message details"
                   name="details"
                   value={details}
-                  type="text"
-                  placeholder="Enter new message details"
                   onChange={this.handleInputChange}
+                  required
                 />
               </Col>
             </Form.Group>
@@ -127,10 +158,12 @@ export default class NewMessageModal extends Component {
               <Col lg={9}>
                 <Select
                   value={selectedOption}
-                  //   defaultValue={{ label: Information, value: information }}
+                  //   defaultValue={{
+                  //     label: message.priority,
+                  //     value: message.priority
+                  //   }}
                   onChange={this.handleSelectChange}
                   options={priorityOptions}
-                  //   placeholder="Select Message Priority"
                 />
               </Col>
             </Form.Group>
@@ -152,7 +185,15 @@ export default class NewMessageModal extends Component {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={this.createMessage}>Create</Button>
+          <Button
+            onClick={() => {
+              const editMessage = this.editMessage;
+              editMessage(message);
+              console.log(message);
+            }}
+          >
+            Edit
+          </Button>
         </Modal.Footer>
       </Modal>
     );

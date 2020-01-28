@@ -26,11 +26,9 @@ export default class MessagesPage extends Component {
       showNewMessageModal: false,
       input: "",
       messages: [],
-      selectedOption: null
+      selectedOption: "",
+      selectedSortOption: "date"
     };
-    this.handleClose = this.handleClose.bind(this);
-    this.handleNewMessage = this.handleNewMessage.bind(this);
-    this.deleteMessage = this.deleteMessage.bind(this);
   }
 
   componentDidMount() {
@@ -52,23 +50,45 @@ export default class MessagesPage extends Component {
     console.log(this.state.messages);
   }
 
+  //Function that handles the input field changes
   onChangeHandler = ev => {
-    this.setState({ input: ev.target.value });
+    this.setState({
+      input: ev.target.value
+    });
     console.log("this.state.input: " + this.state.input);
   };
 
-  handleClose() {
-    this.setState({
-      showNewMessageModal: false
-    });
-  }
+  //Function that handles the select field changes
+  handleSelectChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
 
-  handleNewMessage(newMessage) {
+  //Function that handles the radio field changes
+  handleSortChange = ev => {
+    this.setState({
+      handleSortChange: ev.target.value
+    });
+    console.log("this.state.handleSortChange: " + this.state.handleSortChange);
+  };
+
+  //Function that handles the modals components to close
+  handleClose = () => {
+    this.setState({
+      showNewMessageModal: false,
+      showEditMessageModal: false
+    });
+  };
+
+  //Function that adds a new message to the parse database
+  //and to the messages state
+  handleNewMessage = newMessage => {
     const Message = Parse.Object.extend("Message");
     const newParseMessage = new Message();
     newParseMessage.set("title", newMessage.title);
     newParseMessage.set("details", newMessage.details);
     newParseMessage.set("priority", newMessage.selectedOption.value);
+    newParseMessage.set("selectedOption", newMessage.selectedOption);
     newParseMessage.set(
       "image",
       new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
@@ -88,21 +108,17 @@ export default class MessagesPage extends Component {
         console.error("Error while creating Message: ", error);
       }
     );
-  }
-
-  handleSelectChange = selectedOption => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
   };
 
-  deleteMessage(messageId) {
+  //Function that deletes a new message from the parse database
+  // and from the messages state
+  deleteMessage = messageId => {
     const Message = Parse.Object.extend("Message");
     const query = new Parse.Query(Message);
-    // here you put the objectId that you want to delete
     query.get(messageId).then(object => {
       object.destroy().then(
-        response => {
-          console.log("Message deleted");
+        messageDeleted => {
+          console.log("Message deleted", messageDeleted);
         },
         error => {
           console.error("Error while deleting Message: ", error);
@@ -120,7 +136,7 @@ export default class MessagesPage extends Component {
     this.setState({
       messages: messagesDel
     });
-  }
+  };
 
   render() {
     const { showNewMessageModal, input, messages, selectedOption } = this.state;
@@ -128,16 +144,17 @@ export default class MessagesPage extends Component {
     const { activeUser, handleLogout } = this.props;
 
     const options = [
-      { value: "info", label: "Information" },
-      { value: "important", label: "Important" },
-      { value: "", label: "Clear Filter" }
+      { value: "", label: "Clear Filter" },
+      { value: "Information", label: "Information" },
+      { value: "Important", label: "Important" }
     ];
 
     if (!activeUser) {
       return <Redirect to="/" />;
     }
-    // console.log("activeUser:" + this.props.activeUser.id);
 
+    // Funxtion that filters the messages array according
+    // to the text entered in the input field
     let inputFilteredMessages = messages.filter(msg => {
       let boolResultofTitle = msg.title
         .toLowerCase()
@@ -148,19 +165,33 @@ export default class MessagesPage extends Component {
       return boolResultofTitle || boolResultofDetails;
     });
 
-    // let priorityFilteredMessages = inputFilteredMessages.filter(msg => {
-    //   let boolResultofPriority = msg.priority.includes(
-    //     this.state.selectedOption
-    //   );
-    //   return boolResultofPriority;
-    // });
+    // Funxtion that filters the messages array according to the
+    // selectedOption (priority)
+    let priorityFilteredMessages = inputFilteredMessages.filter(msg => {
+      let boolResultofPriority = msg.priority.includes(
+        this.state.selectedOption.value
+      );
+      return boolResultofPriority; //TODO: check/fix the issue of
+    });
 
-    // const messagesView = priorityFilteredMessages.map((message, index) => (
-    const messagesView = inputFilteredMessages.map((message, index) => (
+    let sortedMessages = priorityFilteredMessages;
+    if (this.state.selectedSortOption === "date") {
+      sortedMessages = priorityFilteredMessages.sort(
+        (a, b) => a.createdAt < b.createdAt
+      );
+    } else if (this.state.selectedSortOption === "priority") {
+      sortedMessages = priorityFilteredMessages.sort(
+        (a, b) => a.selectedOption.value < b.selectedOption.value
+      );
+    }
+    console.log(sortedMessages);
+    const messagesView = sortedMessages.map((message, index) => (
+      // const messagesView = inputFilteredMessages.map((message, index) => (
       <MessageComponent
         ind={index}
         key={message.id}
         message={message}
+        editMessage={this.editMessage}
         deleteMessage={this.deleteMessage}
       />
     ));
@@ -175,17 +206,16 @@ export default class MessagesPage extends Component {
         paddingRight: 0
       }
     };
-    console.log(messages);
-
+    console.log("messages", messages);
+    console.log("selectedSortOption", this.state.selectedSortOption);
     return (
       <div className="messages-page">
         <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
         <Container fluid className="mp-cont">
           <Form.Group>
             <Row className="message-input-row" style={styles.row}>
-              <Col lg="6" style={styles.col}>
+              <Col lg="7" style={styles.col}>
                 <FormControl
-                  // size="sm"
                   placeholder="Filter by Text in Title and Details"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
@@ -200,24 +230,31 @@ export default class MessagesPage extends Component {
                   options={options}
                   placeholder="Filter by Priority"
                   className="msg-option-select"
+                  // defaultValue={{ label: "Clear Filter", value: "" }}
                 />
               </Col>
-              <Col lg="3" className="message-sort" style={styles.col}>
-                Sort by:&nbsp;
-                <Form>
+              <Col lg="2" className="message-sort" style={styles.col}>
+                <Form className="message-radio-buttons">
+                  <div>Sort by:&nbsp;&nbsp;</div>
                   {["radio"].map(type => (
-                    <div key={`inline-${type}`} className="mb-3">
+                    <div key={`inline-${type}`} className="radio-btns">
                       <Form.Check
                         inline
                         label="Date"
                         type={type}
                         id={`inline-${type}-1`}
+                        name="sort"
+                        onClick={this.handleSortChange}
+                        value="date"
                       />
                       <Form.Check
                         inline
                         label="Priority"
                         type={type}
                         id={`inline-${type}-2`}
+                        name="sort"
+                        onClick={this.handleSortChange}
+                        value="priority"
                       />
                     </div>
                   ))}

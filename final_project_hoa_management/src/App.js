@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-// import SignupModal from "./components/Signup/Modals/SignupModal";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import TenantsPage from "./pages/TenantsPage/TenantsPage";
@@ -10,13 +9,14 @@ import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import IssuesPage from "./pages/IssuesPage/IssuesPage";
 import VotingPage from "./pages/VotingPage/VotingPage";
 import "./App.css";
+import Parse from "parse";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeUser: null
+      activeUser: Parse.User.current()
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -33,6 +33,10 @@ export default class App extends React.Component {
   handleLogout() {
     this.setState({
       activeUser: null
+    });
+    Parse.User.logOut().then(() => {
+      const currentUser = Parse.User.current();
+      console.log(currentUser);
     });
   }
 

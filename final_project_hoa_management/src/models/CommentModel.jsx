@@ -1,10 +1,9 @@
 export default class CommentModel {
-    constructor(comment) {
-        this.createdBy = comment.createdBy;
-        this.CreatedAt = comment.CreatedAt;
-        this.text = comment.text;
-        this.comments = comment.comments;
-    }
+  constructor(parseComment) {
+    this.id = parseComment.id;
+    this.createdBy = parseComment.get("createdBy");
+    this.createdAt = parseComment.get("createdAt");
+    this.text = parseComment.get("text");
+    this.comments = parseComment.get("comments");
+  }
 }
-
-

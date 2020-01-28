@@ -2,9 +2,6 @@
   box-sizing: border-box;
 }
 
-.message-cont {
-}
-
 .message-title {
   display: flex;
   justify-content: space-between;
@@ -14,7 +11,7 @@
   margin-bottom: 1em;
 }
 
-.message-mid {
+.message-mid-col {
   border-right: 1px solid black;
 }
 
@@ -25,4 +22,18 @@
 .comment-buttons {
   display: flex;
   align-items: center;
+}
+
+.message-title-read,
+.message-title-unread {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-title-unread {
+  font-weight: bold;
+}
+
+.message-title-read {
+  font-weight: normal;
 }

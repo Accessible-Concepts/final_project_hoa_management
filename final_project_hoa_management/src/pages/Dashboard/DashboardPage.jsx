@@ -28,7 +28,7 @@ export default class DashboardPage extends Component {
       <div className="dashboard-page">
         <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
         <div className="db-clock">
-          <ClockComponent name={activeUser.fname} />
+          <ClockComponent name={activeUser.fName} />
         </div>
 
         <Container fluid className="db-cont">
