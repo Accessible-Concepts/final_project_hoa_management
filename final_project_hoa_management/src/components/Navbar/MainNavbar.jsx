@@ -68,7 +68,12 @@ export default class MainNavbar extends Component {
     // ) : null;
     console.log("activeUser: " + activeUser);
     return (
-      <Navbar collapseOnSelect expand="lg" variant="dark">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        variant="dark"
+        className="main-navbar"
+      >
         <Navbar.Brand href="#/">HOA Management System</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

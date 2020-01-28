@@ -77,7 +77,8 @@ export default class MessageComponent extends Component {
         paddingRight: 15
       }
     };
-    console.log(message.priority);
+    // console.log(message.priority);
+    // adds important/information icon to each message according to its priority
     let priorityImage = "";
     if (message.selectedOption.value === "Important") {
       priorityImage = require("./images/exclamation.png");
@@ -90,6 +91,7 @@ export default class MessageComponent extends Component {
       : "message-title-unread";
     console.log("readclass", this.state.readMessageState);
 
+    console.log("message.createdAt: ", message.createdAt);
     return (
       <Card className="message-comp">
         <Accordion.Toggle
@@ -102,7 +104,7 @@ export default class MessageComponent extends Component {
             // console.log(message);
           }}
         >
-          <div className="message-title"> {message.title}</div>
+          <div className="message-title">{message.title}</div>
           <div>
             <img src={priorityImage} alt="Information icon" width="25px"></img>
           </div>

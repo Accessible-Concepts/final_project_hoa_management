@@ -26,7 +26,7 @@ export default class MessagesPage extends Component {
       showNewMessageModal: false,
       input: "",
       messages: [],
-      selectedOption: "",
+      selectedOption: { value: "", label: "" },
       selectedSortOption: "date"
     };
   }
@@ -173,7 +173,7 @@ export default class MessagesPage extends Component {
       let boolResultofPriority = msg.priority.includes(
         this.state.selectedOption.value
       );
-      return boolResultofPriority; //TODO: check/fix the issue of
+      return boolResultofPriority;
     });
 
     //Sorting the messages by date or by priority
@@ -182,7 +182,7 @@ export default class MessagesPage extends Component {
       sortedMessages = priorityFilteredMessages.sort(function(a, b) {
         return a.createdAt < b.createdAt;
       });
-      console.log(sortedMessages);
+      // console.log(sortedMessages);
     } else if (this.state.selectedSortOption === "priority") {
       sortedMessages = priorityFilteredMessages.sort(function(a, b) {
         if (a.selectedOption.value < b.selectedOption.value) {
@@ -194,7 +194,7 @@ export default class MessagesPage extends Component {
         return 0;
       });
     }
-    console.log(sortedMessages);
+    // console.log(sortedMessages);
 
     const messagesView = sortedMessages.map((message, index) => (
       <MessageComponent
