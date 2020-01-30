@@ -1,11 +1,8 @@
 .messages-page {
-  /* display: flex; */
   background-color: #585753;
-  /* height: 100%; */
 }
 
 .mp-cont {
-  /* display: flex; */
   height: 480px;
   padding: 30px;
   background-color: white;

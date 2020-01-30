@@ -21,7 +21,8 @@ export default class MessageComponent extends Component {
       showEditMessageModal: false,
       input: "",
       newComment: "",
-      readMessageState: false
+      readMessageState: false,
+      updateMessageReadBy: []
     };
     // this.addComment = this.addComment.bind(this);
   }
@@ -37,10 +38,38 @@ export default class MessageComponent extends Component {
   };
 
   changeReadMessageState = message => {
+    // console.log(message.id);
+    const activeUserId = this.props.activeUser.id;
+
+    const { messages } = this.state;
+
+    // console.log("messageReaBydParse", messageReadBydParse);
+
+    if (message.readByUser === undefined) {
+      message.readByUser = [activeUserId];
+    } else if (message.readByUser.includes(activeUserId)) {
+    } else {
+      message.readByUser = message.readByUser.concat(activeUserId);
+    }
     this.setState({
-      readMessageState: true
+      //TODO: check with Nir how to fix the setState issue
+      messages: messages
     });
-    console.log(this.state.readMessageState);
+
+    const Message = Parse.Object.extend("Message");
+    const query = new Parse.Query(Message);
+    // here you put the objectId that you want to update
+    query.get(message.id).then(object => {
+      object.set("readByUser", message.readByUser);
+      object.save().then(
+        response => {
+          console.log("Message read", response);
+        },
+        error => {
+          console.error("Error while reading Message", error);
+        }
+      );
+    });
   };
 
   handleClose = () => {
@@ -99,7 +128,7 @@ export default class MessageComponent extends Component {
         paddingRight: 15
       }
     };
-    // console.log(message.priority);
+
     // adds important/information icon to each message according to its priority
     let priorityImage = "";
     if (message.selectedOption.value === "Important") {
@@ -108,12 +137,15 @@ export default class MessageComponent extends Component {
       priorityImage = require("./images/info.png");
     }
 
-    const readClass = this.state.readMessageState
-      ? "message-title-read"
-      : "message-title-unread";
-    // console.log("readclass", this.state.readMessageState);
+    // debugger;
 
-    console.log("message.createdAt: ", message.createdAt);
+    let readClass = "message-title-unread";
+    if (message.readByUser === undefined) {
+      readClass = "message-title-unread";
+    } else if (message.readByUser.includes(this.props.activeUser.id)) {
+      readClass = "message-title-read";
+    } else readClass = "message-title-unread";
+
     return (
       <Card className="message-comp">
         <Accordion.Toggle

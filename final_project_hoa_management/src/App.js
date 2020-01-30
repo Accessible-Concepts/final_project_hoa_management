@@ -43,11 +43,7 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <MainNavbar
-          activeUser={this.state.activeUser}
-          handleLogout={this.handleLogout}
-        />
-
+        <MainNavbar activeUser={activeUser} handleLogout={this.handleLogout} />
         <Switch>
           <Route exact path="/">
             <LandingPage

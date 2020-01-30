@@ -142,7 +142,7 @@ export default class MessagesPage extends Component {
   render() {
     const { showNewMessageModal, input, messages, selectedOption } = this.state;
 
-    const { activeUser, handleLogout } = this.props;
+    const { activeUser } = this.props;
 
     const options = [
       { value: "", label: "Clear Filter" },
@@ -196,7 +196,7 @@ export default class MessagesPage extends Component {
         ind={index}
         key={message.id}
         message={message}
-        // created={message.createdAt}
+        activeUser={activeUser}
         editMessage={this.editMessage}
         deleteMessage={this.deleteMessage}
       />
