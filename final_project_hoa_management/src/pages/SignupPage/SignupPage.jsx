@@ -11,18 +11,21 @@ export default class SignupPage extends Component {
 
     this.state = {
       users: [],
-      fName: "",
-      lName: "",
-      email: "",
-      password: "",
-      address1: "",
+      fName: "Liam",
+      lName: "Hasson",
+      email: "hassonfour@gmail.com",
+      password: "123",
+      community: "1Main street",
+      address1: "1 Main street",
       address2: "",
-      city: "",
+      city: "Tel Aviv",
       state: "",
-      zip: "",
-      country: "",
-      phoneNumber: "",
-      isCommitteeMember: "yes"
+      zip: "23125",
+      country: "Israel",
+      phoneNumber: "050-2434111",
+      isCommitteeMember: true,
+      newUserId: "",
+      newCommunityId: ""
     };
   }
 
@@ -42,35 +45,42 @@ export default class SignupPage extends Component {
       lName,
       email,
       password,
+      community,
       address1,
       address2,
       city,
       state,
       zip,
       country,
-      phoneNumber
+      phoneNumber,
+      isCommitteeMember
     } = this.state;
 
-    const newUser = {
+    const newUserInfo = {
       fName,
       lName,
       email,
       password,
+      community,
       address1,
       address2,
       city,
       state,
       zip,
       country,
-      phoneNumber
+      phoneNumber,
+      isCommitteeMember
     };
-    this.handleNewUser(newUser);
+    this.handleNewUser(newUserInfo);
+    this.handleNewCommunity(newUserInfo);
+
     // this.props.handleClose();
     this.setState({
       fName: "",
       lName: "",
       email: "",
       password: "",
+      community: "",
       address1: "",
       address2: "",
       city: "",
@@ -81,40 +91,73 @@ export default class SignupPage extends Component {
     });
   };
 
-  handleNewUser = newUser => {
-    //  const User = Parse.Object.extend("User");
+  handleNewUser = newUserInfo => {
     const newParseUser = new Parse.User();
-    newParseUser.set("username", newUser.email);
-    newParseUser.set("fName", newUser.fName);
-    newParseUser.set("lName", newUser.lName);
-    newParseUser.set("email", newUser.email);
-    newParseUser.set("password", newUser.password);
-    newParseUser.set("address1", newUser.address1);
-    newParseUser.set("address2", newUser.address2);
-    newParseUser.set("city", newUser.city);
-    newParseUser.set("state", newUser.state);
-    newParseUser.set("zip", Number(newUser.zip));
-    newParseUser.set("country", newUser.country);
-    newParseUser.set("phoneNumber", newUser.phoneNumber);
-    newParseUser.set("isCommitteMember", this.state.isCommitteeMember);
+    newParseUser.set("username", newUserInfo.email);
+    newParseUser.set("fName", newUserInfo.fName);
+    newParseUser.set("lName", newUserInfo.lName);
+    newParseUser.set("email", newUserInfo.email);
+    newParseUser.set("password", newUserInfo.password);
+    newParseUser.set("phoneNumber", newUserInfo.phoneNumber);
+    newParseUser.set("isCommitteeMember", this.state.isCommitteeMember);
+    newParseUser.set("apartment", newUserInfo.apartment);
+    // console.log("newParseUser: ", newParseUser);
+    newParseUser
+      .signUp()
+      .then(newParseUser => {
+        console.log("User signed up", newParseUser);
+        this.setState({
+          newUserId: newParseUser.id
+        });
+      })
+      .catch(error => {
+        console.error("Error while signing up user", error);
+      });
+  };
 
-    newParseUser.signUp().then(signupResult => {
-      console.log(signupResult);
-      // <Redirect to="/login" />;
+  handleNewCommunity = newUserInfo => {
+    //  const User = Parse.Object.extend("User");
+    const Community = Parse.Object.extend("Community");
+    const newParseCommunity = new Community();
+
+    newParseCommunity.set("community", newUserInfo.community);
+    newParseCommunity.set("address1", newUserInfo.address1);
+    newParseCommunity.set("address2", newUserInfo.address2);
+    newParseCommunity.set("city", newUserInfo.city);
+    newParseCommunity.set("state", newUserInfo.state);
+    newParseCommunity.set("zip", Number(newUserInfo.zip));
+    newParseCommunity.set("country", newUserInfo.country);
+    // console.log("myNewObject: ", myNewObject);
+    newParseCommunity
+      .save()
+      .then(newParseCommunity => {
+        console.log("Community created", newParseCommunity);
+        this.setState({
+          newCommunityId: newParseCommunity.id
+        });
+      })
+      .catch(error => {
+        console.error("Error while creating community", error);
+      });
+
+    const User = new Parse.User();
+    const query = new Parse.Query(User);
+
+    // Finds the user by its ID
+    query.get(this.state.newUserId).then(user => {
+      // Updates the data we want
+
+      user.set("community", new Parse.Object(this.state.newCommunityId));
+      // Saves the user with the updated data
+      user
+        .save()
+        .then(response => {
+          console.log("Updated user", response);
+        })
+        .catch(error => {
+          console.error("Error while updating user", error);
+        });
     });
-
-    // .signup().then(newParseUser => {
-    //     if (typeof document !== "undefined")
-    //       document.write(`User signed up: ${JSON.stringify(newParseUser)}`);
-    //     console.log("User signed up", newParseUser);
-    //   })
-    //   .catch(error => {
-    //     if (typeof document !== "undefined")
-    //       document.write(
-    //         `Error while signing up user: ${JSON.stringify(error)}`
-    //       );
-    //     console.error("Error while signing up user", error);
-    //   });
   };
 
   render() {
@@ -123,6 +166,7 @@ export default class SignupPage extends Component {
       lName,
       email,
       password,
+      community,
       address1,
       address2,
       city,
@@ -131,6 +175,14 @@ export default class SignupPage extends Component {
       country,
       phoneNumber
     } = this.state;
+    const { activeUser } = this.props;
+
+    console.log(this.state.newUserId);
+    console.log(this.state.newCommunityId);
+
+    if (activeUser) {
+      return <Redirect to="/dashboard" />;
+    }
 
     return (
       <div className="signup-page">
@@ -185,6 +237,17 @@ export default class SignupPage extends Component {
                 />
               </Form.Group>
             </Form.Row>
+
+            <Form.Group controlId="formGridCommunity">
+              <Form.Label>Community/Building Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter community or building name"
+                name="community"
+                value={community}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
 
             <Form.Group controlId="formGridAddress1">
               <Form.Label>Address 1</Form.Label>

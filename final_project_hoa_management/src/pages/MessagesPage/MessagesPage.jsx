@@ -34,6 +34,8 @@ export default class MessagesPage extends Component {
     if (this.props.activeUser) {
       const Message = Parse.Object.extend("Message");
       const query = new Parse.Query(Message);
+      // query.equalTo("communityId", this.props.activeUser.community.id);
+
       query.find().then(
         parseMessages => {
           const messages = parseMessages.map(
@@ -46,7 +48,6 @@ export default class MessagesPage extends Component {
         }
       );
     }
-    console.log(this.state.messages);
   }
 
   //Function that handles the input field changes
@@ -54,7 +55,7 @@ export default class MessagesPage extends Component {
     this.setState({
       input: ev.target.value
     });
-    console.log("this.state.input: " + this.state.input);
+    // console.log("this.state.input: " + this.state.input);
   };
 
   //Function that handles the select field changes
@@ -141,8 +142,8 @@ export default class MessagesPage extends Component {
 
   render() {
     const { showNewMessageModal, input, messages, selectedOption } = this.state;
-
     const { activeUser } = this.props;
+    console.log("messages: ", messages);
 
     const options = [
       { value: "", label: "Clear Filter" },
@@ -201,7 +202,7 @@ export default class MessagesPage extends Component {
         deleteMessage={this.deleteMessage}
       />
     ));
-    console.log("messagesView: ", messagesView);
+
     const styles = {
       row: {
         marginLeft: 0,
@@ -212,7 +213,7 @@ export default class MessagesPage extends Component {
         paddingRight: 0
       }
     };
-
+    console.log(this.props.activeUser);
     return (
       <div className="messages-page">
         <Container fluid className="mp-cont">

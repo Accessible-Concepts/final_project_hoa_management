@@ -17,7 +17,7 @@ export default class SignupModal extends Component {
       zip: "",
       country: "",
       phoneNumber: "",
-      isCommitteeMember: "yes"
+      isCommitteeMember: true
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);

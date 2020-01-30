@@ -3,9 +3,6 @@ import "./LandingPage.css";
 import Footer from "../../components/footer/Footer";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import SignupModal from "../../components/Signup/Modals/SignupModal";
-import UserModel from "../../models/UserModel";
-import Parse from "parse";
 
 export default class LandingPage extends Component {
   constructor(props) {
@@ -16,7 +13,6 @@ export default class LandingPage extends Component {
       users: []
     };
     this.handleClose = this.handleClose.bind(this);
-    this.handleNewUser = this.handleNewUser.bind(this);
   }
 
   handleClose() {
@@ -25,37 +21,7 @@ export default class LandingPage extends Component {
     });
   }
 
-  handleNewUser(newUser) {
-    const User = Parse.Object.extend("User");
-    const newParseUser = new User();
-    newParseUser.set("email", newUser.email);
-    newParseUser.set("password", newUser.password);
-    newParseUser.set("fName", newUser.fName);
-    newParseUser.set("lName", newUser.lName);
-    newParseUser.set("address1", newUser.address1);
-    newParseUser.set("address2", newUser.address2);
-    newParseUser.set("city", newUser.city);
-    newParseUser.set("state", newUser.state);
-    newParseUser.set("zip", newUser.zip);
-    newParseUser.set("country", newUser.country);
-    newParseUser.set("phoneNumber", newUser.phoneNumber);
-    newParseUser.set("isCommitteeMember", newUser.isCommitteeMember);
-
-    newParseUser.save().then(
-      theCreatedParseUser => {
-        console.log("User created", theCreatedParseUser);
-        this.setState({
-          users: this.state.users.concat(new UserModel(theCreatedParseUser))
-        });
-      },
-      error => {
-        console.error("Error while creating User: ", error);
-      }
-    );
-  }
-
   render() {
-    const { showSignupModal } = this.state;
     const { activeUser } = this.props;
 
     if (activeUser) {
@@ -84,11 +50,6 @@ export default class LandingPage extends Component {
               <img src={require("./images/3.jpg")} alt="Logo" width="500"></img>
             </Col>
           </Row>
-          <SignupModal
-            show={showSignupModal}
-            handleClose={this.handleClose}
-            handleNewUser={this.handleNewUser}
-          />
         </Container>
         <Footer />
       </div>

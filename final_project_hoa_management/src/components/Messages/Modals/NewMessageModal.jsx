@@ -18,7 +18,6 @@ export default class NewMessageModal extends Component {
         URL: undefined
       }
     };
-    this.handleFileChange = this.handleFileChange.bind(this);
   }
 
   handleInputChange = event => {

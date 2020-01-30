@@ -35,11 +35,11 @@ export default class LoginPage extends Component {
     Parse.User.logIn(email, password)
       .then(parseUser => {
         // Do stuff after successful login
-        const user = new UserModel(parseUser);
-        console.log("Logged in user", user);
+        const parseCurrentUser = new UserModel(parseUser);
+        console.log("Logged in user", parseCurrentUser);
 
         // 1) Updating App component on the new active user
-        handleLogin(user);
+        handleLogin(parseCurrentUser);
 
         // 2) navigate to dashboard
         this.setState({

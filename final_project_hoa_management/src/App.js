@@ -19,13 +19,14 @@ export default class App extends React.Component {
     this.state = {
       activeUser: Parse.User.current()
     };
+    console.log("activeUser: ", this.state.activeUser);
   }
 
-  handleLogin = user => {
+  handleLogin = parseCurrentUser => {
     this.setState({
-      activeUser: user
+      activeUser: parseCurrentUser
     });
-    console.log(this.state.activeUser);
+    console.log("activeUser: ", this.state.activeUser);
   };
 
   handleLogout = () => {
@@ -33,9 +34,10 @@ export default class App extends React.Component {
       activeUser: null
     });
     Parse.User.logOut().then(() => {
-      const currentUser = Parse.User.current();
-      console.log(currentUser);
+      const parseCurrentUser = Parse.User.current();
+      console.log("parseCurrentUser: ", parseCurrentUser);
     });
+    console.log("activeUser: ", this.state.activeUser);
   };
 
   render() {

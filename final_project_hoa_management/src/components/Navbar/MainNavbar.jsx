@@ -28,7 +28,6 @@ export default class MainNavbar extends Component {
       });
     }
   }
-
   render() {
     const { redirectToHome } = this.state;
     const { activeUser } = this.props;
@@ -43,6 +42,9 @@ export default class MainNavbar extends Component {
     const tenantsLink = activeUser ? (
       <Nav.Link href="#/tenants">Tenants</Nav.Link>
     ) : null;
+    // const tenantsLink = activeUser.isCommitteeMember ? (
+    //   <Nav.Link href="#/tenants">Tenants</Nav.Link>
+    // ) : null;
     const messagesLink = activeUser ? (
       <Nav.Link href="#/messages">Messages</Nav.Link>
     ) : null;
@@ -62,10 +64,6 @@ export default class MainNavbar extends Component {
       <Nav.Link onClick={this.logout}>Logout</Nav.Link>
     ) : null;
 
-    // const tenantsLink = activeUser.isCommitteeMember ? (
-    //   <Nav.Link href="#/tenants">Tenants</Nav.Link>
-    // ) : null;
-    console.log("activeUser: " + activeUser);
     return (
       <Navbar
         collapseOnSelect

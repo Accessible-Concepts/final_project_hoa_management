@@ -20,14 +20,9 @@ export default class EditMessageModal extends Component {
         URL: undefined
       }
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.editMessage = this.editMessage.bind(this);
-    this.handleFileChange = this.handleFileChange.bind(this);
-    // this.handleClose = this.handleClose.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -35,12 +30,12 @@ export default class EditMessageModal extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  editMessage(message) {
+  editMessage = message => {
     const { title, details, selectedOption, fileImg } = this.state;
-    console.log(message.id);
-    console.log("title", this.state.title);
+    // console.log(message.id);
+    // console.log("title", this.state.title);
     const Message = Parse.Object.extend("Message");
     const query = new Parse.Query(Message);
     // here you put the objectId that you want to update
@@ -68,9 +63,9 @@ export default class EditMessageModal extends Component {
       );
     });
     this.props.handleClose();
-  }
+  };
 
-  handleFileChange(event) {
+  handleFileChange = event => {
     let newFileImg;
     if (event.target.files[0]) {
       newFileImg = {
@@ -85,7 +80,7 @@ export default class EditMessageModal extends Component {
     }
 
     this.setState({ fileImg: newFileImg });
-  }
+  };
 
   handleSelectChange = selectedOption => {
     this.setState({ selectedOption });
@@ -100,9 +95,9 @@ export default class EditMessageModal extends Component {
       { value: "Information", label: "Information" },
       { value: "Important", label: "Important" }
     ];
-    console.log("selectedOption", this.state.selectedOption);
-    console.log("details", this.state.details);
-    console.log("massage", this.props.message);
+    // console.log("selectedOption", this.state.selectedOption);
+    // console.log("details", this.state.details);
+    // console.log("massage", this.props.message);
 
     return (
       <Modal show={show} onHide={handleClose}>
