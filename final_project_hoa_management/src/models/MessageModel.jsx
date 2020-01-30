@@ -9,5 +9,6 @@ export default class MessageModel {
     this.comments = parseMessage.get("comments");
     this.createdBy = parseMessage.get("createdBy");
     this.createdAt = parseMessage.get("createdAt");
+    this.readByUser = parseMessage.get("readByUser");
   }
 }

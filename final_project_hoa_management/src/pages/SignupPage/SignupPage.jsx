@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Container, Form, Col, Button } from "react-bootstrap";
 import Footer from "../../components/footer/Footer";
-import UserModel from "../../models/UserModel";
 import "./SignupPage.css";
 import Parse from "parse";
 import { Redirect } from "react-router-dom";
@@ -25,13 +24,9 @@ export default class SignupPage extends Component {
       phoneNumber: "",
       isCommitteeMember: "yes"
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.createUser = this.createUser.bind(this);
-    this.handleNewUser = this.handleNewUser.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -39,9 +34,9 @@ export default class SignupPage extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  createUser() {
+  createUser = () => {
     const {
       fName,
       lName,
@@ -53,8 +48,7 @@ export default class SignupPage extends Component {
       state,
       zip,
       country,
-      phoneNumber,
-      isCommitteeMember
+      phoneNumber
     } = this.state;
 
     const newUser = {
@@ -68,8 +62,7 @@ export default class SignupPage extends Component {
       state,
       zip,
       country,
-      phoneNumber,
-      isCommitteeMember
+      phoneNumber
     };
     this.handleNewUser(newUser);
     // this.props.handleClose();
@@ -84,12 +77,11 @@ export default class SignupPage extends Component {
       state: "",
       zip: "",
       country: "",
-      phoneNumber: "",
-      isCommitteeMember
+      phoneNumber: ""
     });
-  }
+  };
 
-  handleNewUser(newUser) {
+  handleNewUser = newUser => {
     //  const User = Parse.Object.extend("User");
     const newParseUser = new Parse.User();
     newParseUser.set("username", newUser.email);
@@ -104,7 +96,7 @@ export default class SignupPage extends Component {
     newParseUser.set("zip", Number(newUser.zip));
     newParseUser.set("country", newUser.country);
     newParseUser.set("phoneNumber", newUser.phoneNumber);
-    newParseUser.set("isCommitteMember", newUser.isCommitteeMember);
+    newParseUser.set("isCommitteMember", this.state.isCommitteeMember);
 
     newParseUser.signUp().then(signupResult => {
       console.log(signupResult);
@@ -123,7 +115,7 @@ export default class SignupPage extends Component {
     //       );
     //     console.error("Error while signing up user", error);
     //   });
-  }
+  };
 
   render() {
     const {
@@ -137,8 +129,7 @@ export default class SignupPage extends Component {
       state,
       zip,
       country,
-      phoneNumber,
-      isCommitteeMember
+      phoneNumber
     } = this.state;
 
     return (

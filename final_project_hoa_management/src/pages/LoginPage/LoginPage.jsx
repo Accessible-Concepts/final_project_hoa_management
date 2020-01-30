@@ -15,12 +15,9 @@ export default class LoginPage extends Component {
       showInvalidLoginError: false,
       redirectToDashboard: false
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.login = this.login.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -28,9 +25,9 @@ export default class LoginPage extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  login() {
+  login = () => {
     const { handleLogin } = this.props;
     const { email, password } = this.state;
 
@@ -55,7 +52,7 @@ export default class LoginPage extends Component {
           showInvalidLoginError: true
         });
       });
-  }
+  };
 
   render() {
     const {

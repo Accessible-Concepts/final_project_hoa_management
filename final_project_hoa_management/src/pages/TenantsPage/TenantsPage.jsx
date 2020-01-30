@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./TenantsPage.css";
-import MainNavbar from "../../components/navbar/MainNavbar";
 import Footer from "../../components/footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
@@ -17,7 +16,7 @@ export default class TenantsPage extends Component {
     // this.handleNewRecipe = this.handleNewRecipe.bind(this);
   }
   render() {
-    const { activeUser, handleLogout } = this.props;
+    const { activeUser } = this.props;
 
     if (!activeUser) {
       return <Redirect to="/" />;
@@ -26,7 +25,6 @@ export default class TenantsPage extends Component {
 
     return (
       <div className="tenants-page">
-        <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
         <div className="t-cont">Tenants Page</div>
         <Footer />
       </div>

@@ -92,12 +92,6 @@ export default class EditMessageModal extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
-  //   handleClose() {
-  //     this.setState({
-  //       showEditMessageModal: false
-  //     });
-  //   }
-
   render() {
     const { show, handleClose, message } = this.props;
     const { title, details, fileImg, selectedOption } = this.state;
@@ -158,10 +152,6 @@ export default class EditMessageModal extends Component {
               <Col lg={9}>
                 <Select
                   value={selectedOption}
-                  //   defaultValue={{
-                  //     label: message.priority,
-                  //     value: message.priority
-                  //   }}
                   onChange={this.handleSelectChange}
                   options={priorityOptions}
                 />
@@ -182,9 +172,6 @@ export default class EditMessageModal extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
           <Button
             onClick={() => {
               const editMessage = this.editMessage;
@@ -192,7 +179,10 @@ export default class EditMessageModal extends Component {
               console.log(message);
             }}
           >
-            Edit
+            Save
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

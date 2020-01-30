@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./DashboardPage.css";
-import MainNavbar from "../../components/navbar/MainNavbar";
 import Footer from "../../components/footer/Footer";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
@@ -14,7 +13,7 @@ export default class DashboardPage extends Component {
     this.state = {};
   }
   render() {
-    const { activeUser, handleLogout } = this.props;
+    const { activeUser } = this.props;
 
     if (!activeUser) {
       return <Redirect to="/" />;
@@ -22,7 +21,6 @@ export default class DashboardPage extends Component {
 
     return (
       <div className="dashboard-page">
-        <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
         <div className="db-clock">
           <ClockComponent name={activeUser.fName} />
         </div>

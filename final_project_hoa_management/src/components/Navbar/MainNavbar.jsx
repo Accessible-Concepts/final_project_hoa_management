@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import "./MainNavbar.css";
 
 export default class MainNavbar extends Component {
   constructor(props) {
@@ -9,18 +10,16 @@ export default class MainNavbar extends Component {
     this.state = {
       redirectToHome: false
     };
-
-    this.logout = this.logout.bind(this);
   }
 
-  logout() {
+  logout = () => {
     // This eventually calls the handleLogout method of the App component
     this.props.handleLogout();
 
     this.setState({
       redirectToHome: true
     });
-  }
+  };
 
   componentDidUpdate() {
     if (this.state.redirectToHome) {

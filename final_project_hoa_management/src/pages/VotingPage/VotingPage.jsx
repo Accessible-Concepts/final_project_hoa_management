@@ -9,7 +9,6 @@ import {
   Col,
   Button
 } from "react-bootstrap";
-import MainNavbar from "../../components/navbar/MainNavbar";
 import Footer from "../../components/footer/Footer";
 import NewVotingModal from "../../components/Voting/Modals/NewVotingModal";
 import { Redirect } from "react-router-dom";
@@ -60,7 +59,7 @@ export default class VotingPage extends Component {
 
   render() {
     const { showNewVotingModal, votings } = this.state;
-    const { activeUser, handleLogout } = this.props;
+    const { activeUser } = this.props;
     console.log("activeUser:" + activeUser);
 
     const votingsComp = votings.map((voting, index) => (
@@ -76,7 +75,6 @@ export default class VotingPage extends Component {
 
     return (
       <div className="voting-page">
-        <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
         <Container fluid className="vp-cont">
           <Row>
             <Col className="my-col vote-col" lg="6">

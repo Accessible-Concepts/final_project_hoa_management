@@ -10,6 +10,7 @@ import IssuesPage from "./pages/IssuesPage/IssuesPage";
 import VotingPage from "./pages/VotingPage/VotingPage";
 import "./App.css";
 import Parse from "parse";
+import MainNavbar from "./components/navbar/MainNavbar";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,19 +19,16 @@ export default class App extends React.Component {
     this.state = {
       activeUser: Parse.User.current()
     };
-
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(user) {
+  handleLogin = user => {
     this.setState({
       activeUser: user
     });
-    // console.log(this.state.activeUser);
-  }
+    console.log(this.state.activeUser);
+  };
 
-  handleLogout() {
+  handleLogout = () => {
     this.setState({
       activeUser: null
     });
@@ -38,13 +36,18 @@ export default class App extends React.Component {
       const currentUser = Parse.User.current();
       console.log(currentUser);
     });
-  }
+  };
 
   render() {
     const { activeUser } = this.state;
 
     return (
       <div className="app">
+        <MainNavbar
+          activeUser={this.state.activeUser}
+          handleLogout={this.handleLogout}
+        />
+
         <Switch>
           <Route exact path="/">
             <LandingPage

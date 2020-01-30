@@ -5,6 +5,7 @@
 .message-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .message-row {
@@ -28,6 +29,7 @@
 .message-title-unread {
   display: flex;
   justify-content: space-between;
+  /* align-items: center; */
 }
 
 .message-title-unread {
@@ -36,4 +38,12 @@
 
 .message-title-read {
   font-weight: normal;
+}
+
+.message-createdat {
+  font-weight: normal;
+  font-size: 0.7em;
+  margin-left: 10px;
+  padding-top: 5px;
+  font-style: italic;
 }

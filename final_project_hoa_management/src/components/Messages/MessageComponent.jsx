@@ -11,6 +11,7 @@ import {
   Button,
   Form
 } from "react-bootstrap";
+import Parse from "parse";
 
 export default class MessageComponent extends Component {
   constructor(props) {
@@ -19,10 +20,9 @@ export default class MessageComponent extends Component {
     this.state = {
       showEditMessageModal: false,
       input: "",
-      comment: "",
+      newComment: "",
       readMessageState: false
     };
-    // this.handleClose = this.handleClose.bind(this);
     // this.addComment = this.addComment.bind(this);
   }
 
@@ -49,23 +49,45 @@ export default class MessageComponent extends Component {
     });
   };
 
-  // addComment(message, event) {
-  //   const { input } = this.state;
-  //   // Function that is triggered only by the Enter key
-  //   if (event.keyCode === 13) {
-  //     event.preventDefault();
-  //     const comment = new CommentModel(input);
-  //     this.setState({
-  //       comments: this.state.comments.concat(comment),
-  //       input: ""
-  //     });
-  //     //     // console.log(this.state.list)
-  //   }
-  // }
+  handleNewComment = (newComment, message) => {
+    console.log(message);
+    const Message = Parse.Object.extend("Message");
+    const query = new Parse.Query(Message);
+    // here you put the objectId that you want to update
+    query.get(message.id).then(object => {
+      object.set("comments", newComment);
+      object.save().then(
+        console.log(newComment)
+        // theCreatedParseMessage => {
+        //   console.log("Message created", theCreatedParseMessage);
+        //   this.setState({
+        //     messages: this.state.messages.concat(
+        //       new MessageModel(theCreatedParseMessage)
+        //     )
+        //   });
+        // },
+        // error => {
+        //   console.error("Error while creating Message: ", error);
+        // }
+      );
+    });
+  };
+
+  addComment(event, message) {
+    const { input } = this.state;
+    const newComment = input;
+
+    //   // Function that is triggered only by the Enter key
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      this.handleNewComment(newComment, message);
+      //     //     // console.log(this.state.list)
+    }
+  }
 
   render() {
     const { message } = this.props;
-    const { showEditMessageModal } = this.state;
+    const { showEditMessageModal, input } = this.state;
 
     const styles = {
       row: {
@@ -89,7 +111,7 @@ export default class MessageComponent extends Component {
     const readClass = this.state.readMessageState
       ? "message-title-read"
       : "message-title-unread";
-    console.log("readclass", this.state.readMessageState);
+    // console.log("readclass", this.state.readMessageState);
 
     console.log("message.createdAt: ", message.createdAt);
     return (
@@ -104,9 +126,18 @@ export default class MessageComponent extends Component {
             // console.log(message);
           }}
         >
-          <div className="message-title">{message.title}</div>
+          <div className="message-title">
+            {this.props.message.title}{" "}
+            <span className="message-createdat">
+              Created at {message.createdAt.toLocaleString()}
+            </span>
+          </div>
           <div>
-            <img src={priorityImage} alt="Information icon" width="25px"></img>
+            <img
+              src={priorityImage}
+              alt="Message priority icon"
+              width="25px"
+            ></img>
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={this.props.ind}>
@@ -150,8 +181,9 @@ export default class MessageComponent extends Component {
                           as="textarea"
                           rows="2"
                           className="comment-textArea"
-                          // onChange={this.onChangeHandler}
-                          // onKeyUp={this.addComment(message)}
+                          value={input}
+                          onChange={this.onChangeHandler}
+                          onKeyUp={this.addComment(message)}
                         />
                       </Form.Group>
                     </Form>

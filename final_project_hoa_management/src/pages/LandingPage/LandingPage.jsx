@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./LandingPage.css";
-import MainNavbar from "../../components/navbar/MainNavbar";
 import Footer from "../../components/footer/Footer";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
@@ -64,8 +63,6 @@ export default class LandingPage extends Component {
     }
     return (
       <div className="landing-page">
-        <MainNavbar />
-
         <Container fluid className="lp-cont">
           <Row>
             <Col lg="7" className="lp-col">

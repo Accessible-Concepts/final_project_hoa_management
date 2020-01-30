@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./MessagesPage.css";
-import MainNavbar from "../../components/navbar/MainNavbar";
 import Footer from "../../components/footer/Footer";
 import {
   Accordion,
@@ -61,7 +60,7 @@ export default class MessagesPage extends Component {
   //Function that handles the select field changes
   handleSelectChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    console.log(`this.state.selectedOption: `, selectedOption);
   };
 
   //Function that handles the radio field changes
@@ -96,7 +95,7 @@ export default class MessagesPage extends Component {
       new Parse.File(newMessage.fileImg.file.name, newMessage.fileImg.file)
     );
 
-    newParseMessage.set("userId", Parse.User.current());
+    newParseMessage.set("createdBy", Parse.User.current());
     newParseMessage.save().then(
       theCreatedParseMessage => {
         console.log("Message created", theCreatedParseMessage);
@@ -182,30 +181,27 @@ export default class MessagesPage extends Component {
       sortedMessages = priorityFilteredMessages.sort(function(a, b) {
         return a.createdAt < b.createdAt;
       });
-      // console.log(sortedMessages);
     } else if (this.state.selectedSortOption === "priority") {
       sortedMessages = priorityFilteredMessages.sort(function(a, b) {
         if (a.selectedOption.value < b.selectedOption.value) {
           return -1;
-        }
-        if (a.selectedOption.value > b.selectedOption.value) {
+        } else if (a.selectedOption.value > b.selectedOption.value) {
           return 1;
-        }
-        return 0;
+        } else return 0;
       });
     }
-    // console.log(sortedMessages);
 
     const messagesView = sortedMessages.map((message, index) => (
       <MessageComponent
         ind={index}
         key={message.id}
         message={message}
+        // created={message.createdAt}
         editMessage={this.editMessage}
         deleteMessage={this.deleteMessage}
       />
     ));
-
+    console.log("messagesView: ", messagesView);
     const styles = {
       row: {
         marginLeft: 0,
@@ -216,11 +212,9 @@ export default class MessagesPage extends Component {
         paddingRight: 0
       }
     };
-    console.log("messages", messages);
-    console.log("selectedSortOption", this.state.selectedSortOption);
+
     return (
       <div className="messages-page">
-        <MainNavbar activeUser={activeUser} handleLogout={handleLogout} />
         <Container fluid className="mp-cont">
           <Form.Group>
             <Row className="message-input-row" style={styles.row}>
