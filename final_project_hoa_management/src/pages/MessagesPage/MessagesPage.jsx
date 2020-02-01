@@ -245,7 +245,7 @@ export default class MessagesPage extends Component {
                         type={type}
                         id={`inline-${type}-1`}
                         name="sort"
-                        onClick={this.handleSortChange}
+                        onChange={this.handleSortChange}
                         value="date"
                         checked={this.state.selectedSortOption === "date"}
                       />
@@ -255,7 +255,7 @@ export default class MessagesPage extends Component {
                         type={type}
                         id={`inline-${type}-2`}
                         name="sort"
-                        onClick={this.handleSortChange}
+                        onChange={this.handleSortChange}
                         value="priority"
                         checked={this.state.selectedSortOption === "priority"}
                       />
