@@ -247,6 +247,7 @@ export default class MessagesPage extends Component {
                         name="sort"
                         onClick={this.handleSortChange}
                         value="date"
+                        checked={this.state.selectedSortOption === "date"}
                       />
                       <Form.Check
                         inline
@@ -256,6 +257,7 @@ export default class MessagesPage extends Component {
                         name="sort"
                         onClick={this.handleSortChange}
                         value="priority"
+                        checked={this.state.selectedSortOption === "priority"}
                       />
                     </div>
                   ))}
