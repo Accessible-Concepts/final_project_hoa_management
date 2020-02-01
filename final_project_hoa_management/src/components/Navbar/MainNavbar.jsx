@@ -39,12 +39,10 @@ export default class MainNavbar extends Component {
     const dashboardLink = activeUser ? (
       <Nav.Link href="#/dashboard">Dashboard</Nav.Link>
     ) : null;
-    const tenantsLink = activeUser ? (
-      <Nav.Link href="#/tenants">Tenants</Nav.Link>
-    ) : null;
-    // const tenantsLink = activeUser.isCommitteeMember ? (
-    //   <Nav.Link href="#/tenants">Tenants</Nav.Link>
-    // ) : null;
+    const tenantsLink =
+      activeUser && activeUser.isCommitteeMember ? (
+        <Nav.Link href="#/tenants">Tenants</Nav.Link>
+      ) : null;
     const messagesLink = activeUser ? (
       <Nav.Link href="#/messages">Messages</Nav.Link>
     ) : null;
@@ -71,7 +69,7 @@ export default class MainNavbar extends Component {
         variant="dark"
         className="main-navbar"
       >
-        <Navbar.Brand href="#/">HOA Management System</Navbar.Brand>
+        <Navbar.Brand href="#/dashboard">HOA Management System</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
