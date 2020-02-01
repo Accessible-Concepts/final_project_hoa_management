@@ -30,23 +30,19 @@ export default class MessagesPage extends Component {
     };
   }
 
-  componentDidMount() {
-    if (this.props.activeUser) {
+  async componentDidMount() {
+    const { activeUser } = this.props;
+    console.log(activeUser);
+
+    if (activeUser) {
       const Message = Parse.Object.extend("Message");
       const query = new Parse.Query(Message);
-      // query.equalTo("communityId", this.props.activeUser.community.id);
-
-      query.find().then(
-        parseMessages => {
-          const messages = parseMessages.map(
-            parseMessage => new MessageModel(parseMessage)
-          );
-          this.setState({ messages });
-        },
-        error => {
-          console.error("Error while fetching message", error);
-        }
+      query.equalTo("communityId", activeUser.community.id);
+      const parseMessages = await query.find();
+      const messages = parseMessages.map(
+        parseMessage => new MessageModel(parseMessage)
       );
+      this.setState({ messages });
     }
   }
 
@@ -213,7 +209,7 @@ export default class MessagesPage extends Component {
         paddingRight: 0
       }
     };
-    console.log(this.props.activeUser);
+    // console.log(this.props.activeUser);
     return (
       <div className="messages-page">
         <Container fluid className="mp-cont">
