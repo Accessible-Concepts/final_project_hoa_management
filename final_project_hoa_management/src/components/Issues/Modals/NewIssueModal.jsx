@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import "./EditMessageModal.css";
 import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
-import Parse from "parse";
 
-export default class EditMessageModal extends Component {
+export default class NewIssueModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.message.id,
-      title: this.props.message.title,
-      details: this.props.message.details,
-      comments: this.props.message.comments,
-      createdBy: this.props.message.createdBy,
-      createdAt: this.props.message.createdAt,
-      selectedOption: this.props.message.selectedOption,
+      title: "",
+      deails: "",
+      comments: [],
+      createdBy: "",
+      createdAt: "",
+      selectedOption: { label: "Normal", value: "Normal" },
       fileImg: {
         file: undefined,
         URL: undefined
@@ -25,38 +22,32 @@ export default class EditMessageModal extends Component {
 
   handleInputChange = event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "checkbox"
+        ? target.checked
+        : target.value.charAt(0).toUpperCase() + target.value.substring(1);
     const name = target.name;
-
     this.setState({
       [name]: value
     });
   };
 
-  editMessage = message => {
+  createIssue = () => {
     const { title, details, selectedOption, fileImg } = this.state;
-    // console.log(message.id);
-    // console.log("title", this.state.title);
-    const Message = Parse.Object.extend("Message");
-    const query = new Parse.Query(Message);
-    // here you put the objectId that you want to update
-    query.get(message.id).then(object => {
-      object.set("title", title);
-      object.set("details", details);
-      object.set("selectedOption", selectedOption);
-      object.set("image", new Parse.File(fileImg.file.name, fileImg.file));
-      object.save().then(
-        response => {
-          // You can use the "get" method to get the value of an attribute
-          // Ex: response.get("<ATTRIBUTE_NAME>")
-          console.log("Updated Message", response);
-        },
-        error => {
-          console.error("Error while updating Message", error);
-        }
-      );
-    });
+    const newIssue = {
+      title,
+      details,
+      selectedOption,
+      fileImg
+    };
+    this.props.handleNewIssue(newIssue);
     this.props.handleClose();
+    this.setState({
+      title: "",
+      details: "",
+      selectedOption: { label: "Information", value: "Information" },
+      img: ""
+    });
   };
 
   handleFileChange = event => {
@@ -82,21 +73,19 @@ export default class EditMessageModal extends Component {
   };
 
   render() {
-    const { show, handleClose, message } = this.props;
+    const { show, handleClose } = this.props;
     const { title, details, fileImg, selectedOption } = this.state;
 
     const priorityOptions = [
-      { value: "Information", label: "Information" },
-      { value: "Important", label: "Important" }
+      { value: "Normal", label: "Normal" },
+      { value: "Important", label: "Important" },
+      { value: "Urgent", label: "Urgent" }
     ];
-    // console.log("selectedOption", this.state.selectedOption);
-    // console.log("details", this.state.details);
-    // console.log("massage", this.props.message);
 
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Message</Modal.Title>
+          <Modal.Title>New Issue</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -107,7 +96,7 @@ export default class EditMessageModal extends Component {
               <Col lg={9}>
                 <Form.Control
                   type="text"
-                  placeholder="Edit message title"
+                  placeholder="Enter new issue title"
                   name="title"
                   value={title}
                   onChange={this.handleInputChange}
@@ -124,12 +113,11 @@ export default class EditMessageModal extends Component {
                 <Form.Control
                   as="textarea"
                   rows="3"
-                  type="text"
-                  placeholder="Edit message details"
                   name="details"
                   value={details}
+                  type="text"
+                  placeholder="Enter new issue details"
                   onChange={this.handleInputChange}
-                  required
                 />
               </Col>
             </Form.Group>
@@ -141,8 +129,10 @@ export default class EditMessageModal extends Component {
               <Col lg={9}>
                 <Select
                   value={selectedOption}
+                  //   defaultValue={{ label: Information, value: information }}
                   onChange={this.handleSelectChange}
                   options={priorityOptions}
+                  //   placeholder="Select Issue Priority"
                 />
               </Col>
             </Form.Group>
@@ -160,28 +150,11 @@ export default class EditMessageModal extends Component {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="btns-modal">
-          <div>
-            <Button variant="danger">Delete Message</Button>
-          </div>
-          <div>
-            <Button
-              onClick={() => {
-                const editMessage = this.editMessage;
-                editMessage(message);
-                console.log(message);
-              }}
-            >
-              Save
-            </Button>
-            <Button
-              className="cancel-btn"
-              variant="secondary"
-              onClick={handleClose}
-            >
-              Cancel
-            </Button>
-          </div>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button onClick={this.createIssue}>Create</Button>
         </Modal.Footer>
       </Modal>
     );

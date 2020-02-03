@@ -142,7 +142,6 @@ export default class MessagesPage extends Component {
   render() {
     const { showNewMessageModal, input, messages, selectedOption } = this.state;
     const { activeUser } = this.props;
-    console.log("messages: ", messages);
 
     const options = [
       { value: "", label: "Clear Priority Filter" },
@@ -150,9 +149,16 @@ export default class MessagesPage extends Component {
       { value: "Important", label: "Important" }
     ];
 
-    if (!activeUser) {
-      return <Redirect to="/" />;
-    }
+    const styles = {
+      row: {
+        marginLeft: 0,
+        marginRight: 0
+      },
+      col: {
+        paddingLeft: 0,
+        paddingRight: 0
+      }
+    };
 
     // Funxtion that filters the messages array according
     // to the text entered in the input field
@@ -202,17 +208,10 @@ export default class MessagesPage extends Component {
       />
     ));
 
-    const styles = {
-      row: {
-        marginLeft: 0,
-        marginRight: 0
-      },
-      col: {
-        paddingLeft: 0,
-        paddingRight: 0
-      }
-    };
-    // console.log(this.props.activeUser);
+    if (!activeUser) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div className="messages-page">
         <Container fluid className="mp-cont">

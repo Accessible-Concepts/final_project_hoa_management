@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+.issue-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.issue-row {
+  margin-bottom: 1em;
+}
+
+.issue-mid-col {
+  border-right: 1px solid black;
+}
+
+.comment-textArea {
+  width: 60%;
+}
+
+.comment-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.issue-title-read,
+.issue-title-unread {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.issue-title-unread {
+  font-weight: bold;
+}
+
+.issue-title-read {
+  font-weight: normal;
+}
+
+.issue-createdat {
+  font-weight: normal;
+  font-size: 0.7em;
+  margin-left: 10px;
+  padding-top: 5px;
+  font-style: italic;
+}

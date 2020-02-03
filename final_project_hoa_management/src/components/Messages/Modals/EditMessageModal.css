@@ -1,0 +1,8 @@
+.btns-modal {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.cancel-btn {
+  margin-left: 10px;
+}

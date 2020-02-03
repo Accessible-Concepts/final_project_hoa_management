@@ -1,21 +1,21 @@
 import React, { Component } from "react";
-import "./EditMessageModal.css";
+import "./EditIssueModal.css";
 import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import Parse from "parse";
 
-export default class EditMessageModal extends Component {
+export default class EditIssueModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.message.id,
-      title: this.props.message.title,
-      details: this.props.message.details,
-      comments: this.props.message.comments,
-      createdBy: this.props.message.createdBy,
-      createdAt: this.props.message.createdAt,
-      selectedOption: this.props.message.selectedOption,
+      id: this.props.issue.id,
+      title: this.props.issue.title,
+      details: this.props.issue.details,
+      comments: this.props.issue.comments,
+      createdBy: this.props.issue.createdBy,
+      createdAt: this.props.issue.createdAt,
+      selectedOption: this.props.issue.selectedOption,
       fileImg: {
         file: undefined,
         URL: undefined
@@ -33,14 +33,14 @@ export default class EditMessageModal extends Component {
     });
   };
 
-  editMessage = message => {
+  editIssue = issue => {
     const { title, details, selectedOption, fileImg } = this.state;
-    // console.log(message.id);
+    // console.log(issue.id);
     // console.log("title", this.state.title);
-    const Message = Parse.Object.extend("Message");
-    const query = new Parse.Query(Message);
+    const Issue = Parse.Object.extend("Issue");
+    const query = new Parse.Query(Issue);
     // here you put the objectId that you want to update
-    query.get(message.id).then(object => {
+    query.get(issue.id).then(object => {
       object.set("title", title);
       object.set("details", details);
       object.set("selectedOption", selectedOption);
@@ -49,10 +49,10 @@ export default class EditMessageModal extends Component {
         response => {
           // You can use the "get" method to get the value of an attribute
           // Ex: response.get("<ATTRIBUTE_NAME>")
-          console.log("Updated Message", response);
+          console.log("Updated Issue", response);
         },
         error => {
-          console.error("Error while updating Message", error);
+          console.error("Error while updating issue", error);
         }
       );
     });
@@ -82,21 +82,22 @@ export default class EditMessageModal extends Component {
   };
 
   render() {
-    const { show, handleClose, message } = this.props;
+    const { show, handleClose, issue } = this.props;
     const { title, details, fileImg, selectedOption } = this.state;
 
     const priorityOptions = [
-      { value: "Information", label: "Information" },
-      { value: "Important", label: "Important" }
+      { value: "Normal", label: "Normal" },
+      { value: "Important", label: "Important" },
+      { value: "Urgent", label: "Urgent" }
     ];
     // console.log("selectedOption", this.state.selectedOption);
     // console.log("details", this.state.details);
-    // console.log("massage", this.props.message);
+    // console.log("massage", this.props.issue);
 
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Message</Modal.Title>
+          <Modal.Title>Edit Issue</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -107,7 +108,7 @@ export default class EditMessageModal extends Component {
               <Col lg={9}>
                 <Form.Control
                   type="text"
-                  placeholder="Edit message title"
+                  placeholder="Edit issue title"
                   name="title"
                   value={title}
                   onChange={this.handleInputChange}
@@ -125,7 +126,7 @@ export default class EditMessageModal extends Component {
                   as="textarea"
                   rows="3"
                   type="text"
-                  placeholder="Edit message details"
+                  placeholder="Edit issue details"
                   name="details"
                   value={details}
                   onChange={this.handleInputChange}
@@ -162,14 +163,14 @@ export default class EditMessageModal extends Component {
         </Modal.Body>
         <Modal.Footer className="btns-modal">
           <div>
-            <Button variant="danger">Delete Message</Button>
+            <Button variant="danger">Delete Issue</Button>
           </div>
           <div>
             <Button
               onClick={() => {
-                const editMessage = this.editMessage;
-                editMessage(message);
-                console.log(message);
+                const editIssue = this.editIssue;
+                editIssue(issue);
+                console.log(issue);
               }}
             >
               Save

@@ -1,9 +1,27 @@
 .issues-page {
-    /* display: flex; */
-    background-color: #585753;
-    /* height: 100%; */
+  /* display: flex; */
+  background-color: #585753;
+  /* height: 100%; */
 }
 
 .i-cont {
-    background-color: white;
+  height: 480px;
+  padding: 30px;
+  background-color: white;
+}
+
+.issue-sort,
+.radio-btns,
+.issue-radio-buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0 !important;
+}
+.my-accord {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.iss-option-select {
+  margin: 0 30px;
 }
