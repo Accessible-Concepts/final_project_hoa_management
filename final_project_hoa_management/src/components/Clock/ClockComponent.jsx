@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Navbar } from "react-bootstrap";
 
 export default class ClockComponent extends Component {
   constructor(props) {

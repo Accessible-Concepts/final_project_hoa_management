@@ -23,3 +23,8 @@
 .msg-option-select {
   margin: 0 30px;
 }
+
+.message-title-table {
+  font-weight: bold;
+  /* height: 30.667px; */
+}

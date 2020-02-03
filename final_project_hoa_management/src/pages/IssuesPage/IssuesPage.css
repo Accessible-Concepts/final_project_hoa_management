@@ -25,3 +25,7 @@
 .iss-option-select {
   margin: 0 30px;
 }
+
+.issue-title-table {
+  font-weight: bold;
+}

@@ -8,7 +8,14 @@ import UserModel from "../../models/UserModel";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 
-import { Container, Button, Form, FormControl, Row } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Form,
+  FormControl,
+  Row,
+  Col
+} from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Parse from "parse";
 
@@ -110,7 +117,6 @@ export default class TenantsPage extends Component {
     });
     console.log("tenantEdit: ", this.state.tenantEdit);
   };
-
   render() {
     const {
       input,
@@ -231,20 +237,23 @@ export default class TenantsPage extends Component {
 
     const community = this.props.activeUser.community;
     // console.log("tenantEdit: ", this.state.tenantEdit);
+    console.log(this.props.activeUser);
 
     return (
       <div className="tenants-page">
         <Container fluid className="t-cont">
           <Form.Group>
             <Row className="message-input-row" style={styles.row}>
-              <FormControl
-                placeholder="Filter tenants by text in Apartment Number,
+              <Col style={styles.col}>
+                <FormControl
+                  placeholder="Filter tenants by text in Apartment Number,
                 First Name, Last Name, Email Address and Phone Number"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                value={input}
-                onChange={this.onChangeHandler}
-              />
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  value={input}
+                  onChange={this.onChangeHandler}
+                />
+              </Col>
             </Row>
           </Form.Group>
           <Row className="btn-input-row" style={styles.row}>
@@ -257,7 +266,7 @@ export default class TenantsPage extends Component {
                 this.setState({ showNewTenantModal: true });
               }}
             >
-              Add Tenant
+              New Tenant
             </Button>
           </Row>
           {/* <CaptionElement /> */}

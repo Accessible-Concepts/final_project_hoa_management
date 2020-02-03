@@ -206,6 +206,8 @@ export default class IssuesPage extends Component {
       />
     ));
 
+    const community = this.props.activeUser.community;
+
     if (!activeUser) {
       return <Redirect to="/" />;
     }
@@ -264,29 +266,31 @@ export default class IssuesPage extends Component {
                 </Form>
               </Col>
             </Row>
-            <Row className="btn-input-row" style={styles.row}>
-              <div></div>
-              <Button
-                size="sm"
-                onClick={() => {
-                  this.setState({ showNewIssueModal: true });
-                }}
-              >
-                New Issue
-              </Button>
-            </Row>
-            <Row style={styles.row}>
-              <Accordion defaultActiveKey="1" className="my-accord">
-                {issuesView}
-              </Accordion>
-            </Row>
-
-            <NewIssueModal
-              show={showNewIssueModal}
-              handleClose={this.handleClose}
-              handleNewIssue={this.handleNewIssue}
-            />
           </Form.Group>
+          <Row className="btn-input-row" style={styles.row}>
+            <div className="issue-title-table">
+              Community: {community.get("community")}
+            </div>{" "}
+            <Button
+              size="sm"
+              onClick={() => {
+                this.setState({ showNewIssueModal: true });
+              }}
+            >
+              New Issue
+            </Button>
+          </Row>
+          <Row style={styles.row}>
+            <Accordion defaultActiveKey="1" className="my-accord">
+              {issuesView}
+            </Accordion>
+          </Row>
+
+          <NewIssueModal
+            show={showNewIssueModal}
+            handleClose={this.handleClose}
+            handleNewIssue={this.handleNewIssue}
+          />
         </Container>
         <Footer />
       </div>
