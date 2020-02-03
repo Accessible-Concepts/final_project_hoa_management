@@ -45,21 +45,14 @@ export default class EditMessageModal extends Component {
       object.set("selectedOption", selectedOption);
       object.set("image", new Parse.File(fileImg.file.name, fileImg.file));
       object.save().then(
-        console.log("message was updated") //TODO: Check how to change the message in the state
-        // response => {
-        //   // You can use the "get" method to get the value of an attribute
-        //   // Ex: response.get("<ATTRIBUTE_NAME>")
-        //   if (typeof document !== "undefined")
-        //     document.write(`Updated Message: ${JSON.stringify(response)}`);
-        //   console.log("Updated Message", response);
-        // },
-        // error => {
-        //   if (typeof document !== "undefined")
-        //     document.write(
-        //       `Error while updating Message: ${JSON.stringify(error)}`
-        //     );
-        //   console.error("Error while updating Message", error);
-        // }
+        response => {
+          // You can use the "get" method to get the value of an attribute
+          // Ex: response.get("<ATTRIBUTE_NAME>")
+          console.log("Updated Message", response);
+        },
+        error => {
+          console.error("Error while updating Message", error);
+        }
       );
     });
     this.props.handleClose();

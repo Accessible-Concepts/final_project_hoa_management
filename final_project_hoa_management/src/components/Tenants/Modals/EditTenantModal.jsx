@@ -75,28 +75,29 @@ export default class EditMessageModal extends Component {
   };
 
   handleEditTenant = editTenant => {
-    const parseUser = new Parse.User();
-    const query = new Parse.Query(parseUser);
-    // Finds the user by its ID
-    query.get(editTenant.id).then(editUser => {
-      // Updates the data we want
-      editUser.set("username", this.state.email);
-      editUser.set("email", this.state.email);
-      editUser.set("email2", this.state.email);
-      editUser.set("phoneNumber", this.state.phoneNumber);
-      //   editUser.set("lName", this.state.lName);
-      //   editUser.set("fName", this.state.fName);
-      editUser.set("apartment", this.state.apartment);
-      // Saves the user with the updated data
-      editUser
-        .save()
-        .then(response => {
-          console.log("Updated user", response);
-        })
-        .catch(error => {
-          console.error("Error while updating user", error);
-        });
-    });
+    //TODO: Check with Nir
+    // const parseUser = new Parse.User();
+    // const query = new Parse.Query(parseUser);
+    // // Finds the user by its ID
+    // query.get(editTenant.id).then(editUser => {
+    //   // Updates the data we want
+    //   editUser.set("username", this.state.email);
+    //   editUser.set("email", this.state.email);
+    //   editUser.set("email2", this.state.email);
+    //   editUser.set("phoneNumber", this.state.phoneNumber);
+    //   editUser.set("lName", this.state.lName);
+    //   editUser.set("fName", this.state.fName);
+    //   editUser.set("apartment", this.state.apartment);
+    //   // Saves the user with the updated data
+    //   editUser
+    //     .save()
+    //     .then(response => {
+    //       console.log("Updated user", response);
+    //     })
+    //     .catch(error => {
+    //       console.error("Error while updating user", error);
+    //     });
+    // });
   };
 
   render() {
