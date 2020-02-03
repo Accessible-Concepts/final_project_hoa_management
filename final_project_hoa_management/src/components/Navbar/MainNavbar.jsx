@@ -82,7 +82,7 @@ export default class MainNavbar extends Component {
           </Nav>
           <Nav className="navbar-right">
             <div className="greet-user">
-              <ClockComponent name={activeUser.fName} />
+              <ClockComponent activeUser={activeUser} />
             </div>
             {signupLink}
             {loginLink}

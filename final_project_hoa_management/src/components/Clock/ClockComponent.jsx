@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Navbar } from "react-bootstrap";
 
 export default class ClockComponent extends Component {
   constructor(props) {
@@ -21,13 +22,12 @@ export default class ClockComponent extends Component {
       hours: new Date().getHours()
     });
   }
-
   render() {
     const { hours, time } = this.state;
-    let timeHHMM = time.slice(0, -3);
+    const { activeUser } = this.props;
+    // let timeHHMM = time.slice(0, -3);
 
     let greeting;
-    // console.log(hours);
     if (hours >= 6 && hours < 12) {
       greeting = "Good morning ";
     } else if (hours >= 12 && hours < 17) {
@@ -39,12 +39,17 @@ export default class ClockComponent extends Component {
     } else if (hours >= 0 && hours < 6) {
       greeting = "Good night";
     }
+
+    const activeUserName = activeUser ? activeUser.fName : null;
+
+    let navbarGreeting = activeUserName ? greeting : null;
+
     return (
       <div>
         {/* <p className="App-clock">The time is {timeHHMM}</p> */}
         {/* <div>{this.state.hours}</div> */}
         <div>
-          {greeting} {this.props.name}
+          {navbarGreeting} {activeUserName}
         </div>
       </div>
     );
