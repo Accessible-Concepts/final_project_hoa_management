@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./MainNavbar.css";
+import ClockComponent from "../../components/clock/ClockComponent";
 
 export default class MainNavbar extends Component {
   constructor(props) {
@@ -79,7 +80,10 @@ export default class MainNavbar extends Component {
             {issuesLink}
             {votingLink}
           </Nav>
-          <Nav>
+          <Nav className="navbar-right">
+            <div className="greet-user">
+              <ClockComponent name={activeUser.fName} />
+            </div>
             {signupLink}
             {loginLink}
             {logoutLink}

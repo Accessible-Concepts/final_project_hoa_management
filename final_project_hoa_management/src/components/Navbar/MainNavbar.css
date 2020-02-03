@@ -1,3 +1,12 @@
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+.greet-user {
+  color: white;
+  font-style: italic;
+  margin-right: 10px;
+}
 .main-navbar {
   position: fixed !important;
   top: 0;

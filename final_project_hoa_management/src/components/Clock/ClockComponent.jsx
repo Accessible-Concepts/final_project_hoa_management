@@ -43,9 +43,9 @@ export default class ClockComponent extends Component {
       <div>
         {/* <p className="App-clock">The time is {timeHHMM}</p> */}
         {/* <div>{this.state.hours}</div> */}
-        <p>
+        <div>
           {greeting} {this.props.name}
-        </p>
+        </div>
       </div>
     );
   }
