@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./MessageComponent.css";
 import EditMessageModal from "../../components/Messages/Modals/EditMessageModal";
-import CommentModel from "../../models/CommentModel";
+// import CommentModel from "../../models/CommentModel";
 import {
   Card,
   Accordion,
@@ -228,7 +228,7 @@ export default class MessageComponent extends Component {
                         onClick={() => {
                           this.setState({ showEditMessageModal: true });
                         }}
-                        handleClose={this.handleClose}
+                        // handleClose={this.handleClose}
                       >
                         Update
                       </Button>

@@ -11,6 +11,7 @@ import VotingPage from "./pages/VotingPage/VotingPage";
 import "./App.css";
 import Parse from "parse";
 import MainNavbar from "./components/navbar/MainNavbar";
+import UserModel from "./models/UserModel";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,8 @@ export default class App extends React.Component {
 
     this.state = {
       activeUser: Parse.User.current()
+        ? new UserModel(Parse.User.current())
+        : null
     };
     console.log("activeUser: ", this.state.activeUser);
   }
@@ -45,51 +48,57 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <MainNavbar activeUser={activeUser} handleLogout={this.handleLogout} />
-        <Switch>
-          <Route exact path="/">
-            <LandingPage
-              activeUser={activeUser}
-              handleLogout={this.handleLogout}
-            />
-          </Route>
-          <Route exact path="/login">
-            <LoginPage handleLogin={this.handleLogin} />
-          </Route>
-          <Route exact path="/signup">
-            <SignupPage />
-          </Route>
-          <Route exact path="/dashboard">
-            <DashboardPage
-              activeUser={activeUser}
-              handleLogout={this.handleLogout}
-            />
-          </Route>
-          <Route exact path="/tenants">
-            <TenantsPage
-              activeUser={activeUser}
-              handleLogout={this.handleLogout}
-            />
-          </Route>
-          <Route exact path="/messages">
-            <MessagesPage
-              activeUser={activeUser}
-              handleLogout={this.handleLogout}
-            />
-          </Route>
-          <Route exact path="/issues">
-            <IssuesPage
-              activeUser={activeUser}
-              handleLogout={this.handleLogout}
-            />
-          </Route>
-          <Route exact path="/voting">
-            <VotingPage
-              activeUser={activeUser}
-              handleLogout={this.handleLogout}
-            />
-          </Route>
-        </Switch>
+        <MainNavbar
+          className="main-navbar"
+          activeUser={activeUser}
+          handleLogout={this.handleLogout}
+        />
+        <div className="main-content">
+          <Switch>
+            <Route exact path="/">
+              <LandingPage
+                activeUser={activeUser}
+                handleLogout={this.handleLogout}
+              />
+            </Route>
+            <Route exact path="/login">
+              <LoginPage handleLogin={this.handleLogin} />
+            </Route>
+            <Route exact path="/signup">
+              <SignupPage handleLogin={this.handleLogin} />
+            </Route>
+            <Route exact path="/dashboard">
+              <DashboardPage
+                activeUser={activeUser}
+                handleLogout={this.handleLogout}
+              />
+            </Route>
+            <Route exact path="/tenants">
+              <TenantsPage
+                activeUser={activeUser}
+                handleLogout={this.handleLogout}
+              />
+            </Route>
+            <Route exact path="/messages">
+              <MessagesPage
+                activeUser={activeUser}
+                handleLogout={this.handleLogout}
+              />
+            </Route>
+            <Route exact path="/issues">
+              <IssuesPage
+                activeUser={activeUser}
+                handleLogout={this.handleLogout}
+              />
+            </Route>
+            <Route exact path="/voting">
+              <VotingPage
+                activeUser={activeUser}
+                handleLogout={this.handleLogout}
+              />
+            </Route>
+          </Switch>
+        </div>
       </div>
     );
   }

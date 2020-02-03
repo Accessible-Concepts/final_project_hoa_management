@@ -1,9 +1,16 @@
 .tenants-page {
-    /* display: flex; */
-    background-color: #585753;
-    /* height: 100%; */
+  /* display: flex; */
+  background-color: #585753;
+  /* height: 100%; */
 }
 
 .t-cont {
-    background-color: white;
+  height: 480px;
+  padding: 30px;
+  background-color: white;
+}
+
+.header-class {
+  background-color: #585753;
+  color: white;
 }

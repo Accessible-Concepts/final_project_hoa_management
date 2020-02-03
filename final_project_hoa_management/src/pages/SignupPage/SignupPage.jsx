@@ -4,29 +4,35 @@ import Footer from "../../components/footer/Footer";
 import "./SignupPage.css";
 import Parse from "parse";
 import { Redirect } from "react-router-dom";
+import UserModel from "../../models/UserModel";
 
 export default class SignupPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      users: [],
       fName: "Liam",
       lName: "Hasson",
       email: "hassonfour@gmail.com",
       password: "123",
       community: "1Main street",
       address1: "1 Main street",
-      address2: "",
+      apartment: "3",
       city: "Tel Aviv",
       state: "",
       zip: "23125",
       country: "Israel",
       phoneNumber: "050-2434111",
       isCommitteeMember: true,
-      newUserId: "",
-      newCommunityId: ""
+      redirectToDashboard: false
     };
+  }
+
+  setStateAsyncn(state) {
+    return new Promise(resolve => {
+      //save to state
+      console.log(state, resolve);
+    });
   }
 
   handleInputChange = event => {
@@ -39,7 +45,9 @@ export default class SignupPage extends Component {
     });
   };
 
-  createUser = () => {
+  createUserAsync = async () => {};
+
+  signUp = () => {
     const {
       fName,
       lName,
@@ -47,7 +55,7 @@ export default class SignupPage extends Component {
       password,
       community,
       address1,
-      address2,
+      apartment,
       city,
       state,
       zip,
@@ -63,7 +71,7 @@ export default class SignupPage extends Component {
       password,
       community,
       address1,
-      address2,
+      apartment,
       city,
       state,
       zip,
@@ -71,10 +79,9 @@ export default class SignupPage extends Component {
       phoneNumber,
       isCommitteeMember
     };
-    this.handleNewUser(newUserInfo);
+
     this.handleNewCommunity(newUserInfo);
 
-    // this.props.handleClose();
     this.setState({
       fName: "",
       lName: "",
@@ -82,7 +89,7 @@ export default class SignupPage extends Component {
       password: "",
       community: "",
       address1: "",
-      address2: "",
+      apartment: "",
       city: "",
       state: "",
       zip: "",
@@ -91,38 +98,12 @@ export default class SignupPage extends Component {
     });
   };
 
-  handleNewUser = newUserInfo => {
-    const newParseUser = new Parse.User();
-    newParseUser.set("username", newUserInfo.email);
-    newParseUser.set("fName", newUserInfo.fName);
-    newParseUser.set("lName", newUserInfo.lName);
-    newParseUser.set("email", newUserInfo.email);
-    newParseUser.set("password", newUserInfo.password);
-    newParseUser.set("phoneNumber", newUserInfo.phoneNumber);
-    newParseUser.set("isCommitteeMember", this.state.isCommitteeMember);
-    newParseUser.set("apartment", newUserInfo.apartment);
-    // console.log("newParseUser: ", newParseUser);
-    newParseUser
-      .signUp()
-      .then(newParseUser => {
-        console.log("User signed up", newParseUser);
-        this.setState({
-          newUserId: newParseUser.id
-        });
-      })
-      .catch(error => {
-        console.error("Error while signing up user", error);
-      });
-  };
-
   handleNewCommunity = newUserInfo => {
-    //  const User = Parse.Object.extend("User");
     const Community = Parse.Object.extend("Community");
     const newParseCommunity = new Community();
 
     newParseCommunity.set("community", newUserInfo.community);
     newParseCommunity.set("address1", newUserInfo.address1);
-    newParseCommunity.set("address2", newUserInfo.address2);
     newParseCommunity.set("city", newUserInfo.city);
     newParseCommunity.set("state", newUserInfo.state);
     newParseCommunity.set("zip", Number(newUserInfo.zip));
@@ -132,32 +113,40 @@ export default class SignupPage extends Component {
       .save()
       .then(newParseCommunity => {
         console.log("Community created", newParseCommunity);
-        this.setState({
-          newCommunityId: newParseCommunity.id
-        });
+        this.handleNewUser(newUserInfo, newParseCommunity);
       })
       .catch(error => {
         console.error("Error while creating community", error);
       });
+  };
 
-    const User = new Parse.User();
-    const query = new Parse.Query(User);
-
-    // Finds the user by its ID
-    query.get(this.state.newUserId).then(user => {
-      // Updates the data we want
-
-      user.set("community", new Parse.Object(this.state.newCommunityId));
-      // Saves the user with the updated data
-      user
-        .save()
-        .then(response => {
-          console.log("Updated user", response);
-        })
-        .catch(error => {
-          console.error("Error while updating user", error);
+  handleNewUser = (newUserInfo, newParseCommunity) => {
+    const newParseUser = new Parse.User();
+    newParseUser.set("username", newUserInfo.email);
+    newParseUser.set("fName", newUserInfo.fName);
+    newParseUser.set("lName", newUserInfo.lName);
+    newParseUser.set("email", newUserInfo.email);
+    newParseUser.set("email2", newUserInfo.email);
+    newParseUser.set("password", newUserInfo.password);
+    newParseUser.set("phoneNumber", newUserInfo.phoneNumber);
+    newParseUser.set("isCommitteeMember", this.state.isCommitteeMember);
+    newParseUser.set("apartment", newUserInfo.apartment);
+    newParseUser.set("community", newParseCommunity);
+    // console.log("newParseUser: ", newParseUser);
+    newParseUser
+      .signUp()
+      .then(newParseUser => {
+        console.log("User signed up", newParseUser);
+        // navigate to dashboard
+        this.setState({
+          redirectToDashboard: true
         });
-    });
+        const newUserLogin = new UserModel(newParseUser);
+        this.props.handleLogin(newUserLogin);
+      })
+      .catch(error => {
+        console.error("Error while signing up user", error);
+      });
   };
 
   render() {
@@ -168,19 +157,21 @@ export default class SignupPage extends Component {
       password,
       community,
       address1,
-      address2,
+      apartment,
       city,
       state,
       zip,
       country,
-      phoneNumber
+      phoneNumber,
+      redirectToDashboard
     } = this.state;
     const { activeUser } = this.props;
 
-    console.log(this.state.newUserId);
-    console.log(this.state.newCommunityId);
-
     if (activeUser) {
+      return <Redirect to="/dashboard" />;
+    }
+
+    if (redirectToDashboard) {
       return <Redirect to="/dashboard" />;
     }
 
@@ -250,7 +241,7 @@ export default class SignupPage extends Component {
             </Form.Group>
 
             <Form.Group controlId="formGridAddress1">
-              <Form.Label>Address 1</Form.Label>
+              <Form.Label>Address</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="1234 Main St"
@@ -260,13 +251,13 @@ export default class SignupPage extends Component {
               />
             </Form.Group>
 
-            <Form.Group controlId="formGridAddress2">
-              <Form.Label>Address 2</Form.Label>
+            <Form.Group controlId="formGridApartment">
+              <Form.Label>Apartment #</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Apartment, studio, or floor"
-                name="address2"
-                value={address2}
+                placeholder="Apartment number"
+                name="apartment"
+                value={apartment}
                 onChange={this.handleInputChange}
               />
             </Form.Group>
@@ -334,11 +325,9 @@ export default class SignupPage extends Component {
 
             <Form.Row>
               <Button variant="secondary">Cancel</Button>
-              <Button onClick={this.createUser}>Create</Button>
+              <Button onClick={this.signUp}>Create</Button>
             </Form.Row>
           </Form>
-          {/* <Button variant="secondary">Cancel</Button>
-          <Button onClick={this.createUser}>Create</Button> */}
         </Container>
         <Footer />
       </div>

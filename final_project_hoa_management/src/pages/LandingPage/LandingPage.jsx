@@ -12,14 +12,13 @@ export default class LandingPage extends Component {
       showSignupModal: false,
       users: []
     };
-    this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({
       showSignupModal: false
     });
-  }
+  };
 
   render() {
     const { activeUser } = this.props;

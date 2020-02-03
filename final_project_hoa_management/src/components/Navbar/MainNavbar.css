@@ -1,6 +1,9 @@
-/* .main-navbar {
+.main-navbar {
   position: fixed !important;
-} */
+  top: 0;
+  width: 100vw;
+  z-index: 999;
+}
 .navbar {
   background-color: #585753;
 }

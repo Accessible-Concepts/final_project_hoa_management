@@ -25,7 +25,7 @@ export default class MessagesPage extends Component {
       showNewMessageModal: false,
       input: "",
       messages: [],
-      selectedOption: { value: "", label: "" },
+      selectedOption: { value: "", label: "Clear Priority Filter" },
       selectedSortOption: "date"
     };
   }
@@ -37,7 +37,7 @@ export default class MessagesPage extends Component {
     if (activeUser) {
       const Message = Parse.Object.extend("Message");
       const query = new Parse.Query(Message);
-      query.equalTo("communityId", activeUser.community.id);
+      query.equalTo("community", activeUser.community);
       const parseMessages = await query.find();
       const messages = parseMessages.map(
         parseMessage => new MessageModel(parseMessage)
@@ -57,7 +57,7 @@ export default class MessagesPage extends Component {
   //Function that handles the select field changes
   handleSelectChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`this.state.selectedOption: `, selectedOption);
+    // console.log(`this.state.selectedOption: `, selectedOption);
   };
 
   //Function that handles the radio field changes
@@ -65,9 +65,9 @@ export default class MessagesPage extends Component {
     this.setState({
       selectedSortOption: ev.target.value
     });
-    console.log(
-      "this.state.handleSortChange: " + this.state.selectedSortOption
-    );
+    // console.log(
+    // "this.state.handleSortChange: " + this.state.selectedSortOption
+    // );
   };
 
   //Function that handles the modals components to close
@@ -81,6 +81,8 @@ export default class MessagesPage extends Component {
   //Function that adds a new message to the parse database
   //and to the messages state
   handleNewMessage = newMessage => {
+    const { activeUser } = this.props;
+
     const Message = Parse.Object.extend("Message");
     const newParseMessage = new Message();
     newParseMessage.set("title", newMessage.title);
@@ -93,6 +95,7 @@ export default class MessagesPage extends Component {
     );
 
     newParseMessage.set("createdBy", Parse.User.current());
+    newParseMessage.set("community", activeUser.community);
     newParseMessage.save().then(
       theCreatedParseMessage => {
         console.log("Message created", theCreatedParseMessage);
@@ -142,7 +145,7 @@ export default class MessagesPage extends Component {
     console.log("messages: ", messages);
 
     const options = [
-      { value: "", label: "Clear Filter" },
+      { value: "", label: "Clear Priority Filter" },
       { value: "Information", label: "Information" },
       { value: "Important", label: "Important" }
     ];
@@ -217,7 +220,7 @@ export default class MessagesPage extends Component {
             <Row className="message-input-row" style={styles.row}>
               <Col lg="7" style={styles.col}>
                 <FormControl
-                  placeholder="Filter by Text in Title and Details"
+                  placeholder="Filter messages by text in Title and Details"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                   value={input}
@@ -265,6 +268,7 @@ export default class MessagesPage extends Component {
               </Col>
             </Row>
             <Row className="btn-input-row" style={styles.row}>
+              <div></div>
               <Button
                 size="sm"
                 onClick={() => {

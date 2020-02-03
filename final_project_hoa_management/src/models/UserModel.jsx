@@ -1,7 +1,7 @@
 export default class UserModel {
   constructor(parseUser) {
     this.id = parseUser.id;
-    this.email = parseUser.get("email");
+    this.email = parseUser.get("email2");
     this.password = parseUser.get("password");
     this.fName = parseUser.get("fName");
     this.lName = parseUser.get("lName");

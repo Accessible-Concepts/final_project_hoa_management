@@ -10,6 +10,7 @@ export default class MessageModel {
     this.createdBy = parseMessage.get("createdBy");
     this.createdAt = parseMessage.get("createdAt");
     this.readByUser = parseMessage.get("readByUser");
+    this.community = parseMessage.get("community");
     this.parseMessage = parseMessage;
   }
 }
