@@ -233,6 +233,7 @@ export default class MessageComponent extends Component {
                         Update
                       </Button>
                       <Button
+                        className="messege-delete-btn"
                         type="button"
                         variant="danger"
                         size="sm"

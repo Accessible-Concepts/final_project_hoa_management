@@ -19,7 +19,8 @@ export default class EditIssueModal extends Component {
       fileImg: {
         file: undefined,
         URL: undefined
-      }
+      },
+      issueActive: this.props.issue.issueActive
     };
   }
 
@@ -34,7 +35,7 @@ export default class EditIssueModal extends Component {
   };
 
   editIssue = issue => {
-    const { title, details, selectedOption, fileImg } = this.state;
+    const { title, details, selectedOption, fileImg, issueActive } = this.state;
     // console.log(issue.id);
     // console.log("title", this.state.title);
     const Issue = Parse.Object.extend("Issue");
@@ -45,6 +46,7 @@ export default class EditIssueModal extends Component {
       object.set("details", details);
       object.set("selectedOption", selectedOption);
       object.set("image", new Parse.File(fileImg.file.name, fileImg.file));
+      object.set("issueActive", issueActive);
       object.save().then(
         response => {
           // You can use the "get" method to get the value of an attribute

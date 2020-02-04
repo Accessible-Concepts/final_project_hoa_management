@@ -206,7 +206,7 @@ export default class IssuesPage extends Component {
       />
     ));
 
-    const community = this.props.activeUser.community;
+    const community = activeUser ? activeUser.community : null;
 
     if (!activeUser) {
       return <Redirect to="/" />;
@@ -216,9 +216,10 @@ export default class IssuesPage extends Component {
       <div className="issues-page">
         <Container fluid className="i-cont">
           <Form.Group>
-            <Row className="issue-input-row" style={styles.row}>
-              <Col lg="7" style={styles.col}>
+            <Row className="issues-input-row" style={styles.row}>
+              <Col lg="6" style={styles.col}>
                 <FormControl
+                  className="issues-input"
                   placeholder="Filter issues by text in Title and Details"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
@@ -228,17 +229,17 @@ export default class IssuesPage extends Component {
               </Col>
               <Col lg="3" style={styles.col}>
                 <Select
+                  className="issues-select"
                   value={selectedOption}
                   onChange={this.handleSelectChange}
                   options={options}
                   placeholder="Filter by Priority"
-                  className="iss-option-select"
                   // defaultValue={{ label: "Clear Filter", value: "" }}
                 />
               </Col>
-              <Col lg="2" className="issue-sort" style={styles.col}>
-                <Form className="issue-radio-buttons">
-                  <div>Sort by:&nbsp;&nbsp;</div>
+              <Col lg="2.5" className="issue-sort" style={styles.col}>
+                <Form className="issues-radio-btns">
+                  <div>Sort by:&nbsp;</div>
                   {["radio"].map(type => (
                     <div key={`inline-${type}`} className="radio-btns">
                       <Form.Check

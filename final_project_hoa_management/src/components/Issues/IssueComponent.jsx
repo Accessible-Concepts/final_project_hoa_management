@@ -12,6 +12,7 @@ import {
   Form
 } from "react-bootstrap";
 import Parse from "parse";
+import SwitchButton from "../Switch";
 
 export default class IssueComponent extends Component {
   constructor(props) {
@@ -129,14 +130,14 @@ export default class IssueComponent extends Component {
     };
 
     // adds important/information icon to each issue according to its priority
-    // let priorityImage = "";
-    // if (issue.selectedOption.value === "Important") {
-    //   priorityImage = require("./images/exclamation.png");
-    // } else {
-    //   priorityImage = require("./images/info.png");
-    // }
-
-    // debugger;
+    let priorityImage;
+    if (issue.selectedOption.value === "Important") {
+      priorityImage = require("./images/exclamation.png");
+    } else if (issue.selectedOption.value === "Urgent") {
+      priorityImage = require("./images/urgent1.png");
+    } else if (issue.selectedOption.value === "Urgent") {
+      priorityImage = null;
+    }
 
     let readClass = "issue-title-unread";
     if (issue.readByUser === undefined) {
@@ -164,11 +165,11 @@ export default class IssueComponent extends Component {
             </span>
           </div>
           <div>
-            {/* <img
+            <img
               src={priorityImage}
               alt="Issue priority icon"
-              width="25px"
-            ></img> */}
+              height="25px"
+            ></img>
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={this.props.ind}>
@@ -220,29 +221,39 @@ export default class IssueComponent extends Component {
                     </Form>
                   </Col>
                   <Col className="comment-buttons">
-                    <ButtonToolbar>
-                      <Button
-                        type="button"
-                        size="sm"
-                        onClick={() => {
-                          this.setState({ showEditIssueModal: true });
-                        }}
-                      >
-                        Update
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="danger"
-                        size="sm"
-                        onClick={() => {
-                          const deleteIssue = this.props.deleteIssue;
-                          deleteIssue(issue.id);
-                          console.log(issue.id);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </ButtonToolbar>
+                    <div>Active Issue</div>
+                    <div>
+                      <SwitchButton
+                        // issue={issue}
+                        checked={issue.issueActive}
+                      />
+                    </div>
+                    <div>
+                      <ButtonToolbar>
+                        <Button
+                          type="button"
+                          size="sm"
+                          onClick={() => {
+                            this.setState({ showEditIssueModal: true });
+                          }}
+                        >
+                          Update
+                        </Button>
+                        <Button
+                          className="issue-delete-btn"
+                          type="button"
+                          variant="danger"
+                          size="sm"
+                          onClick={() => {
+                            const deleteIssue = this.props.deleteIssue;
+                            deleteIssue(issue.id);
+                            console.log(issue.id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </ButtonToolbar>
+                    </div>
                   </Col>
                 </Row>
               </Col>

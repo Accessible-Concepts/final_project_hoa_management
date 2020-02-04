@@ -16,7 +16,8 @@ export default class NewIssueModal extends Component {
       fileImg: {
         file: undefined,
         URL: undefined
-      }
+      },
+      activeIssue: true
     };
   }
 
@@ -33,12 +34,13 @@ export default class NewIssueModal extends Component {
   };
 
   createIssue = () => {
-    const { title, details, selectedOption, fileImg } = this.state;
+    const { title, details, selectedOption, fileImg, issueActive } = this.state;
     const newIssue = {
       title,
       details,
       selectedOption,
-      fileImg
+      fileImg,
+      issueActive
     };
     this.props.handleNewIssue(newIssue);
     this.props.handleClose();
@@ -46,7 +48,8 @@ export default class NewIssueModal extends Component {
       title: "",
       details: "",
       selectedOption: { label: "Information", value: "Information" },
-      img: ""
+      img: "",
+      issueActive: true
     });
   };
 

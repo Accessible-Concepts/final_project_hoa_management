@@ -22,7 +22,12 @@
 
 .comment-buttons {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+}
+.issue-delete-btn {
+  margin-left: 10px;
 }
 
 .issue-title-read,

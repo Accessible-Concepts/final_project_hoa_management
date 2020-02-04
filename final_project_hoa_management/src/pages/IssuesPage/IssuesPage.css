@@ -20,12 +20,31 @@
 .my-accord {
   width: 100%;
   margin-bottom: 40px;
+  box-shadow: 10px 10px 5px grey;
+}
+.issues-input-row {
+  display: flex;
+  justify-content: space-between !important;
+}
+.issues-select {
+  margin: 0 20px;
 }
 
-.iss-option-select {
-  margin: 0 30px;
+.issues-radio-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
-
 .issue-title-table {
   font-weight: bold;
+}
+
+.issues-input,
+.issues-select,
+.issues-radio-btns {
+  box-shadow: 10px 10px 5px grey;
 }
