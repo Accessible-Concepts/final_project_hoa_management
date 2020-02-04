@@ -33,7 +33,7 @@ export default class ClockComponent extends Component {
       greeting = "Good afternoon ";
     } else if (hours >= 17 && hours < 20) {
       greeting = "Good evening ";
-    } else if (hours >= 20 && hours < 23) {
+    } else if (hours >= 20 && hours <= 23) {
       greeting = "Good night";
     } else if (hours >= 0 && hours < 6) {
       greeting = "Good night";

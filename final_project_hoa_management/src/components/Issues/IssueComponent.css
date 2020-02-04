@@ -26,12 +26,12 @@
   justify-content: center;
   align-items: center;
 }
+
 .issue-delete-btn {
   margin-left: 10px;
 }
 
-.issue-title-read,
-.issue-title-unread {
+.issue-title-read, .issue-title-unread {
   display: flex;
   justify-content: space-between;
   /* align-items: center; */
@@ -51,4 +51,9 @@
   margin-left: 10px;
   padding-top: 5px;
   font-style: italic;
+}
+
+.resolved {
+  color: lightgray;
+  text-decoration: line-through;
 }

@@ -7,6 +7,7 @@ export default class SwitchButton extends Component {
     this.state = {
       // issueActive: this.props.issue.issueActive,
       checked: false
+      // checked: this.props.issue.issueActive
     };
   }
 

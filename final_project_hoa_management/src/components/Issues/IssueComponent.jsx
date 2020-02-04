@@ -131,20 +131,28 @@ export default class IssueComponent extends Component {
 
     // adds important/information icon to each issue according to its priority
     let priorityImage;
-    if (issue.selectedOption.value === "Important") {
-      priorityImage = require("./images/exclamation.png");
+    if (issue.selectedOption.value === "Normal") {
+      priorityImage = require("./images/green-circle.png");
+    } else if (issue.selectedOption.value === "Important") {
+      priorityImage = require("./images/yellow-circle.png");
     } else if (issue.selectedOption.value === "Urgent") {
-      priorityImage = require("./images/urgent1.png");
-    } else if (issue.selectedOption.value === "Urgent") {
-      priorityImage = null;
+      priorityImage = require("./images/red-circle.png");
     }
 
+    // sets read/unread class to issues
     let readClass = "issue-title-unread";
     if (issue.readByUser === undefined) {
-      readClass = "issue-title-unread";
+      if (issue.readByUser === undefined) {
+        readClass = "issue-title-unread";
+      }
     } else if (issue.readByUser.includes(this.props.activeUser.id)) {
       readClass = "issue-title-read";
     } else readClass = "issue-title-unread";
+
+    // sets resolved class to issues
+    if (!issue.issueActive) {
+      readClass += " resolved";
+    }
 
     return (
       <Card className="issue-comp">
