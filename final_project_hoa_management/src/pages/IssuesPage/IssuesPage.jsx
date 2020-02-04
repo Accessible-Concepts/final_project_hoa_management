@@ -95,6 +95,7 @@ export default class IssuesPage extends Component {
 
     newParseIssue.set("createdBy", Parse.User.current());
     newParseIssue.set("community", activeUser.community);
+    newParseIssue.set("issueActive", newIssue.issueActive);
     newParseIssue.save().then(
       theCreatedParseIssue => {
         console.log("Issue created", theCreatedParseIssue);
@@ -239,7 +240,7 @@ export default class IssuesPage extends Component {
               </Col>
               <Col lg="2.5" className="issue-sort" style={styles.col}>
                 <Form className="issues-radio-btns">
-                  <div>Sort by:&nbsp;</div>
+                  <div>Sort by:&nbsp;&nbsp;</div>
                   {["radio"].map(type => (
                     <div key={`inline-${type}`} className="radio-btns">
                       <Form.Check

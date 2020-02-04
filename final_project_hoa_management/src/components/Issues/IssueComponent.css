@@ -8,7 +8,9 @@
   align-items: center;
 }
 
-.issue-row {
+.issue-col {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1em;
 }
 
@@ -56,4 +58,18 @@
 .resolved {
   color: lightgray;
   text-decoration: line-through;
+}
+
+.font-bold {
+  font-weight: bold;
+  color: #585753;
+  background-color: #F7F7F7;
+  border: 1px solid lightgray;
+  padding: 5px 10px;
+  margin: 10px;
+}
+
+.issue-comments {
+  display: flex;
+  flex-direction: column;
 }

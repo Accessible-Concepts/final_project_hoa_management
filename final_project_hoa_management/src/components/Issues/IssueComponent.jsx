@@ -23,9 +23,38 @@ export default class IssueComponent extends Component {
       input: "",
       newComment: "",
       readIssueState: false,
-      updateIssueReadBy: []
+      updateIssueReadBy: [],
+      comments: []
     };
   }
+
+  // async componentDidMount() {
+  //   const { activeUser } = this.props;
+  //   console.log(activeUser);
+
+  //   if (activeUser) {
+  //     const Issue = Parse.Object.extend("Issue");
+  //     const query = new Parse.Query(Issue);
+  //     query.equalTo("community", activeUser.community);
+  //     const parseIssues = await query.find();
+  //     const issues = parseIssues.map(parseIssue => new IssueModel(parseIssue));
+  //     this.setState({ issues });
+
+  //     const Comment = Parse.Object.extend("Comment");
+  //     const query = new Parse.Query(Comment);
+  //     query.equalTo("forIssue", new Parse.Object("Issue"));
+  //     query.find().then(
+  //       results => {
+  //         // You can use the "get" method to get the value of an attribute
+  //         // Ex: response.get("<ATTRIBUTE_NAME>")
+  //         console.log("Comment found", results);
+  //       },
+  //       error => {
+  //         console.error("Error while fetching Comment", error);
+  //       }
+  //     );
+  //   }
+  // }
 
   onChangeHandler = ev => {
     this.setState({ input: ev.target.value });
@@ -142,17 +171,17 @@ export default class IssueComponent extends Component {
     // sets read/unread class to issues
     let readClass = "issue-title-unread";
     if (issue.readByUser === undefined) {
-      if (issue.readByUser === undefined) {
-        readClass = "issue-title-unread";
-      }
     } else if (issue.readByUser.includes(this.props.activeUser.id)) {
       readClass = "issue-title-read";
     } else readClass = "issue-title-unread";
 
     // sets resolved class to issues
+    let issueStatus = "";
+
     if (!issue.issueActive) {
       readClass += " resolved";
-    }
+      issueStatus = "Resolved Issue";
+    } else issueStatus = "Active issue";
 
     return (
       <Card className="issue-comp">
@@ -208,13 +237,12 @@ export default class IssueComponent extends Component {
                   </Col>
                 </Row>
               </Col>
-
-              <Col style={styles.col} lg="6">
-                <Row className="issue-row">
-                  <div>Comments: {issue.comments}</div>
-                </Row>
+              {/* //TODO: gdgdf */}
+              <Col lg="6" style={styles.col}>
                 <Row style={styles.row}>
                   <Col lg="8">
+                    <div>Comments: </div>
+                    <div className="issue-comments">{issue.comments}</div>
                     <Form>
                       <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Control
@@ -229,7 +257,7 @@ export default class IssueComponent extends Component {
                     </Form>
                   </Col>
                   <Col className="comment-buttons">
-                    <div>Active Issue</div>
+                    <div className="font-bold">{issueStatus}</div>
                     <div>
                       <SwitchButton
                         // issue={issue}

@@ -17,7 +17,7 @@ export default class NewIssueModal extends Component {
         file: undefined,
         URL: undefined
       },
-      activeIssue: true
+      issueActive: true
     };
   }
 
