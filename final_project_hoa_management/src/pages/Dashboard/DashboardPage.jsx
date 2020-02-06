@@ -4,6 +4,8 @@ import "./DashboardPage.css";
 import { Redirect } from "react-router-dom";
 import ClockComponent from "../../components/clock/ClockComponent";
 import { Container } from "react-bootstrap";
+import MultiSelectComponent from "../../components/MultiSelectComponent";
+import OptionButtons from "../../components/OptionButtons";
 
 export default class DashboardPage extends Component {
   constructor(props) {
@@ -26,6 +28,8 @@ export default class DashboardPage extends Component {
 
         <Container fluid className="db-cont">
           Dashboard
+          <MultiSelectComponent />
+          <OptionButtons />
         </Container>
       </div>
     );

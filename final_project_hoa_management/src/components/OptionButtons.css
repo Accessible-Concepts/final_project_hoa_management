@@ -1,0 +1,65 @@
+.options-container {
+  display: flex;
+  width: 100%;
+  height: 2.5em;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.options-created {
+  display: flex;
+  align-items: center;
+}
+
+.option-created {
+  background-color: lightgray;
+  height: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8em;
+  /* padding: 3px 8px; */
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+.option-name {
+  /* margin-right: 10px; */
+  padding: 0 5px;
+  color: #585753;
+}
+.option-del-btn {
+  border: none;
+  border-radius: 3px;
+  background-color: lightgray;
+  margin-left: auto;
+  height: 2.2em;
+  font-weight: bold;
+  color: #585753;
+}
+
+.option-del-btn:hover {
+  background-color: #585753;
+  color: lightgray;
+}
+
+.all-options-del-btn {
+  border: none;
+  border-radius: 3px;
+  background-color: white;
+  margin-left: auto;
+  font-weight: bold;
+  color: lightgray;
+  font-size: 1.3em;
+  height: 1.8em;
+}
+
+.all-options-del-btn:hover {
+  color: gray;
+}
+.create-option-input {
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  /* font-size: 2.5em; */
+}
