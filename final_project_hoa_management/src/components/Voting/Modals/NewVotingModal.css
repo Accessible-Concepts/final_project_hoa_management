@@ -1,3 +1,7 @@
 .vote-modal {
-    background-color: #585753;
+  background-color: #585753;
+}
+
+.voting-first-row {
+  margin-bottom: 1em;
 }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, Form, Col, Button } from "react-bootstrap";
-import Footer from "../../components/footer/Footer";
 import "./SignupPage.css";
 import Parse from "parse";
 import { Redirect } from "react-router-dom";
@@ -329,7 +328,6 @@ export default class SignupPage extends Component {
             </Form.Row>
           </Form>
         </Container>
-        <Footer />
       </div>
     );
   }

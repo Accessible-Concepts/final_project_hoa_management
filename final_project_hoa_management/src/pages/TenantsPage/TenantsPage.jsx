@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./TenantsPage.css";
 import NewTenantModal from "../../components/Tenants/Modals/NewTenantModal";
 import EditTenantModal from "../../components/Tenants/Modals/EditTenantModal";
-import Footer from "../../components/footer/Footer";
 import UserModel from "../../models/UserModel";
 // import TenantComponent from "../../components/Tenants/TenantComponent";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -294,7 +293,6 @@ export default class TenantsPage extends Component {
           tenantEdit={tenantEdit}
           // onClick={this.rowEvents.onClick}
         />
-        <Footer />
       </div>
     );
   }

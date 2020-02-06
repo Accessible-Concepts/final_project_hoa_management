@@ -1,6 +1,7 @@
 .voting-page {
   background-color: #585753;
 }
+
 .vp-cont {
   display: flex;
   height: 480px;
@@ -33,3 +34,56 @@
   font-weight: bold;
   font-size: 1.5em;
 }
+
+.votings-page {
+  /* display: flex; */
+  background-color: #585753;
+  /* height: 100%; */
+}
+
+.v-cont {
+  height: 480px;
+  padding: 30px;
+  background-color: white;
+}
+
+.voting-sort, .radio-btns, .voting-radio-buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0 !important;
+}
+
+.my-accord {
+  width: 100%;
+  margin-bottom: 40px;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.votings-input-row {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.votings-select {
+  margin: 0 20px;
+}
+
+.votings-radio-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.voting-title-table {
+  font-weight: bold;
+}
+
+/* .issues-input,
+.issues-select,
+.issues-radio-btns {
+  box-shadow: 10px 10px 5px grey;
+} */

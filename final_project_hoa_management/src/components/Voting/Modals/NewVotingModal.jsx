@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import DatePicker from "react-date-picker";
+import DateTimePicker from "react-datetime-picker";
 
 export default class NewVotingModal extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class NewVotingModal extends Component {
     });
   }
 
-  dateChange = date => this.setState({ date });
+  onChangeDate = date => this.setState({ date });
 
   createVoting() {
     const { title, details, options, date } = this.state;
@@ -44,7 +44,7 @@ export default class NewVotingModal extends Component {
 
   render() {
     const { show, handleClose } = this.props;
-    const { title, details, options, dateChange } = this.state;
+    const { title, details, options } = this.state;
 
     return (
       <Modal show={show} onHide={handleClose}>
@@ -68,7 +68,11 @@ export default class NewVotingModal extends Component {
               </Col>
             </Form.Group>
 
-            <Form.Group as={Row} controlId="formHorizontalDetails">
+            <Form.Group
+              as={Row}
+              controlId="formHorizontalDetails"
+              className="voting-first-row"
+            >
               <Form.Label column sm={3}>
                 Details
               </Form.Label>
@@ -105,9 +109,8 @@ export default class NewVotingModal extends Component {
                 End Date:
               </Form.Label>
               <Col lg={9}>
-                <DatePicker
-                  name="date"
-                  onChange={dateChange}
+                <DateTimePicker
+                  onChange={this.onChangeDate}
                   value={this.state.date}
                 />
               </Col>
@@ -115,10 +118,10 @@ export default class NewVotingModal extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={this.createVoting}>Create</Button>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={this.createVoting}>Create</Button>
         </Modal.Footer>
       </Modal>
     );

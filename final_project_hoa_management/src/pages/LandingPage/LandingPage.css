@@ -1,6 +1,6 @@
 .lp-cont {
   background-color: #585753;
-  margin-bottom: 0;
+  /* s-bottom: 0; */
 }
 
 .landing-page {
@@ -28,7 +28,7 @@
 }
 
 .lp-cont {
-  margin-bottom: 3em;
+  /* margin-bottom: 2em; */
   display: flex;
   text-align: center;
   /* background-color: white; */

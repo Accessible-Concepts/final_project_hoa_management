@@ -12,6 +12,7 @@ import "./App.css";
 import Parse from "parse";
 import MainNavbar from "./components/navbar/MainNavbar";
 import UserModel from "./models/UserModel";
+import Footer from "./components/footer/Footer";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -99,6 +100,7 @@ export default class App extends React.Component {
             </Route>
           </Switch>
         </div>
+        <Footer />
       </div>
     );
   }

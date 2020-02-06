@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./IssuesPage.css";
-import Footer from "../../components/footer/Footer";
 import IssueComponent from "../../components/Issues/IssueComponent";
 import NewIssueModal from "../../components/Issues/Modals/NewIssueModal";
 
@@ -294,7 +293,6 @@ export default class IssuesPage extends Component {
             handleNewIssue={this.handleNewIssue}
           />
         </Container>
-        <Footer />
       </div>
     );
   }

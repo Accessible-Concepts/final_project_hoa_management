@@ -35,11 +35,21 @@ export default class LoginPage extends Component {
     Parse.User.logIn(email, password)
       .then(parseUser => {
         // Do stuff after successful login
-        const parseCurrentUser = new UserModel(parseUser);
-        console.log("Logged in user", parseCurrentUser);
+        const loggedInUser = new UserModel(parseUser);
+        console.log("Logged in user", loggedInUser);
+        console.log(loggedInUser.community.id);
+
+        const Community = Parse.Object.extend("Community");
+        const query = new Parse.Query(Community);
+
+        query.get(loggedInUser.community.id).then(parseCommunity => {
+          loggedInUser.community = parseCommunity;
+          handleLogin(loggedInUser);
+        });
+        // 1) get community  data
+        // 2) update active user with the community
 
         // 1) Updating App component on the new active user
-        handleLogin(parseCurrentUser);
 
         // 2) navigate to dashboard
         this.setState({

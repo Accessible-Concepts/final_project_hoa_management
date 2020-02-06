@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./MessagesPage.css";
-import Footer from "../../components/footer/Footer";
 import {
   Accordion,
   Container,
@@ -294,7 +293,6 @@ export default class MessagesPage extends Component {
             handleNewMessage={this.handleNewMessage}
           />
         </Container>
-        <Footer />
       </div>
     );
   }
