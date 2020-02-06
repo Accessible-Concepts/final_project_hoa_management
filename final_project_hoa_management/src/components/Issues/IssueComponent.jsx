@@ -12,7 +12,6 @@ import {
   Form
 } from "react-bootstrap";
 import Parse from "parse";
-import SwitchButton from "../Switch";
 import Switch from "react-switch";
 
 export default class IssueComponent extends Component {
@@ -26,7 +25,7 @@ export default class IssueComponent extends Component {
       readIssueState: false,
       updateIssueReadBy: [],
       comments: [],
-      checked: false
+      checked: this.props.issue.issueActive
     };
   }
 
@@ -63,10 +62,41 @@ export default class IssueComponent extends Component {
     console.log("this.state.input: " + this.state.input);
   };
 
-  handleChange = checked => {
+  handleSwitchChange = checked => {
+    let issue = this.props.issue;
     this.setState({ checked });
+    console.log("this.state.checked: " + checked);
+    issue.issueActive = checked;
+    // console.log(this.props.issue.issueActive);
+
+    const Issue = Parse.Object.extend("Issue");
+    const query = new Parse.Query(Issue);
+    // here you put the objectId that you want to update
+    query.get(issue.id).then(
+      obj => {
+        obj.set("issueActive", issue.issueActive);
+
+        obj.save().then(
+          response => {
+            // You can use the "get" method to get the value of an attribute
+            // Ex: response.get("<ATTRIBUTE_NAME>")
+
+            console.log("Updated Issue", response);
+          },
+          error => {
+            console.error("Error while updating Issue", error);
+          }
+        );
+      },
+      error => {
+        console.error("Error w222hile updating Issue", error);
+      }
+    );
   };
 
+  handleIssueStatusChange = ev => {
+    console.log("hello");
+  };
   changeReadIssueState = issue => {
     // console.log(issue.id);
     const activeUserId = this.props.activeUser.id;
@@ -262,7 +292,7 @@ export default class IssueComponent extends Component {
                     <div>
                       <Switch
                         checked={this.state.checked}
-                        onChange={this.handleChange}
+                        onChange={this.handleSwitchChange}
                         onColor="#86d3ff"
                         onHandleColor="#007BFF"
                         handleDiameter={25}
@@ -274,8 +304,6 @@ export default class IssueComponent extends Component {
                         width={80}
                         className="react-switch"
                         id="material-switch"
-                        // checked={checked}  //TODO:keep
-                        // onChange={this.handleChange} //TODO:keep
                       />
                     </div>
                     <div>
