@@ -89,3 +89,13 @@
 .voting-first-row {
   margin-bottom: 1em;
 }
+
+.tenant-vote {
+  display: flex;
+  align-items: center;
+}
+
+.vote-select {
+  margin-left: 10px;
+  z-index: 999;
+}

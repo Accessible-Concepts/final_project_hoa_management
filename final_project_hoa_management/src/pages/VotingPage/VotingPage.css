@@ -2,10 +2,7 @@
   background-color: #585753;
 }
 
-.vp-cont {
-  display: flex;
-  height: 480px;
-  padding: 30px 0;
+.v-cont {
   background-color: white;
 }
 
@@ -41,21 +38,17 @@
   /* height: 100%; */
 }
 
-.v-cont {
-  height: 480px;
-  padding: 30px;
-  background-color: white;
-}
-
-.voting-sort, .radio-btns, .voting-radio-buttons {
+.voting-sort,
+.radio-btns,
+.voting-radio-buttons {
   display: flex;
   align-items: center;
   margin-bottom: 0 !important;
 }
 
-.my-accord {
+.voting-accord {
   width: 100%;
-  margin-bottom: 40px;
+  margin: 20px 0;
   box-shadow: 10px 10px 5px grey;
 }
 

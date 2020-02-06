@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
+import OptionButtons from "../../OptionButtons/OptionButtons";
 
 export default class NewVotingModal extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class NewVotingModal extends Component {
   render() {
     const { show, handleClose } = this.props;
     const { title, details, options } = this.state;
-
+    console.log(this.state.date);
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -94,13 +95,15 @@ export default class NewVotingModal extends Component {
                 Options
               </Form.Label>
               <Col lg={9}>
-                <Form.Control
+                <OptionButtons />
+
+                {/* <Form.Control
                   type="text"
                   placeholder="Enter new voting options"
                   name="options"
                   value={options}
                   onChange={this.handleInputChange}
-                />
+                /> */}
               </Col>
             </Form.Group>
 

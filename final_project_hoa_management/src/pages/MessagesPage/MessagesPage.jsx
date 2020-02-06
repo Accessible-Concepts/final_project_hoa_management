@@ -282,7 +282,7 @@ export default class MessagesPage extends Component {
             </Button>
           </Row>
           <Row style={styles.row}>
-            <Accordion defaultActiveKey="1" className="my-accord">
+            <Accordion defaultActiveKey="1" className="messages-accord">
               {messagesView}
             </Accordion>
           </Row>

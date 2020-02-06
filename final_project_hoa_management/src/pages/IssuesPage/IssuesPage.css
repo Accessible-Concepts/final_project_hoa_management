@@ -1,12 +1,8 @@
 .issues-page {
-  /* display: flex; */
   background-color: #585753;
-  /* height: 100%; */
 }
 
 .i-cont {
-  height: 480px;
-  padding: 30px;
   background-color: white;
 }
 
@@ -17,9 +13,9 @@
   align-items: center;
   margin-bottom: 0 !important;
 }
-.my-accord {
+.issues-accord {
   width: 100%;
-  margin-bottom: 40px;
+  margin: 20px 0;
   box-shadow: 10px 10px 5px grey;
 }
 .issues-input-row {

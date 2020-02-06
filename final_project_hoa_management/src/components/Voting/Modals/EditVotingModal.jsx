@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./EditMessageModal.css";
+import "./EditVotingModal.css";
 import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import Parse from "parse";
@@ -9,17 +9,13 @@ export default class EditMessageModal extends Component {
     super(props);
 
     this.state = {
-      id: this.props.message.id,
-      title: this.props.message.title,
-      details: this.props.message.details,
-      comments: this.props.message.comments,
-      createdBy: this.props.message.createdBy,
+      id: this.props.voting.id,
+      title: this.props.voting.title,
+      details: this.props.voting.details,
+      comments: this.props.voting.options,
+      createdBy: this.props.voting.dueDate,
       createdAt: this.props.message.createdAt,
-      selectedOption: this.props.message.selectedOption,
-      fileImg: {
-        file: undefined,
-        URL: undefined
-      }
+      selectedOption: this.props.message.selectedOption
     };
   }
 

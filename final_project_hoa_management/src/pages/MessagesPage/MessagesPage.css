@@ -3,8 +3,6 @@
 }
 
 .mp-cont {
-  height: 480px;
-  padding: 30px;
   background-color: white;
 }
 
@@ -15,9 +13,10 @@
   align-items: center;
   margin-bottom: 0 !important;
 }
-.my-accord {
+.messages-accord {
   width: 100%;
-  margin-bottom: 40px;
+  box-shadow: 10px 10px 5px grey;
+  margin: 20px 0;
 }
 
 .msg-option-select {

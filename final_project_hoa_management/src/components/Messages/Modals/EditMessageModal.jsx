@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./EditMessageModal.css";
+// import "./EditMessageModal.css";
 import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import Parse from "parse";

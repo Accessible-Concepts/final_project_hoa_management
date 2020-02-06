@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./VotingComponent.css";
-// import EditVotingModal from "../Voting/Modals/EditVotingModal";
-// import CommentModel from "../../models/CommentModel";
+import EditVotingModal from "../../components/Voting/Modals/EditVotingModal";
 import {
   Card,
   Accordion,
@@ -11,8 +10,10 @@ import {
   Button,
   Form
 } from "react-bootstrap";
+import Select from "react-select";
+
 import Parse from "parse";
-// import DateTimePicker from "react-datetime-picker";
+import DateTimePicker from "react-datetime-picker";
 
 export default class VotingComponent extends Component {
   constructor(props) {
@@ -172,7 +173,7 @@ export default class VotingComponent extends Component {
   }
 
   render() {
-    const { voting } = this.props;
+    const { voting, activeUser } = this.props;
     const { showEditVotingModal, input } = this.state;
 
     const styles = {
@@ -201,6 +202,38 @@ export default class VotingComponent extends Component {
       readClass = "voting-title-read";
     } else readClass = "voting-title-unread";
 
+    // const votingDuedate = activeUser.isCommitteeMember ? (
+    //   <DateTimePicker onChange={this.onChangeDate} value={voting.dueDate} />
+    // ) : (
+    //   voting.dueDate.toLocaleString()
+    // );
+
+    const votingResultsGraphTitle = activeUser.isCommitteeMember ? (
+      "Results"
+    ) : (
+      <div className="tenant-vote">
+        <div>Your vote:</div>
+        <div className="vote-select">
+          <Select
+            className="vote-select"
+            onChange={this.handleSelectChange}
+            options={this.props.voting.options}
+            placeholder="Filter by Priority"
+            // defaultValue={{ label: "Clear Filter", value: "" }}
+          />
+        </div>
+      </div>
+    );
+    const graph1 = activeUser.isCommitteeMember ? "graph1" : null;
+
+    const votingResultsPercentage = activeUser.isCommitteeMember ? (
+      "Voting Percentage"
+    ) : (
+      <button>Button</button>
+    );
+    const graph2 = activeUser.isCommitteeMember ? "graph2" : null;
+
+    console.log(activeUser);
     return (
       <Card className="voting-comp">
         <Accordion.Toggle
@@ -229,18 +262,6 @@ export default class VotingComponent extends Component {
         <Accordion.Collapse eventKey={this.props.ind}>
           <Card.Body>
             <Row style={styles.row}>
-              {/* <Row>
-                <ReactVote
-                  styles={customStyle}
-                  text={customText}
-                  onCreate={onCreate}
-                  onUpvote={onUpvote}
-                  onClose={onClose}
-                  onReset={onReset}
-                  isAdmin={true}
-                  clientId={clientId}
-                />
-              </Row> */}
               <Col>
                 <Row className="voting-first-row">
                   <Col lg="2">Details: </Col>
@@ -249,30 +270,37 @@ export default class VotingComponent extends Component {
                 <Row>
                   <Col lg="2">End Date: </Col>
                   <Col lg="10">
-                    {/* <DateTimePicker
-                      onChange={this.onChangeDate}
-                      value={this.state.date}
-                    /> */}
+                    {voting.dueDate && voting.dueDate.toLocaleString()}
                   </Col>
                 </Row>
               </Col>
-              <Col lg="3" className="graph results-graph">
-                <div className="voting-first-row">Results</div>
-                <div>graph1</div>
+              <Col lg="2" className="graph results-graph">
+                <div className="voting-first-row">
+                  {votingResultsGraphTitle}
+                </div>
+                <div>{graph1}</div>
               </Col>
-              <Col lg="3" className="graph">
-                <div className="voting-first-row">Voting Percentage</div>
-                <div>graph2</div>
+              <Col lg="2" className="graph">
+                <div className="voting-first-row">
+                  {votingResultsPercentage}
+                </div>
+                <div>{graph2}</div>
+              </Col>
+              <Col lg="2" className="graph">
+                <div className="voting-first-row">
+                  {votingResultsPercentage}
+                </div>
+                <div>{graph2}</div>
               </Col>
             </Row>
           </Card.Body>
         </Accordion.Collapse>
-        {/* <EditVotingModal
+        <showEditVotingModal
           show={showEditVotingModal}
           handleClose={this.handleClose}
           handleEditVoting={this.handleEditVoting}
           Voting={this.props.voting}
-        /> */}
+        />
       </Card>
     );
   }

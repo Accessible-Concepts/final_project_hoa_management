@@ -1,7 +1,5 @@
 .dashboard-page {
-  /* display: flex; */
   background-color: #585753;
-  /* height: 100%; */
 }
 
 .db-clock {
@@ -12,7 +10,9 @@
 .db-cont {
   background-color: white;
 }
-
+.aaa {
+  border-top: 150px;
+}
 /* .homepageTitle {
     font-size: 3em;
     font-weight: bold;

@@ -79,20 +79,20 @@ export default class VotingPage extends Component {
   //Function that adds a new voting to the parse database
   //and to the votings state
   handleNewVoting = newVoting => {
+    console.log(this.state.date);
     const { activeUser } = this.props;
     const Voting = Parse.Object.extend("Voting");
     const newParseVoting = new Voting();
     newParseVoting.set("title", newVoting.title);
     newParseVoting.set("details", newVoting.details);
-    newParseVoting.set("options", newVoting.options);
-    newParseVoting.set("selectedOption", newVoting.selectedOption);
-    newParseVoting.set(
-      "image",
-      new Parse.File(newVoting.fileImg.file.name, newVoting.fileImg.file)
-    );
+    newParseVoting.set("options", [
+      { value: "Yes", label: "Yes" },
+      { value: "No", label: "No" }
+    ]);
+    newParseVoting.set("dueDate", newVoting.date);
+
     newParseVoting.set("createdBy", Parse.User.current());
     newParseVoting.set("community", activeUser.community);
-    newParseVoting.set("issueActive", newVoting.issueActive);
     newParseVoting.save().then(
       theCreatedParseVoting => {
         console.log("Voting created", theCreatedParseVoting);
@@ -285,7 +285,7 @@ export default class VotingPage extends Component {
           <Row className="btn-input-row" style={styles.row}>
             <div className="voting-title-table">
               Community: {community.get("community")}
-            </div>{" "}
+            </div>
             <Button
               size="sm"
               onClick={() => {
@@ -296,7 +296,7 @@ export default class VotingPage extends Component {
             </Button>
           </Row>
           <Row style={styles.row}>
-            <Accordion defaultActiveKey="1" className="my-accord">
+            <Accordion defaultActiveKey="1" className="voting-accord">
               {votingsView}
             </Accordion>
           </Row>

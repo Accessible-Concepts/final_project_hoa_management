@@ -61,6 +61,7 @@ export default () => (
   //     {colourStyles}
   //   </div>
   <Select
+    className="aaa"
     closeMenuOnSelect={false}
     defaultValue={[colourOptions[0], colourOptions[1]]}
     isMulti

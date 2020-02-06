@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import TaskModel from "./TaskModel";
+import VoteOptionModel from "../../models/VoteOptionModel";
 import "./OptionButtons.css";
+import OptionButtonComponent from "./OptionButtonComponent";
 
 // import ConfirmDeleteModal from "./ConfirnDeleteModal";
 export default class OptionButtons extends Component {
@@ -26,8 +27,8 @@ export default class OptionButtons extends Component {
     // const {cloneInput} = {...input};
     // Function that is triggered only by the Enter key
     if (event.keyCode === 13) {
-      event.preventDefault();
-      const optionObj = new TaskModel(input);
+      //  event.preventDefault();
+      const optionObj = new VoteOptionModel(input);
       this.setState({
         optionsArray: this.state.optionsArray.concat(optionObj),
         input: ""
@@ -36,14 +37,14 @@ export default class OptionButtons extends Component {
     }
   };
 
-  deleteItem(index) {
-    const { optionsArray } = this.state;
-    const cloneList = [...optionsArray];
-
-    cloneList.splice(index, 1);
-    this.setState({
-      optionsArray: cloneList
-    });
+  deleteOption(index) {
+    // console.log(index);
+    // const { optionsArray } = this.state;
+    // const cloneList = [...optionsArray];
+    // cloneList.splice(index, 1);
+    // this.setState({
+    //   optionsArray: cloneList
+    // });
   }
 
   deleteAllOptions() {
@@ -51,29 +52,28 @@ export default class OptionButtons extends Component {
       optionsArray: []
     });
   }
+
   render() {
     const { input, optionsArray } = this.state;
 
-    const listItems = optionsArray.map((item, index) => (
-      <div className="option-created" key={index}>
-        <div className="option-name">{item.value}</div>
-        <button
-          className="option-del-btn"
-          onClick={() => {
-            this.deleteItem(index);
-          }}
-        >
-          x
-        </button>
-      </div>
+    const optionButtons = optionsArray.map((option, index) => (
+      <OptionButtonComponent
+        input={input}
+        index={index}
+        key={option.id}
+        option={option}
+        deleteOption={this.deleteOption}
+        optionsArray={optionsArray}
+      />
     ));
+
     console.log(optionsArray);
-    console.log(listItems);
+    console.log(optionButtons);
 
     return (
       <div>
         <div className="options-container">
-          <div className="options-created">{listItems}</div>
+          <div className="options-created">{optionButtons}</div>
           <button
             className="all-options-del-btn"
             onClick={() => {
@@ -91,8 +91,11 @@ export default class OptionButtons extends Component {
           placeholder="Enter a voting option..."
           onChange={this.onChangeHandler}
           onKeyUp={this.addOption}
+          onKeyPress={e => {
+            if (e.key === "Enter") e.preventDefault();
+          }}
         />
-        {/* <ul className="myUL">{listItems}</ul> */}
+        {/* <ul className="myUL">{optionButtons}</ul> */}
         {/* <ConfirmDeleteModal
           show={this.state.show}
           handleClose={this.hideModal}
