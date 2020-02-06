@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import Parse from "parse";
 import SwitchButton from "../Switch";
+import Switch from "react-switch";
 
 export default class IssueComponent extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ export default class IssueComponent extends Component {
       newComment: "",
       readIssueState: false,
       updateIssueReadBy: [],
-      comments: []
+      comments: [],
+      checked: false
     };
   }
 
@@ -61,9 +63,8 @@ export default class IssueComponent extends Component {
     console.log("this.state.input: " + this.state.input);
   };
 
-  handleSelectChange = selectedOption => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+  handleChange = checked => {
+    this.setState({ checked });
   };
 
   changeReadIssueState = issue => {
@@ -259,9 +260,22 @@ export default class IssueComponent extends Component {
                   <Col className="comment-buttons">
                     <div className="font-bold">{issueStatus}</div>
                     <div>
-                      <SwitchButton
-                        // issue={issue}
-                        checked={issue.issueActive}
+                      <Switch
+                        checked={this.state.checked}
+                        onChange={this.handleChange}
+                        onColor="#86d3ff"
+                        onHandleColor="#007BFF"
+                        handleDiameter={25}
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={80}
+                        className="react-switch"
+                        id="material-switch"
+                        // checked={checked}  //TODO:keep
+                        // onChange={this.handleChange} //TODO:keep
                       />
                     </div>
                     <div>
