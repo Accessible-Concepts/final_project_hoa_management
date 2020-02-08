@@ -184,7 +184,7 @@ export default class MessagesPage extends Component {
     let sortedMessages = priorityFilteredMessages;
     if (this.state.selectedSortOption === "date") {
       sortedMessages = priorityFilteredMessages.sort(function(a, b) {
-        return a.createdAt < b.createdAt;
+        return b.createdAt - a.createdAt;
       });
     } else if (this.state.selectedSortOption === "priority") {
       sortedMessages = priorityFilteredMessages.sort(function(a, b) {
@@ -218,7 +218,7 @@ export default class MessagesPage extends Component {
         <Container fluid className="mp-cont">
           <Form.Group>
             <Row className="message-input-row" style={styles.row}>
-              <Col lg="7" style={styles.col}>
+              <Col lg="6" style={styles.col}>
                 <FormControl
                   placeholder="Filter messages by text in Title and Details"
                   aria-label="Username"
@@ -237,7 +237,7 @@ export default class MessagesPage extends Component {
                   // defaultValue={{ label: "Clear Filter", value: "" }}
                 />
               </Col>
-              <Col lg="2" className="message-sort" style={styles.col}>
+              <Col lg="2.5" className="message-sort" style={styles.col}>
                 <Form className="message-radio-buttons">
                   <div>Sort by:&nbsp;&nbsp;</div>
                   {["radio"].map(type => (

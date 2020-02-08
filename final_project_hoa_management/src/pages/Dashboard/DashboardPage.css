@@ -19,13 +19,23 @@
   height: 50vh;
 }
 
-.dashboard-first-col-title {
+.dashboard-col-title {
   display: flex;
   align-items: center;
 }
 
 .dashboard-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 15px;
+  border: 1px solid #585753;
+  background-color: #585753;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
 }
 
 /* .homepageTitle {

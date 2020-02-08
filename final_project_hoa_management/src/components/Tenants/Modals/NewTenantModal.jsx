@@ -173,10 +173,10 @@ export default class NewMessageModal extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={this.createTenant}>Save</Button>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={this.createTenant}>Save</Button>
         </Modal.Footer>
       </Modal>
     );

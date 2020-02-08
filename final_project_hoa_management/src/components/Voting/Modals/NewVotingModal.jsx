@@ -43,7 +43,7 @@ export default class NewVotingModal extends Component {
     });
   };
 
-  handeOptions(optionsArray) {
+  handleOptions(optionsArray) {
     console.log(optionsArray);
     // this.setState({
     //   voteOptions: optionsArray
@@ -103,7 +103,7 @@ export default class NewVotingModal extends Component {
                 Options
               </Form.Label>
               <Col lg={9}>
-                <OptionButtons handleOptions={this.handeOptions} />
+                <OptionButtons handleOptions={this.handleOptions} />
 
                 {/* <Form.Control
                   type="text"

@@ -70,14 +70,14 @@
   margin: 0 20px;
 }
 
-.votings-radio-btns {
+.votings-btns {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
   border: 1px solid lightgray;
   border-radius: 5px;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
 }
 
 .voting-title-table {
@@ -93,4 +93,16 @@
 
 .voting-input-filter {
   margin-right: 25px;
+}
+
+.voting-sort-btn {
+  margin: 0;
+  background-color: #585753 !important;
+  border: 2px solid #585753 !important;
+  height: 100%;
+}
+
+.voting-sort-btn:hover {
+  background-color: gray !important;
+  border: 2px solid gray !important;
 }

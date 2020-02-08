@@ -12,6 +12,7 @@ export default class IssueModel {
     this.readByUser = parseIssue.get("readByUser");
     this.community = parseIssue.get("community");
     this.issueActive = parseIssue.get("issueActive");
+    this.isOverdue = parseIssue.get("isOverdue");
     this.parseIssue = parseIssue;
   }
 }

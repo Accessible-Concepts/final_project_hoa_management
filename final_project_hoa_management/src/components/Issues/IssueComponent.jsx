@@ -29,34 +29,6 @@ export default class IssueComponent extends Component {
     };
   }
 
-  // async componentDidMount() {
-  //   const { activeUser } = this.props;
-  //   console.log(activeUser);
-
-  //   if (activeUser) {
-  //     const Issue = Parse.Object.extend("Issue");
-  //     const query = new Parse.Query(Issue);
-  //     query.equalTo("community", activeUser.community);
-  //     const parseIssues = await query.find();
-  //     const issues = parseIssues.map(parseIssue => new IssueModel(parseIssue));
-  //     this.setState({ issues });
-
-  //     const Comment = Parse.Object.extend("Comment");
-  //     const query = new Parse.Query(Comment);
-  //     query.equalTo("forIssue", new Parse.Object("Issue"));
-  //     query.find().then(
-  //       results => {
-  //         // You can use the "get" method to get the value of an attribute
-  //         // Ex: response.get("<ATTRIBUTE_NAME>")
-  //         console.log("Comment found", results);
-  //       },
-  //       error => {
-  //         console.error("Error while fetching Comment", error);
-  //       }
-  //     );
-  //   }
-  // }
-
   onChangeHandler = ev => {
     this.setState({ input: ev.target.value });
     console.log("this.state.input: " + this.state.input);
@@ -94,9 +66,10 @@ export default class IssueComponent extends Component {
     );
   };
 
-  handleIssueStatusChange = ev => {
-    console.log("hello");
-  };
+  // handleIssueStatusChange = ev => {
+  //   console.log("hello");
+  // };
+
   changeReadIssueState = issue => {
     // console.log(issue.id);
     const activeUserId = this.props.activeUser.id;
@@ -111,9 +84,11 @@ export default class IssueComponent extends Component {
     } else {
       issue.readByUser = issue.readByUser.concat(activeUserId);
     }
+    //TODO: Ask Nir
+    // const cloneIssues = [...issues];
     this.setState({
-      //TODO: check with Nir how to fix the setState issue
       issues: issues
+      // issues: cloneIssues
     });
 
     const Issue = Parse.Object.extend("Issue");
@@ -175,7 +150,7 @@ export default class IssueComponent extends Component {
   }
 
   render() {
-    const { issue } = this.props;
+    const { issue, activeUser } = this.props;
     const { showEditIssueModal, input } = this.state;
 
     const styles = {
@@ -191,6 +166,8 @@ export default class IssueComponent extends Component {
 
     // adds important/information icon to each issue according to its priority
     let priorityImage;
+    // let priorityImageTooltip;
+
     if (issue.selectedOption.value === "Normal") {
       priorityImage = require("./images/green-circle.png");
     } else if (issue.selectedOption.value === "Important") {
@@ -199,6 +176,14 @@ export default class IssueComponent extends Component {
       priorityImage = require("./images/red-circle.png");
     }
 
+    // if (issue.selectedOption.value === "Normal") {
+    //   priorityImageTooltip = "Normal Priority Issue";
+    // } else if (issue.selectedOption.value === "Important") {
+    //   priorityImageTooltip = "Important Priority Issue";
+    // } else if (issue.selectedOption.value === "Urgent") {
+    //   priorityImageTooltip = "Urgent Priority Issue";
+    // }
+
     // sets read/unread class to issues
     let readClass = "issue-title-unread";
     if (issue.readByUser === undefined) {
@@ -206,13 +191,101 @@ export default class IssueComponent extends Component {
       readClass = "issue-title-read";
     } else readClass = "issue-title-unread";
 
+    //Checks if an active issue is overdue
+    const currentDate = new Date();
+    const issueCreateat = issue.createdAt;
+    const overdue = Math.floor(
+      (currentDate - issueCreateat) / (1000 * 60 * 60 * 24)
+    );
+
+    if (issue.issueActive && overdue >= 4) {
+      issue.isOverdue = true;
+    } else issue.isOverdue = false;
+
+    const isOverdue = issue.isOverdue ? "Issue is overdue" : null;
+
+    // const cloneIssues = this.state.issues;
+    // this.setState({
+    //   issues: this.state.issues
+    // issues: cloneIssues
+    // });
+
+    // TODO: Check how to update Parse and state with overdue issues
+    // const Issue = Parse.Object.extend("Issue");
+    // const query = new Parse.Query(Issue);
+    // // here you put the objectId that you want to update
+    // query.get(issue.id).then(object => {
+    //   object.set("isOverdue", issue.isOverdue);
+    //   object.save().then(
+    //     response => {
+    //       console.log("Issue isOverdue updated", response);
+    //     },
+    //     error => {
+    //       console.error("Error while updating Issue isOverdue", error);
+    //     }
+    //   );
+    // });
+
     // sets resolved class to issues
-    let issueStatus = "";
+    let issueStatus;
 
     if (!issue.issueActive) {
       readClass += " resolved";
       issueStatus = "Resolved Issue";
     } else issueStatus = "Active issue";
+
+    let showEditDeleteIssue;
+
+    if (issue.createdBy.id === activeUser.id || activeUser.isCommitteeMember) {
+      showEditDeleteIssue = (
+        <Col className="comment-buttons">
+          <div className="font-bold">{issueStatus}</div>
+          <div>
+            <Switch
+              checked={this.state.checked}
+              onChange={this.handleSwitchChange}
+              onColor="#86d3ff"
+              onHandleColor="#007BFF"
+              handleDiameter={25}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={20}
+              width={80}
+              className="react-switch"
+              id="material-switch"
+            />
+          </div>
+          <div>
+            <ButtonToolbar>
+              <Button
+                type="button"
+                size="sm"
+                onClick={() => {
+                  this.setState({ showEditIssueModal: true });
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                className="issue-delete-btn"
+                type="button"
+                variant="danger"
+                size="sm"
+                onClick={() => {
+                  const deleteIssue = this.props.deleteIssue;
+                  deleteIssue(issue.id);
+                  console.log(issue.id);
+                }}
+              >
+                Delete
+              </Button>
+            </ButtonToolbar>
+          </div>
+        </Col>
+      );
+    } else showEditDeleteIssue = null;
 
     return (
       <Card className="issue-comp">
@@ -227,10 +300,11 @@ export default class IssueComponent extends Component {
           }}
         >
           <div className="issue-title">
-            {this.props.issue.title}{" "}
+            {this.props.issue.title}
             <span className="issue-createdat">
               Created at {issue.createdAt.toLocaleString()}
             </span>
+            <span className="issue-overdue">{isOverdue}</span>
           </div>
           <div>
             <img
@@ -238,6 +312,10 @@ export default class IssueComponent extends Component {
               alt="Issue priority icon"
               height="25px"
             ></img>
+            {/* <div className="tooltip">
+              abcbcbcb
+              <span className="tooltiptext">{priorityImageTooltip}</span>
+            </div> */}
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={this.props.ind}>
@@ -287,52 +365,7 @@ export default class IssueComponent extends Component {
                       </Form.Group>
                     </Form>
                   </Col>
-                  <Col className="comment-buttons">
-                    <div className="font-bold">{issueStatus}</div>
-                    <div>
-                      <Switch
-                        checked={this.state.checked}
-                        onChange={this.handleSwitchChange}
-                        onColor="#86d3ff"
-                        onHandleColor="#007BFF"
-                        handleDiameter={25}
-                        uncheckedIcon={false}
-                        checkedIcon={false}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={80}
-                        className="react-switch"
-                        id="material-switch"
-                      />
-                    </div>
-                    <div>
-                      <ButtonToolbar>
-                        <Button
-                          type="button"
-                          size="sm"
-                          onClick={() => {
-                            this.setState({ showEditIssueModal: true });
-                          }}
-                        >
-                          Update
-                        </Button>
-                        <Button
-                          className="issue-delete-btn"
-                          type="button"
-                          variant="danger"
-                          size="sm"
-                          onClick={() => {
-                            const deleteIssue = this.props.deleteIssue;
-                            deleteIssue(issue.id);
-                            console.log(issue.id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </ButtonToolbar>
-                    </div>
-                  </Col>
+                  {showEditDeleteIssue}
                 </Row>
               </Col>
             </Row>

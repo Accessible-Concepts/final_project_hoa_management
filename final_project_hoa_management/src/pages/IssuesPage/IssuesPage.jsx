@@ -68,7 +68,7 @@ export default class IssuesPage extends Component {
     // );
   };
 
-  //Function that handles the modals components to close
+  //Function that handles the modals components to not show
   handleClose = () => {
     this.setState({
       showNewIssueModal: false,
@@ -158,7 +158,7 @@ export default class IssuesPage extends Component {
       }
     };
 
-    // Funxtion that filters the issues array according
+    // Filters the issues array according
     // to the text entered in the input field
     let inputFilteredIssues = issues.filter(iss => {
       let boolResultofTitle = iss.title
@@ -170,7 +170,7 @@ export default class IssuesPage extends Component {
       return boolResultofTitle || boolResultofDetails;
     });
 
-    // Funxtion that filters the issues array according to the
+    // Filters the issues array according to the
     // selectedOption (priority)
     let priorityFilteredIssues = inputFilteredIssues.filter(iss => {
       let boolResultofPriority = iss.priority.includes(
@@ -179,11 +179,11 @@ export default class IssuesPage extends Component {
       return boolResultofPriority;
     });
 
-    //Sorting the issues by date or by priority
+    //Sorts the issues by date or by priority
     let sortedIssues = priorityFilteredIssues;
     if (this.state.selectedSortOption === "date") {
       sortedIssues = priorityFilteredIssues.sort(function(a, b) {
-        return a.createdAt < b.createdAt;
+        return b.createdAt - a.createdAt;
       });
     } else if (this.state.selectedSortOption === "priority") {
       sortedIssues = priorityFilteredIssues.sort(function(a, b) {
@@ -195,6 +195,13 @@ export default class IssuesPage extends Component {
       });
     }
 
+    // // let isOverdue;
+    // let currentDate = new Date();
+    // let issueCreateat = issues[0].createdAt.toLocaleString();
+    // console.log(currentDate);
+    // console.log(issueCreateat);
+
+    // if (issue.createdAt)
     const issuesView = sortedIssues.map((issue, index) => (
       <IssueComponent
         ind={index}

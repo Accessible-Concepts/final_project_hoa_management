@@ -14,7 +14,6 @@ import NewVotingModal from "../../components/Voting/Modals/NewVotingModal";
 import { Redirect } from "react-router-dom";
 import VotingModel from "../../models/VotingModel";
 import Parse from "parse";
-import Select from "react-select";
 
 export default class VotingPage extends Component {
   constructor(props) {
@@ -132,15 +131,13 @@ export default class VotingPage extends Component {
     });
   };
 
-  render() {
-    const { showNewVotingModal, input, votings, selectedOption } = this.state;
-    const { activeUser } = this.props;
+  // reverseSort = array => {
+  //   array.reverse();
+  // }
 
-    const options = [
-      { value: "", label: "Clear Voting Filter" },
-      { value: "True", label: "Pending Votings" },
-      { value: "False", label: "Expired Votings" }
-    ];
+  render() {
+    const { showNewVotingModal, input, votings } = this.state;
+    const { activeUser } = this.props;
 
     const styles = {
       row: {
@@ -174,21 +171,22 @@ export default class VotingPage extends Component {
       return false;
     });
 
-    //Sorting the votings by date or by status
+    //Sorting the votings by date
     let sortedVotings = selectFilteredVotings;
     if (this.state.selectedSortOption === "date") {
       sortedVotings = selectFilteredVotings.sort(function(a, b) {
-        return a.createdAt < b.createdAt;
-      });
-    } else if (this.state.selectedSortOption === "priority") {
-      sortedVotings = selectFilteredVotings.sort(function(a, b) {
-        if (a.selectedOption.value < b.selectedOption.value) {
-          return -1;
-        } else if (a.selectedOption.value > b.selectedOption.value) {
-          return 1;
-        } else return 0;
+        return b.createdAt - a.createdAt;
       });
     }
+    //  else if (this.state.selectedSortOption === "priority") {
+    //   sortedVotings = selectFilteredVotings.sort(function(a, b) {
+    //     if (a.selectedOption.value < b.selectedOption.value) {
+    //       return -1;
+    //     } else if (a.selectedOption.value > b.selectedOption.value) {
+    //       return 1;
+    //     } else return 0;
+    //   });
+    // }
 
     const { activeVotings } = this.props;
     let showNewVotingBtn;
@@ -206,7 +204,6 @@ export default class VotingPage extends Component {
     } else showNewVotingBtn = null;
 
     const votingsView = sortedVotings.map((voting, index) => (
-      // const votingsView = sortedVotings.map((voting, index) => (
       <VotingComponent
         ind={index}
         key={voting.id}
@@ -251,8 +248,15 @@ export default class VotingPage extends Component {
               </Col>
 
               <Col lg="4.5" className="voting-sort" style={styles.col}>
-                <Form className="votings-radio-btns">
-                  <div>Sort by:&nbsp;&nbsp;</div>
+                <Form className="votings-btns">
+                  <Button
+                    className="voting-sort-btn"
+                    size="sm"
+                    // onClick={this.reverseSort}
+                  >
+                    Sort by Date
+                  </Button>
+                  {/* <div>Sort by:&nbsp;&nbsp;</div>
                   {["radio"].map(type => (
                     <div key={`inline-${type}`} className="radio-btns">
                       <Form.Check
@@ -264,8 +268,8 @@ export default class VotingPage extends Component {
                         onChange={this.handleSortChange}
                         value="date"
                         checked={this.state.selectedSortOption === "date"}
-                      />
-                      <Form.Check
+                      /> */}
+                  {/* <Form.Check
                         inline
                         label="Status"
                         type={type}
@@ -274,9 +278,9 @@ export default class VotingPage extends Component {
                         onChange={this.handleSortChange}
                         value="status"
                         checked={this.state.selectedSortOption === "status"}
-                      />
-                    </div>
-                  ))}
+                      /> */}
+                  {/* </div> */}
+                  {/* ))} */}
                 </Form>
               </Col>
             </Row>
