@@ -3,22 +3,22 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 import OptionButtons from "../../OptionButtons/OptionButtons";
 
-export default class NewVotingModal extends Component {
+export default class VoteModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       title: "",
       deails: "",
-      options: [],
-      date: new Date(),
-      voteOptions: null
+      options: "",
+      date: new Date()
     };
 
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.createVoting = this.createVoting.bind(this);
   }
 
-  handleInputChange = event => {
+  handleInputChange(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -26,11 +26,11 @@ export default class NewVotingModal extends Component {
     this.setState({
       [name]: value
     });
-  };
+  }
 
   onChangeDate = date => this.setState({ date });
 
-  createVoting = () => {
+  createVoting() {
     const { title, details, options, date } = this.state;
     const newVoting = { title, details, options, date };
     this.props.handleNewVoting(newVoting);
@@ -38,17 +38,9 @@ export default class NewVotingModal extends Component {
     this.setState({
       title: "",
       details: "",
-      options: [],
+      options: "",
       date: new Date()
     });
-  };
-
-  handeOptions(optionsArray) {
-    console.log(optionsArray);
-    // this.setState({
-    //   voteOptions: optionsArray
-    // });
-    // console.log(this.state.voteOptions);
   }
 
   render() {
@@ -103,7 +95,7 @@ export default class NewVotingModal extends Component {
                 Options
               </Form.Label>
               <Col lg={9}>
-                <OptionButtons handleOptions={this.handeOptions} />
+                <OptionButtons />
 
                 {/* <Form.Control
                   type="text"

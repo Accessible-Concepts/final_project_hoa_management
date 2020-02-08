@@ -33,12 +33,13 @@ export default class OptionButtons extends Component {
         optionsArray: this.state.optionsArray.concat(optionObj),
         input: ""
       });
+      this.props.handleOptions(this.state.optionsArray);
       // console.log(this.state.list)
     }
   };
 
   deleteOption(index) {
-    // console.log(index);
+    console.log(index);
     // const { optionsArray } = this.state;
     // const cloneList = [...optionsArray];
     // cloneList.splice(index, 1);

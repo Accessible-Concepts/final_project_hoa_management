@@ -1,5 +1,11 @@
 .voting-page {
+  background-color: white;
+  width: 50%;
+}
+
+.voting-pages {
   background-color: #585753;
+  display: flex;
 }
 
 .v-cont {
@@ -38,12 +44,15 @@
   /* height: 100%; */
 }
 
-.voting-sort,
-.radio-btns,
-.voting-radio-buttons {
+.voting-sort, .radio-btns, .voting-radio-buttons {
   display: flex;
   align-items: center;
   margin-bottom: 0 !important;
+}
+
+.voting-sort {
+  margin-left: 25px;
+  color: gray;
 }
 
 .voting-accord {
@@ -73,6 +82,7 @@
 
 .voting-title-table {
   font-weight: bold;
+  height: 2em
 }
 
 /* .issues-input,
@@ -80,3 +90,7 @@
 .issues-radio-btns {
   box-shadow: 10px 10px 5px grey;
 } */
+
+.voting-input-filter {
+  margin-right: 25px;
+}

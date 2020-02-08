@@ -189,6 +189,7 @@ export default class SignupPage extends Component {
                   name="fName"
                   value={fName}
                   onChange={this.handleInputChange}
+                  required
                 />
               </Form.Group>
 
@@ -200,6 +201,7 @@ export default class SignupPage extends Component {
                   name="lName"
                   value={lName}
                   onChange={this.handleInputChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -213,6 +215,7 @@ export default class SignupPage extends Component {
                   name="email"
                   value={email}
                   onChange={this.handleInputChange}
+                  required
                 />
               </Form.Group>
 
@@ -224,6 +227,7 @@ export default class SignupPage extends Component {
                   name="password"
                   value={password}
                   onChange={this.handleInputChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -236,6 +240,7 @@ export default class SignupPage extends Component {
                 name="community"
                 value={community}
                 onChange={this.handleInputChange}
+                required
               />
             </Form.Group>
 
@@ -247,6 +252,7 @@ export default class SignupPage extends Component {
                 name="address1"
                 value={address1}
                 onChange={this.handleInputChange}
+                required
               />
             </Form.Group>
 
@@ -258,6 +264,7 @@ export default class SignupPage extends Component {
                 name="apartment"
                 value={apartment}
                 onChange={this.handleInputChange}
+                required
               />
             </Form.Group>
 
@@ -270,6 +277,7 @@ export default class SignupPage extends Component {
                   name="city"
                   value={city}
                   onChange={this.handleInputChange}
+                  required
                 />
               </Form.Group>
 
@@ -307,6 +315,7 @@ export default class SignupPage extends Component {
                   name="country"
                   value={country}
                   onChange={this.handleInputChange}
+                  required
                 ></Form.Control>
               </Form.Group>
 
@@ -318,6 +327,7 @@ export default class SignupPage extends Component {
                   name="phoneNumber"
                   value={phoneNumber}
                   onChange={this.handleInputChange}
+                  required
                 ></Form.Control>
               </Form.Group>
             </Form.Row>

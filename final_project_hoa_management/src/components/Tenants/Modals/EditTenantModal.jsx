@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import Parse from "parse";
 
-export default class EditMessageModal extends Component {
+export default class EditTenantModal extends Component {
   constructor(props) {
     super(props);
 

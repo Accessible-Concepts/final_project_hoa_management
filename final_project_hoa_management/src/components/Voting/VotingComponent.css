@@ -44,8 +44,7 @@
   margin-left: 10px;
 }
 
-.voting-title-read,
-.voting-title-unread {
+.voting-title-read, .voting-title-unread {
   display: flex;
   justify-content: space-between;
   /* align-items: center; */
@@ -98,4 +97,10 @@
 .vote-select {
   margin-left: 10px;
   z-index: 999;
+}
+
+.voting-btns-row {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
 }

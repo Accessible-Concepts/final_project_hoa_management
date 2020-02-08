@@ -239,7 +239,7 @@ export default class VotingPage extends Component {
         <Container fluid className="v-cont">
           <Form.Group>
             <Row className="votings-input-row" style={styles.row}>
-              <Col style={styles.col} className="voting-input-filter">
+              <Col lg="6" style={styles.col}>
                 <FormControl
                   className="votings-input"
                   placeholder="Filter votings by text in Title and Details"
@@ -249,8 +249,17 @@ export default class VotingPage extends Component {
                   onChange={this.onChangeHandler}
                 />
               </Col>
-
-              <Col lg="4.5" className="voting-sort" style={styles.col}>
+              <Col lg="3" style={styles.col}>
+                <Select
+                  className="votings-select"
+                  value={selectedOption}
+                  onChange={this.handleSelectChange}
+                  options={options}
+                  placeholder="Filter by Priority"
+                  // defaultValue={{ label: "Clear Filter", value: "" }}
+                />
+              </Col>
+              <Col lg="2.5" className="voting-sort" style={styles.col}>
                 <Form className="votings-radio-btns">
                   <div>Sort by:&nbsp;&nbsp;</div>
                   {["radio"].map(type => (

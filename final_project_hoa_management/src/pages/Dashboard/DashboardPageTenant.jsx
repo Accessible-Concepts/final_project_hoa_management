@@ -3,11 +3,9 @@ import "./DashboardPage.css";
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 import ClockComponent from "../../components/clock/ClockComponent";
-import { Container } from "react-bootstrap";
-import MultiSelectComponent from "../../components/MultiSelectComponent";
-import OptionButtons from "../../components/OptionButtons/OptionButtons";
+import { Container, Row, Col } from "react-bootstrap";
 
-export default class DashboardPage extends Component {
+export default class DashboardPageTenant extends Component {
   constructor(props) {
     super(props);
 
@@ -22,13 +20,8 @@ export default class DashboardPage extends Component {
 
     return (
       <div className="dashboard-page">
-        <div className="db-clock">
-          <ClockComponent name={activeUser.fName} />
-        </div>
-
         <Container fluid className="db-cont">
-          Dashboard
-          <OptionButtons />
+          Dashboard tenants
         </Container>
       </div>
     );

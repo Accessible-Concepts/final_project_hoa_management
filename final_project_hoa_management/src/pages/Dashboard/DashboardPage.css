@@ -10,9 +10,24 @@
 .db-cont {
   background-color: white;
 }
+
 .aaa {
   border-top: 150px;
 }
+
+.dashboard-first-row, .dashboard-second-row {
+  height: 50vh;
+}
+
+.dashboard-first-col-title {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-counter {
+  margin-left: 15px;
+}
+
 /* .homepageTitle {
     font-size: 3em;
     font-weight: bold;

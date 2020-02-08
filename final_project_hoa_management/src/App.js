@@ -3,11 +3,12 @@ import { Switch, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import DashboardPage from "./pages/Dashboard/DashboardPage";
+import DashboardPageCommittee from "./pages/Dashboard/DashboardPageCommittee";
+import DashboardPageTenant from "./pages/Dashboard/DashboardPageTenant";
 import TenantsPage from "./pages/TenantsPage/TenantsPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import IssuesPage from "./pages/IssuesPage/IssuesPage";
-import VotingPage from "./pages/VotingPage/VotingPage";
+import VotingPage2 from "./pages/VotingPage/VotingPage2";
 import "./App.css";
 import Parse from "parse";
 import MainNavbar from "./components/navbar/MainNavbar";
@@ -47,6 +48,19 @@ export default class App extends React.Component {
   render() {
     const { activeUser } = this.state;
 
+    const dashboardPage =
+      activeUser && activeUser.isCommitteeMember ? (
+        <DashboardPageCommittee
+          activeUser={activeUser}
+          handleLogout={this.handleLogout}
+        />
+      ) : (
+        <DashboardPageTenant
+          activeUser={activeUser}
+          handleLogout={this.handleLogout}
+        />
+      );
+
     return (
       <div className="app">
         <MainNavbar
@@ -69,10 +83,7 @@ export default class App extends React.Component {
               <SignupPage handleLogin={this.handleLogin} />
             </Route>
             <Route exact path="/dashboard">
-              <DashboardPage
-                activeUser={activeUser}
-                handleLogout={this.handleLogout}
-              />
+              {dashboardPage}
             </Route>
             <Route exact path="/tenants">
               <TenantsPage
@@ -93,7 +104,7 @@ export default class App extends React.Component {
               />
             </Route>
             <Route exact path="/voting">
-              <VotingPage
+              <VotingPage2
                 activeUser={activeUser}
                 handleLogout={this.handleLogout}
               />

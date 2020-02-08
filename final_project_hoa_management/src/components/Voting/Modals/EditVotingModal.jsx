@@ -4,18 +4,18 @@ import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import Parse from "parse";
 
-export default class EditMessageModal extends Component {
+export default class EditVotingModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.voting.id,
-      title: this.props.voting.title,
-      details: this.props.voting.details,
-      comments: this.props.voting.options,
-      createdBy: this.props.voting.dueDate,
-      createdAt: this.props.message.createdAt,
-      selectedOption: this.props.message.selectedOption
+      // id: this.props.voting.id,
+      // title: this.props.voting.title,
+      // details: this.props.voting.details,
+      // comments: this.props.voting.options,
+      // createdBy: this.props.voting.dueDate,
+      // createdAt: this.props.message.createdAt,
+      // selectedOption: this.props.message.selectedOption
     };
   }
 
@@ -88,11 +88,11 @@ export default class EditMessageModal extends Component {
     // console.log("selectedOption", this.state.selectedOption);
     // console.log("details", this.state.details);
     // console.log("massage", this.props.message);
-
+    console.log(this.props.voting);
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Message</Modal.Title>
+          <Modal.Title>Edit Voting</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -103,7 +103,7 @@ export default class EditMessageModal extends Component {
               <Col lg={9}>
                 <Form.Control
                   type="text"
-                  placeholder="Edit message title"
+                  placeholder="Edit voting title"
                   name="title"
                   value={title}
                   onChange={this.handleInputChange}
@@ -121,7 +121,7 @@ export default class EditMessageModal extends Component {
                   as="textarea"
                   rows="3"
                   type="text"
-                  placeholder="Edit message details"
+                  placeholder="Edit voting details"
                   name="details"
                   value={details}
                   onChange={this.handleInputChange}
@@ -151,7 +151,7 @@ export default class EditMessageModal extends Component {
                 <Form.Control type="file" onChange={this.handleFileChange} />
               </Col>
               <Col lg={4}>
-                <Image src={fileImg.URL} fluid width="300px" />
+                {/* <Image src={fileImg.URL} fluid width="300px" /> */}
               </Col>
             </Form.Group>
           </Form>

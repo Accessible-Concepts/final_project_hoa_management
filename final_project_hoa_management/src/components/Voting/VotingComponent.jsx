@@ -13,7 +13,6 @@ import {
 import Select from "react-select";
 
 import Parse from "parse";
-import DateTimePicker from "react-datetime-picker";
 
 export default class VotingComponent extends Component {
   constructor(props) {
@@ -34,17 +33,17 @@ export default class VotingComponent extends Component {
     const { voting } = this.props;
     let votingDueDate = voting.dueDate;
     let currentDate = new Date();
-    console.log(votingDueDate);
-    console.log(currentDate);
-    let chechDueDate;
+    // console.log(votingDueDate);
+    // console.log(currentDate);
+    let checkDueDate;
     if (votingDueDate > currentDate) {
-      chechDueDate = true;
-      voting.isActive = chechDueDate;
+      checkDueDate = true;
+      voting.isActive = checkDueDate;
       const Voting = Parse.Object.extend("Voting");
       const query = new Parse.Query(Voting);
       // here you put the objectId that you want to update
       query.get(voting.id).then(object => {
-        object.set("isActive", chechDueDate);
+        object.set("isActive", checkDueDate);
 
         object.save().then(
           response => {
@@ -59,13 +58,13 @@ export default class VotingComponent extends Component {
         );
       });
     } else if (votingDueDate <= currentDate) {
-      chechDueDate = false;
-      voting.isActive = chechDueDate;
+      checkDueDate = false;
+      voting.isActive = checkDueDate;
       const Voting = Parse.Object.extend("Voting");
       const query = new Parse.Query(Voting);
       // here you put the objectId that you want to update
       query.get(voting.id).then(object => {
-        object.set("isActive", chechDueDate);
+        object.set("isActive", checkDueDate);
 
         object.save().then(
           response => {
@@ -81,7 +80,7 @@ export default class VotingComponent extends Component {
       });
     }
 
-    console.log(chechDueDate);
+    console.log(checkDueDate);
   }
 
   onChangeHandler = ev => {
@@ -208,30 +207,60 @@ export default class VotingComponent extends Component {
     //   voting.dueDate.toLocaleString()
     // );
 
-    const votingResultsGraphTitle = activeUser.isCommitteeMember ? (
-      "Results"
-    ) : (
-      <div className="tenant-vote">
-        <div>Your vote:</div>
-        <div className="vote-select">
-          <Select
-            className="vote-select"
-            onChange={this.handleSelectChange}
-            options={this.props.voting.options}
-            placeholder="Filter by Priority"
-            // defaultValue={{ label: "Clear Filter", value: "" }}
-          />
+    const votingResultsGraphTitle =
+      activeUser.isCommitteeMember && voting.isActive ? (
+        "Results"
+      ) : (
+        <div className="tenant-vote">
+          <div>Your vote:</div>
+          <div className="vote-select">
+            <Select
+              className="vote-select"
+              onChange={this.handleSelectChange}
+              options={this.props.voting.options}
+              placeholder="Vote options"
+              // defaultValue={{ label: "Clear Filter", value: "" }}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
     const graph1 = activeUser.isCommitteeMember ? "graph1" : null;
 
-    const votingResultsPercentage = activeUser.isCommitteeMember ? (
-      "Voting Percentage"
-    ) : (
-      <button>Button</button>
-    );
+    const votingResultsPercentage = activeUser.isCommitteeMember
+      ? "Voting Percentage"
+      : null;
     const graph2 = activeUser.isCommitteeMember ? "graph2" : null;
+
+    let showUpdateDeleteVotingBtn;
+    if (activeUser && activeUser.isCommitteeMember) {
+      showUpdateDeleteVotingBtn = (
+        <ButtonToolbar>
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => {
+              this.setState({ showEditVotingModal: true });
+            }}
+            // handleClose={this.handleClose}
+          >
+            Update
+          </Button>
+          <Button
+            className="messege-delete-btn"
+            type="button"
+            variant="danger"
+            size="sm"
+            onClick={() => {
+              const deleteVoting = this.props.deleteVoting;
+              deleteVoting(voting.id);
+              console.log(voting.id);
+            }}
+          >
+            Delete
+          </Button>
+        </ButtonToolbar>
+      );
+    } else showUpdateDeleteVotingBtn = null;
 
     console.log(activeUser);
     return (
@@ -252,11 +281,7 @@ export default class VotingComponent extends Component {
             </span>
           </div>
           <div>
-            <img
-              src={activeImage}
-              alt="Issue priority icon"
-              height="25px"
-            ></img>
+            <img src={activeImage} alt="Voting status icon" height="25px"></img>
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={this.props.ind}>
@@ -264,13 +289,15 @@ export default class VotingComponent extends Component {
             <Row style={styles.row}>
               <Col>
                 <Row className="voting-first-row">
-                  <Col lg="2">Details: </Col>
-                  <Col lg="10">{voting.details}</Col>
+                  <Col lg="4">Details: </Col>
+                  <Col lg="8">{voting.details}</Col>
                 </Row>
                 <Row>
-                  <Col lg="2">End Date: </Col>
-                  <Col lg="10">
-                    {voting.dueDate && voting.dueDate.toLocaleString()}
+                  <Col lg="4">End Date: </Col>
+                  <Col lg="8">
+                    <div>
+                      {voting.dueDate && voting.dueDate.toLocaleString()}
+                    </div>
                   </Col>
                 </Row>
               </Col>
@@ -286,20 +313,41 @@ export default class VotingComponent extends Component {
                 </div>
                 <div>{graph2}</div>
               </Col>
-              <Col lg="2" className="graph">
-                <div className="voting-first-row">
-                  {votingResultsPercentage}
-                </div>
-                <div>{graph2}</div>
-              </Col>
+            </Row>
+            <Row style={styles.row} className="voting-btns-row">
+              <div className="voting-update-delete">
+                {showUpdateDeleteVotingBtn}
+              </div>
+              <div>
+                <Button
+                  className="vote-btn"
+                  type="button"
+                  // variant=""
+                  size="sm"
+                  onClick={() => {
+                    // const deleteVoting = this.props.deleteVoting;
+                    // deleteVoting(voting.id);
+                    // console.log(voting.id);
+                  }}
+                >
+                  Vote
+                </Button>
+              </div>
             </Row>
           </Card.Body>
         </Accordion.Collapse>
-        <showEditVotingModal
+        {/* <VoteModal
+          show={showVoteModal}
+          handleClose={this.handleClose}
+          handleEditVote={this.handleEditVote}
+          Voting={this.props.voting}
+        /> */}
+
+        <EditVotingModal
           show={showEditVotingModal}
           handleClose={this.handleClose}
           handleEditVoting={this.handleEditVoting}
-          Voting={this.props.voting}
+          Voting={voting}
         />
       </Card>
     );
