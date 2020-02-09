@@ -29,11 +29,16 @@ export default class OptionButtons extends Component {
     if (event.keyCode === 13) {
       //  event.preventDefault();
       const optionObj = new VoteOptionModel(input);
-      this.setState({
-        optionsArray: this.state.optionsArray.concat(optionObj),
-        input: ""
-      });
-      this.props.handleOptions(this.state.optionsArray);
+      this.setState(
+        {
+          optionsArray: this.state.optionsArray.concat(optionObj),
+          input: ""
+        },
+        () => {
+          //TODO: Ask Nir
+          this.props.handleOptions(this.state.optionsArray);
+        }
+      );
       // console.log(this.state.list)
     }
   };

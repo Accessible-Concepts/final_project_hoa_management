@@ -36,28 +36,8 @@ export default class VotingComponent extends Component {
     // console.log(votingDueDate);
     // console.log(currentDate);
     let checkDueDate;
-    if (votingDueDate > currentDate) {
-      checkDueDate = true;
-      voting.isActive = checkDueDate;
-      const Voting = Parse.Object.extend("Voting");
-      const query = new Parse.Query(Voting);
-      // here you put the objectId that you want to update
-      query.get(voting.id).then(object => {
-        object.set("isActive", checkDueDate);
-
-        object.save().then(
-          response => {
-            // You can use the "get" method to get the value of an attribute
-            // Ex: response.get("<ATTRIBUTE_NAME>")
-
-            console.log("Updated Voting", response);
-          },
-          error => {
-            console.error("Error while updating Voting", error);
-          }
-        );
-      });
-    } else if (votingDueDate <= currentDate) {
+    if (votingDueDate <= currentDate) {
+      //TODO: Ask Nir
       checkDueDate = false;
       voting.isActive = checkDueDate;
       const Voting = Parse.Object.extend("Voting");
@@ -78,9 +58,7 @@ export default class VotingComponent extends Component {
           }
         );
       });
-    }
-
-    console.log(checkDueDate);
+    } else console.log(checkDueDate);
   }
 
   onChangeHandler = ev => {
@@ -262,7 +240,6 @@ export default class VotingComponent extends Component {
       );
     } else showUpdateDeleteVotingBtn = null;
 
-    console.log(activeUser);
     return (
       <Card className="voting-comp">
         <Accordion.Toggle
@@ -291,6 +268,10 @@ export default class VotingComponent extends Component {
                 <Row className="voting-first-row">
                   <Col lg="4">Details: </Col>
                   <Col lg="8">{voting.details}</Col>
+                </Row>
+                <Row className="voting-second-row">
+                  <Col lg="4">Options: </Col>
+                  {/* <Col lg="8">{voting && voting.options}</Col> */}
                 </Row>
                 <Row>
                   <Col lg="4">End Date: </Col>

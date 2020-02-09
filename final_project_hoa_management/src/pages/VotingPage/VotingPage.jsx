@@ -89,6 +89,7 @@ export default class VotingPage extends Component {
 
     newParseVoting.set("createdBy", Parse.User.current());
     newParseVoting.set("community", activeUser.community);
+    newParseVoting.set("isActive", newVoting.isActive);
     newParseVoting.save().then(
       theCreatedParseVoting => {
         console.log("Voting created", theCreatedParseVoting);

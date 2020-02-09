@@ -12,7 +12,7 @@ export default class NewVotingModal extends Component {
       deails: "",
       options: [],
       date: new Date(),
-      voteOptions: null
+      isActive: true
     };
 
     this.createVoting = this.createVoting.bind(this);
@@ -31,8 +31,8 @@ export default class NewVotingModal extends Component {
   onChangeDate = date => this.setState({ date });
 
   createVoting = () => {
-    const { title, details, options, date } = this.state;
-    const newVoting = { title, details, options, date };
+    const { title, details, options, date, isActive } = this.state;
+    const newVoting = { title, details, options, date, isActive };
     this.props.handleNewVoting(newVoting);
     this.props.handleClose();
     this.setState({
@@ -43,17 +43,17 @@ export default class NewVotingModal extends Component {
     });
   };
 
-  handleOptions(optionsArray) {
+  handleOptions = optionsArray => {
     console.log(optionsArray);
-    // this.setState({
-    //   voteOptions: optionsArray
-    // });
-    // console.log(this.state.voteOptions);
-  }
+    this.setState({
+      options: optionsArray
+    });
+    console.log(this.state.options);
+  };
 
   render() {
     const { show, handleClose } = this.props;
-    const { title, details, options } = this.state;
+    const { title, details } = this.state;
     console.log(this.state.date);
     return (
       <Modal show={show} onHide={handleClose}>
