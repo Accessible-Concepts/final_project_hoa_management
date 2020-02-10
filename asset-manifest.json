@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/final_project_hoa_management/static/css/main.dc5af2aa.chunk.css",
-    "main.js": "/final_project_hoa_management/static/js/main.9a0a11ca.chunk.js",
-    "main.js.map": "/final_project_hoa_management/static/js/main.9a0a11ca.chunk.js.map",
+    "main.css": "/final_project_hoa_management/static/css/main.ec970ac3.chunk.css",
+    "main.js": "/final_project_hoa_management/static/js/main.41e4f214.chunk.js",
+    "main.js.map": "/final_project_hoa_management/static/js/main.41e4f214.chunk.js.map",
     "runtime-main.js": "/final_project_hoa_management/static/js/runtime-main.256994f9.js",
     "runtime-main.js.map": "/final_project_hoa_management/static/js/runtime-main.256994f9.js.map",
     "static/css/2.a295cc11.chunk.css": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css",
     "static/js/2.a97c032a.chunk.js": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js",
     "static/js/2.a97c032a.chunk.js.map": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js.map",
     "index.html": "/final_project_hoa_management/index.html",
-    "precache-manifest.9351ff69ddc86fa769720af06473ab7d.js": "/final_project_hoa_management/precache-manifest.9351ff69ddc86fa769720af06473ab7d.js",
+    "precache-manifest.31a2c841b7b85ade650175074a8342b5.js": "/final_project_hoa_management/precache-manifest.31a2c841b7b85ade650175074a8342b5.js",
     "service-worker.js": "/final_project_hoa_management/service-worker.js",
     "static/css/2.a295cc11.chunk.css.map": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css.map",
-    "static/css/main.dc5af2aa.chunk.css.map": "/final_project_hoa_management/static/css/main.dc5af2aa.chunk.css.map",
+    "static/css/main.ec970ac3.chunk.css.map": "/final_project_hoa_management/static/css/main.ec970ac3.chunk.css.map",
     "static/js/2.a97c032a.chunk.js.LICENSE": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js.LICENSE",
     "static/media/3.jpg": "/final_project_hoa_management/static/media/3.75197870.jpg",
     "static/media/info.png": "/final_project_hoa_management/static/media/info.bfa56361.png"
@@ -21,7 +21,7 @@
     "static/js/runtime-main.256994f9.js",
     "static/css/2.a295cc11.chunk.css",
     "static/js/2.a97c032a.chunk.js",
-    "static/css/main.dc5af2aa.chunk.css",
-    "static/js/main.9a0a11ca.chunk.js"
+    "static/css/main.ec970ac3.chunk.css",
+    "static/js/main.41e4f214.chunk.js"
   ]
 }
