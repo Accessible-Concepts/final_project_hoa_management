@@ -198,7 +198,7 @@ export default class IssueComponent extends Component {
       (currentDate - issueCreateat) / (1000 * 60 * 60 * 24)
     );
 
-    if (issue.issueActive && overdue >= 4) {
+    if (issue.issueActive && overdue >= 6) {
       issue.isOverdue = true;
     } else issue.isOverdue = false;
 
