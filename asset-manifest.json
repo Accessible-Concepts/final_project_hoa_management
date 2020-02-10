@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/liorhasson19/final_project_hoa_management/static/css/main.dc5af2aa.chunk.css",
-    "main.js": "/liorhasson19/final_project_hoa_management/static/js/main.1f8c51f3.chunk.js",
-    "main.js.map": "/liorhasson19/final_project_hoa_management/static/js/main.1f8c51f3.chunk.js.map",
-    "runtime-main.js": "/liorhasson19/final_project_hoa_management/static/js/runtime-main.65da070a.js",
-    "runtime-main.js.map": "/liorhasson19/final_project_hoa_management/static/js/runtime-main.65da070a.js.map",
-    "static/css/2.a295cc11.chunk.css": "/liorhasson19/final_project_hoa_management/static/css/2.a295cc11.chunk.css",
-    "static/js/2.d7f14a08.chunk.js": "/liorhasson19/final_project_hoa_management/static/js/2.d7f14a08.chunk.js",
-    "static/js/2.d7f14a08.chunk.js.map": "/liorhasson19/final_project_hoa_management/static/js/2.d7f14a08.chunk.js.map",
-    "index.html": "/liorhasson19/final_project_hoa_management/index.html",
-    "precache-manifest.c811001bda2c21ac09ec880e280d9be7.js": "/liorhasson19/final_project_hoa_management/precache-manifest.c811001bda2c21ac09ec880e280d9be7.js",
-    "service-worker.js": "/liorhasson19/final_project_hoa_management/service-worker.js",
-    "static/css/2.a295cc11.chunk.css.map": "/liorhasson19/final_project_hoa_management/static/css/2.a295cc11.chunk.css.map",
-    "static/css/main.dc5af2aa.chunk.css.map": "/liorhasson19/final_project_hoa_management/static/css/main.dc5af2aa.chunk.css.map",
-    "static/js/2.d7f14a08.chunk.js.LICENSE": "/liorhasson19/final_project_hoa_management/static/js/2.d7f14a08.chunk.js.LICENSE",
-    "static/media/3.jpg": "/liorhasson19/final_project_hoa_management/static/media/3.75197870.jpg",
-    "static/media/info.png": "/liorhasson19/final_project_hoa_management/static/media/info.bfa56361.png"
+    "main.css": "/final_project_hoa_management/static/css/main.dc5af2aa.chunk.css",
+    "main.js": "/final_project_hoa_management/static/js/main.9a0a11ca.chunk.js",
+    "main.js.map": "/final_project_hoa_management/static/js/main.9a0a11ca.chunk.js.map",
+    "runtime-main.js": "/final_project_hoa_management/static/js/runtime-main.256994f9.js",
+    "runtime-main.js.map": "/final_project_hoa_management/static/js/runtime-main.256994f9.js.map",
+    "static/css/2.a295cc11.chunk.css": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css",
+    "static/js/2.a97c032a.chunk.js": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js",
+    "static/js/2.a97c032a.chunk.js.map": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js.map",
+    "index.html": "/final_project_hoa_management/index.html",
+    "precache-manifest.9351ff69ddc86fa769720af06473ab7d.js": "/final_project_hoa_management/precache-manifest.9351ff69ddc86fa769720af06473ab7d.js",
+    "service-worker.js": "/final_project_hoa_management/service-worker.js",
+    "static/css/2.a295cc11.chunk.css.map": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css.map",
+    "static/css/main.dc5af2aa.chunk.css.map": "/final_project_hoa_management/static/css/main.dc5af2aa.chunk.css.map",
+    "static/js/2.a97c032a.chunk.js.LICENSE": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js.LICENSE",
+    "static/media/3.jpg": "/final_project_hoa_management/static/media/3.75197870.jpg",
+    "static/media/info.png": "/final_project_hoa_management/static/media/info.bfa56361.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.65da070a.js",
+    "static/js/runtime-main.256994f9.js",
     "static/css/2.a295cc11.chunk.css",
-    "static/js/2.d7f14a08.chunk.js",
+    "static/js/2.a97c032a.chunk.js",
     "static/css/main.dc5af2aa.chunk.css",
-    "static/js/main.1f8c51f3.chunk.js"
+    "static/js/main.9a0a11ca.chunk.js"
   ]
 }
