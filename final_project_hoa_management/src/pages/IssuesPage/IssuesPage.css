@@ -1,27 +1,29 @@
 .issues-page {
   background-color: #585753;
+  margin-top: 80px;
 }
 
 .i-cont {
   background-color: white;
 }
 
-.issue-sort,
-.radio-btns,
-.issue-radio-buttons {
+.issue-sort, .radio-btns, .issue-radio-buttons {
   display: flex;
   align-items: center;
   margin-bottom: 0 !important;
 }
+
 .issues-accord {
   width: 100%;
   margin: 20px 0;
   box-shadow: 10px 10px 5px grey;
 }
+
 .issues-input-row {
   display: flex;
   justify-content: space-between !important;
 }
+
 .issues-select {
   margin: 0 20px;
 }
@@ -35,8 +37,14 @@
   border-radius: 5px;
   padding: 5px 10px;
 }
-.issue-title-table {
+
+.issues-title-table {
   font-weight: bold;
+  color: #585753;
+}
+
+.issues-page-title {
+  color: #585753;
 }
 
 /* .issues-input,

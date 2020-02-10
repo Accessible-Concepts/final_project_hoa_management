@@ -102,7 +102,7 @@ export default class MessageComponent extends Component {
     });
   };
 
-  addComment(event, message) {
+  addComment = (event, message) => {
     const { input } = this.state;
     const newComment = input;
 
@@ -112,7 +112,11 @@ export default class MessageComponent extends Component {
       this.handleNewComment(newComment, message);
       //     //     // console.log(this.state.list)
     }
-  }
+  };
+
+  handleEditMessage = message => {
+    console.log(message);
+  };
 
   render() {
     const { message } = this.props;
@@ -256,7 +260,7 @@ export default class MessageComponent extends Component {
           show={showEditMessageModal}
           handleClose={this.handleClose}
           handleEditMessage={this.handleEditMessage}
-          message={this.props.message}
+          message={message}
         />
       </Card>
     );

@@ -6,6 +6,7 @@
 .landing-page {
   background-color: #585753;
   color: white;
+  height: 100vh;
 }
 
 .lp-col {

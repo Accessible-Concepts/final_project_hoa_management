@@ -1,5 +1,6 @@
 .dashboard-page {
   background-color: #585753;
+  margin-top: 80px;
 }
 
 .db-clock {
@@ -22,6 +23,7 @@
 .dashboard-col-title {
   display: flex;
   align-items: center;
+  color: #585753;
 }
 
 .dashboard-counter {

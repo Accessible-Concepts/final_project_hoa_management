@@ -10,10 +10,14 @@ export default class LoginPage extends Component {
     super(props);
 
     this.state = {
-      email: "liorhasson@gmail.com",
-      password: "123",
+      email: "",
+      password: "",
       showInvalidLoginError: false,
       redirectToDashboard: false
+      // email: "liorhasson@gmail.com",
+      // password: "123",
+      // showInvalidLoginError: false,
+      // redirectToDashboard: false
     };
   }
 

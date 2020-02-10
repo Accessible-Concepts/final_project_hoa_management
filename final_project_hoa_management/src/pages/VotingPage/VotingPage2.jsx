@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "./VotingPage.css";
 import VotingPage from "./VotingPage";
 
-import { Redirect } from "react-router-dom";
-
 export default class VotingPage2 extends Component {
   constructor(props) {
     super(props);

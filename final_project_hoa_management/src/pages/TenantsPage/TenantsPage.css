@@ -1,6 +1,7 @@
 .tenants-page {
   /* display: flex; */
   background-color: #585753;
+  margin-top: 80px;
   /* height: 100%; */
 }
 
@@ -14,5 +15,14 @@
 }
 
 .community-title-table {
+  font-weight: bold;
+}
+
+.tenants-page-title {
+  color: #585753;
+}
+
+.tenants-title-table {
+  color: #585753;
   font-weight: bold;
 }

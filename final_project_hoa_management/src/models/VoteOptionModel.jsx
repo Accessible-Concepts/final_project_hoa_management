@@ -1,7 +1,7 @@
 export default class VoteOptionModel {
   constructor(voteOption) {
     this.value = voteOption;
-    this.name = voteOption;
+    this.label = voteOption;
   }
 
   // getAge() {

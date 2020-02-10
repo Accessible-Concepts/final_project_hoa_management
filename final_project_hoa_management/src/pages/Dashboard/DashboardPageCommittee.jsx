@@ -41,9 +41,20 @@ export default class DashboardPageCommitte extends Component {
 
     let unreadIssues = issues.filter(iss => {
       let boolResultofRead =
-        iss.readByUser && iss.readByUser.includes(activeUser.id) ? false : true;
+        iss.readByUser &&
+        !iss.readByUser.includes(activeUser.id) &&
+        !iss.isOverdue
+          ? true
+          : false;
       return boolResultofRead;
     });
+
+    // Filters the unred issues array and show only
+    // issues that are not overdue
+    // let dueIssues = unreadIssues.filter(iss => {
+    //   let boolResultofDue = !iss.isOverdue ? true : false;
+    //   return boolResultofDue;
+    // });
 
     const issuesView = unreadIssues.map((issue, index) => (
       <IssueComponent
@@ -61,8 +72,7 @@ export default class DashboardPageCommitte extends Component {
       dashNewIssuesDisp = "There are no new reported issues";
     } else dashNewIssuesDisp = issuesView;
 
-    //Displays the overdue issues
-
+    //Displays the overdue active issues
     let overdueIssues = issues.filter(iss => {
       let boolResultofOverdue = iss.isOverdue && iss.issueActive ? true : false;
       return boolResultofOverdue;
@@ -111,7 +121,7 @@ export default class DashboardPageCommitte extends Component {
               </div>
             </Col>
           </Row>
-          <Row className="dashboard-second-row">
+          <Row className="dashboard-col-title">
             <Col>
               <h4>Active Voting Percentage</h4>
             </Col>

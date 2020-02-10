@@ -151,7 +151,14 @@ export default class VotingPage extends Component {
       }
     };
     console.log(votings);
-    // Funxtion that filters the votings array according
+    //Sets the voting components' titles according to
+    //Active Votings or Votings Results
+
+    let votingCompTitle = this.props.activeVotings
+      ? "Active Votings"
+      : "Votings Results";
+
+    // Filters the votings array according
     // to the text entered in the input field
     let inputFilteredVotings = votings.filter(vot => {
       let boolResultofTitle = vot.title
@@ -163,7 +170,7 @@ export default class VotingPage extends Component {
       return boolResultofTitle || boolResultofDetails;
     });
 
-    //Function that filters the votings array according to their isActive value
+    //Filters the votings array according to their isActive value
     let selectFilteredVotings = inputFilteredVotings.filter(vot => {
       if (this.props.activeVotings === vot.isActive) {
         console.log(this.state.selectedOption.value);
@@ -236,6 +243,17 @@ export default class VotingPage extends Component {
       <div className="voting-page">
         <Container fluid className="v-cont">
           <Form.Group>
+            <Row style={styles.row}>
+              <h4 className="voting-page-title">{votingCompTitle}</h4>
+            </Row>
+            <Row className="btn-input-row" style={styles.row}>
+              <div className="voting-title-table">
+                &nbsp;&nbsp;Community: {community.get("community")}
+              </div>
+              {showNewVotingBtn}
+            </Row>
+          </Form.Group>
+          <Form.Group>
             <Row className="votings-input-row" style={styles.row}>
               <Col style={styles.col} className="voting-input-filter">
                 <FormControl
@@ -248,7 +266,7 @@ export default class VotingPage extends Component {
                 />
               </Col>
 
-              <Col lg="4.5" className="voting-sort" style={styles.col}>
+              {/* <Col lg="4.5" className="voting-sort" style={styles.col}>
                 <Form className="votings-btns">
                   <Button
                     className="voting-sort-btn"
@@ -257,41 +275,10 @@ export default class VotingPage extends Component {
                   >
                     Sort by Date
                   </Button>
-                  {/* <div>Sort by:&nbsp;&nbsp;</div>
-                  {["radio"].map(type => (
-                    <div key={`inline-${type}`} className="radio-btns">
-                      <Form.Check
-                        inline
-                        label="Date"
-                        type={type}
-                        id={`inline-${type}-1`}
-                        name="sort"
-                        onChange={this.handleSortChange}
-                        value="date"
-                        checked={this.state.selectedSortOption === "date"}
-                      /> */}
-                  {/* <Form.Check
-                        inline
-                        label="Status"
-                        type={type}
-                        id={`inline-${type}-2`}
-                        name="sort"
-                        onChange={this.handleSortChange}
-                        value="status"
-                        checked={this.state.selectedSortOption === "status"}
-                      /> */}
-                  {/* </div> */}
-                  {/* ))} */}
                 </Form>
-              </Col>
+              </Col> */}
             </Row>
           </Form.Group>
-          <Row className="btn-input-row" style={styles.row}>
-            <div className="voting-title-table">
-              Community: {community.get("community")}
-            </div>
-            {showNewVotingBtn}
-          </Row>
           <Row style={styles.row}>
             <Accordion defaultActiveKey="1" className="voting-accord">
               {votingsView}

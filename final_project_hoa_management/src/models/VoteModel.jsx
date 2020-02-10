@@ -3,5 +3,6 @@ export default class VoteModel {
     this.votedBy = vote.votedBy;
     this.vote = vote.vote;
     this.votingId = vote.votingId;
+    this.community = vote.community;
   }
 }

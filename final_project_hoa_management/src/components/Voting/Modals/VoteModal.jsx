@@ -8,17 +8,14 @@ export default class VoteModal extends Component {
     super(props);
 
     this.state = {
-      title: "",
+      // title: this.props.voting.title,
       deails: "",
       options: "",
       date: new Date()
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.createVoting = this.createVoting.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -26,14 +23,14 @@ export default class VoteModal extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
   onChangeDate = date => this.setState({ date });
 
-  createVoting() {
+  createVote = () => {
     const { title, details, options, date } = this.state;
-    const newVoting = { title, details, options, date };
-    this.props.handleNewVoting(newVoting);
+    const newVote = { title, details, options, date };
+    this.props.handleNewVote(newVote);
     this.props.handleClose();
     this.setState({
       title: "",
@@ -41,16 +38,16 @@ export default class VoteModal extends Component {
       options: "",
       date: new Date()
     });
-  }
+  };
 
   render() {
     const { show, handleClose } = this.props;
     const { title, details, options } = this.state;
-    console.log(this.state.date);
+    // console.log(this.props.voting);
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Voting</Modal.Title>
+          <Modal.Title>New Vote</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -61,7 +58,7 @@ export default class VoteModal extends Component {
               <Col lg={9}>
                 <Form.Control
                   type="text"
-                  placeholder="Enter new voting title"
+                  placeholder="Enter new vote title"
                   name="title"
                   value={title}
                   onChange={this.handleInputChange}
@@ -72,7 +69,7 @@ export default class VoteModal extends Component {
             <Form.Group
               as={Row}
               controlId="formHorizontalDetails"
-              className="voting-first-row"
+              className="vote-first-row"
             >
               <Form.Label column sm={3}>
                 Details
@@ -84,7 +81,7 @@ export default class VoteModal extends Component {
                   name="details"
                   value={details}
                   type="text"
-                  placeholder="Enter new voting details"
+                  placeholder="Enter new vote details"
                   onChange={this.handleInputChange}
                 />
               </Col>
@@ -121,7 +118,7 @@ export default class VoteModal extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.createVoting}>Create</Button>
+          <Button onClick={this.createVote}>Create</Button>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>

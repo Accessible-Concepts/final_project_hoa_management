@@ -1,5 +1,6 @@
 .voting-page {
   background-color: white;
+  padding-top: 24px;
   width: 50%;
 }
 
@@ -25,7 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 0;
+  margin: 0px 0;
   color: #585753;
 }
 
@@ -91,8 +92,8 @@
   box-shadow: 10px 10px 5px grey;
 } */
 
-.voting-input-filter {
-  margin-right: 25px;
+.voting-sort {
+  margin-left: 25px;
 }
 
 .voting-sort-btn {
@@ -105,4 +106,8 @@
 .voting-sort-btn:hover {
   background-color: gray !important;
   border: 2px solid gray !important;
+}
+
+.voting-page-title {
+  color: #585753;
 }

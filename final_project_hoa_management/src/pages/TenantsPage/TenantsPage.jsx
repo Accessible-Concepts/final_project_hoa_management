@@ -242,6 +242,24 @@ export default class TenantsPage extends Component {
       <div className="tenants-page">
         <Container fluid className="t-cont">
           <Form.Group>
+            <Row style={styles.row}>
+              <h4 className="tenants-page-title">Tenants</h4>
+            </Row>
+            <Row className="btn-input-row" style={styles.row}>
+              <div className="tenants-title-table">
+                &nbsp;&nbsp;Community: {community.get("community")}
+              </div>
+              <Button
+                size="sm"
+                onClick={() => {
+                  this.setState({ showNewTenantModal: true });
+                }}
+              >
+                New Tenant
+              </Button>
+            </Row>
+          </Form.Group>
+          <Form.Group>
             <Row className="message-input-row" style={styles.row}>
               <Col style={styles.col}>
                 <FormControl
@@ -255,19 +273,7 @@ export default class TenantsPage extends Component {
               </Col>
             </Row>
           </Form.Group>
-          <Row className="btn-input-row" style={styles.row}>
-            <div className="community-title-table">
-              Community: {community.get("community")}
-            </div>
-            <Button
-              size="sm"
-              onClick={() => {
-                this.setState({ showNewTenantModal: true });
-              }}
-            >
-              New Tenant
-            </Button>
-          </Row>
+
           {/* <CaptionElement /> */}
           <BootstrapTable
             striped

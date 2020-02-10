@@ -40,9 +40,9 @@ export default class LandingPage extends Component {
                 groups. All important notifications go through, meaning everyone
                 is connected.
               </div>
-              <button class="login-button" href="#/login">
+              {/* <button class="login-button" href="#/login">
                 <span>Login </span>
-              </button>
+              </button> */}
 
               <Button variant="primary" href="#/login">
                 Login

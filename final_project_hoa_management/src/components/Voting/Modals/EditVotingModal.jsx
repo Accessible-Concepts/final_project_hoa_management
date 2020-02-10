@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./EditVotingModal.css";
-import { Modal, Image, Button, Form, Row, Col } from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import Parse from "parse";
 
@@ -29,14 +29,14 @@ export default class EditVotingModal extends Component {
     });
   };
 
-  editMessage = message => {
+  editVoting = voting => {
     const { title, details, selectedOption, fileImg } = this.state;
     // console.log(message.id);
     // console.log("title", this.state.title);
-    const Message = Parse.Object.extend("Message");
-    const query = new Parse.Query(Message);
+    const Voting = Parse.Object.extend("Voting");
+    const query = new Parse.Query(Voting);
     // here you put the objectId that you want to update
-    query.get(message.id).then(object => {
+    query.get(voting.id).then(object => {
       object.set("title", title);
       object.set("details", details);
       object.set("selectedOption", selectedOption);
@@ -45,10 +45,10 @@ export default class EditVotingModal extends Component {
         response => {
           // You can use the "get" method to get the value of an attribute
           // Ex: response.get("<ATTRIBUTE_NAME>")
-          console.log("Updated Message", response);
+          console.log("Updated Voting", response);
         },
         error => {
-          console.error("Error while updating Message", error);
+          console.error("Error while updating Voting", error);
         }
       );
     });
@@ -78,8 +78,8 @@ export default class EditVotingModal extends Component {
   };
 
   render() {
-    const { show, handleClose, message } = this.props;
-    const { title, details, fileImg, selectedOption } = this.state;
+    const { show, handleClose, voting } = this.props;
+    const { title, details, selectedOption } = this.state;
 
     const priorityOptions = [
       { value: "Information", label: "Information" },
@@ -158,14 +158,14 @@ export default class EditVotingModal extends Component {
         </Modal.Body>
         <Modal.Footer className="btns-modal">
           <div>
-            <Button variant="danger">Delete Message</Button>
+            <Button variant="danger">Delete Voting</Button>
           </div>
           <div>
             <Button
               onClick={() => {
-                const editMessage = this.editMessage;
-                editMessage(message);
-                console.log(message);
+                const editVoting = this.editVoting;
+                editVoting(voting);
+                console.log(voting);
               }}
             >
               Save

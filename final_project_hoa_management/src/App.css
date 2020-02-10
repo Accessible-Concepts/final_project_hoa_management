@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
+
 .main-content {
-  margin-top: 75px;
+  margin-top: 56px;
+  /* padding-top: 24px; */
   margin-bottom: 35px;
 }

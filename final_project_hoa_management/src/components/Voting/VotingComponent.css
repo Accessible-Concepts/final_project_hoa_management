@@ -87,6 +87,8 @@
 
 .voting-first-row {
   margin-bottom: 1em;
+  display: flex;
+  align-items: flex-start;
 }
 
 .tenant-vote {
@@ -103,4 +105,36 @@
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
+}
+
+.vote-indicator {
+  background-color: #585753;
+  color: white;
+  padding: 5px 10px;
+  font-size: x-small;
+  margin-left: auto;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.vote-button-selection {
+  display: flex;
+  align-items: flex-start;
+  height: 200px;
+}
+
+.vote-select {
+  width: 100px;
+  margin: 0 10px;
+}
+
+.voting-chart {
+  width: 200px;
+  height: 200px;
+}
+
+.graph {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 }

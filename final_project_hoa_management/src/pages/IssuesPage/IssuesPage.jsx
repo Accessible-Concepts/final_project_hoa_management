@@ -215,13 +215,27 @@ export default class IssuesPage extends Component {
 
     const community = activeUser ? activeUser.community : null;
 
-    if (!activeUser) {
-      return <Redirect to="/" />;
-    }
-
     return (
       <div className="issues-page">
         <Container fluid className="i-cont">
+          <Form.Group>
+            <Row style={styles.row}>
+              <h4 className="issues-page-title">Issues</h4>
+            </Row>
+            <Row className="btn-input-row" style={styles.row}>
+              <div className="issues-title-table">
+                &nbsp;&nbsp;Community: {community.get("community")}
+              </div>
+              <Button
+                size="sm"
+                onClick={() => {
+                  this.setState({ showNewIssueModal: true });
+                }}
+              >
+                New Issue
+              </Button>
+            </Row>
+          </Form.Group>
           <Form.Group>
             <Row className="issues-input-row" style={styles.row}>
               <Col lg="6" style={styles.col}>
@@ -275,19 +289,7 @@ export default class IssuesPage extends Component {
               </Col>
             </Row>
           </Form.Group>
-          <Row className="btn-input-row" style={styles.row}>
-            <div className="issue-title-table">
-              Community: {community.get("community")}
-            </div>{" "}
-            <Button
-              size="sm"
-              onClick={() => {
-                this.setState({ showNewIssueModal: true });
-              }}
-            >
-              New Issue
-            </Button>
-          </Row>
+
           <Row style={styles.row}>
             <Accordion defaultActiveKey="1" className="issues-accord">
               {issuesView}

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import "./VotingComponent.css";
 import EditVotingModal from "../../components/Voting/Modals/EditVotingModal";
+import VoteModal from "../../components/Voting/Modals/VoteModal";
 import {
   Card,
   Accordion,
   Row,
   Col,
   ButtonToolbar,
-  Button,
-  Form
+  Button
 } from "react-bootstrap";
 import Select from "react-select";
+import { Pie } from "react-chartjs-2";
 
 import Parse from "parse";
 
@@ -20,12 +21,14 @@ export default class VotingComponent extends Component {
 
     this.state = {
       showEditVotingModal: false,
+      showVoteModal: false,
       input: "",
       newComment: "",
       readVotingState: false,
       updateVotingVoteddBy: [],
-      comments: []
-      // date: new Date()
+      comments: [],
+      selectedOption: "",
+      labelsArr: []
     };
   }
 
@@ -35,16 +38,16 @@ export default class VotingComponent extends Component {
     let currentDate = new Date();
     // console.log(votingDueDate);
     // console.log(currentDate);
-    let checkDueDate;
-    if (votingDueDate <= currentDate) {
+    let isActiveCheck;
+    if (votingDueDate <= currentDate && voting.isActive) {
       //TODO: Ask Nir
-      checkDueDate = false;
-      voting.isActive = checkDueDate;
+      isActiveCheck = false;
+      voting.isActive = isActiveCheck;
       const Voting = Parse.Object.extend("Voting");
       const query = new Parse.Query(Voting);
       // here you put the objectId that you want to update
       query.get(voting.id).then(object => {
-        object.set("isActive", checkDueDate);
+        object.set("isActive", isActiveCheck);
 
         object.save().then(
           response => {
@@ -58,7 +61,23 @@ export default class VotingComponent extends Component {
           }
         );
       });
-    } else console.log(checkDueDate);
+    }
+
+    const Vote = Parse.Object.extend("Vote");
+    const voteQuery = new Parse.Query(Vote);
+
+    voteQuery.equalTo("votingId", voting.id);
+    voteQuery.find().then(
+      results => {
+        // You can use the "get" method to get the value of an attribute
+        // Ex: response.get("<ATTRIBUTE_NAME>")
+
+        console.log("Vote found", results);
+      },
+      error => {
+        console.error("Error while fetching Vote", error);
+      }
+    );
   }
 
   onChangeHandler = ev => {
@@ -109,8 +128,50 @@ export default class VotingComponent extends Component {
 
   handleClose = () => {
     this.setState({
-      showEditVotingModal: false
+      showEditVotingModal: false,
+      showVoteModal: false
     });
+  };
+
+  createVote = () => {
+    const { selectedOption } = this.state;
+    const { activeUser, voting } = this.props;
+    const community = activeUser.community;
+    const votedBy = activeUser.id;
+    const votingId = voting.id;
+
+    const newVote = {
+      community,
+      selectedOption,
+      votedBy,
+      votingId
+    };
+    this.handleNewVote(newVote);
+    // this.setState({
+    //   selectedOption: { label: "Information", value: "Information" },
+    // });
+  };
+
+  handleNewVote = newVote => {
+    // const { activeUser } = this.props;
+    // const Vote = Parse.Object.extend("Vote");
+    // const newParseVote = new Vote();
+    // newParseVote.set("vote", newVote.vote);
+    // newParseVote.set("selectedOption", selectedOption);
+    // newParseVote.set("votingId", newVote.options);
+    // newParseVote.set("createdBy", Parse.User.current());
+    // newParseVote.set("community", activeUser.community);
+    // newParseVote.save().then(
+    //   theCreatedParseVote => {
+    //     console.log("Vote created", theCreatedParseVote);
+    //     this.setState({
+    //       votings: this.state.votings.concat(new VoteModel(theCreatedParseVote))
+    //     });
+    //   },
+    //   error => {
+    //     console.error("Error while creating Vote: ", error);
+    //   }
+    // );
   };
 
   handleNewComment = (newComment, voting) => {
@@ -143,15 +204,38 @@ export default class VotingComponent extends Component {
 
     //   // Function that is triggered only by the Enter key
     if (event.keyCode === 13) {
-      event.preventDefault();
+      // event.preventDefault();
       this.handleNewComment(newComment, voting);
       //     //     // console.log(this.state.list)
     }
   }
 
+  getChartData(votes) {
+    let votesData = [50, 50];
+
+    // votes.forEach(vote => {
+    //   if (vote.label === 1) {
+    //     ++votesData[0];
+    //   } else if (vote.label === 2) {
+    //     ++votesData[1];
+    //   }
+    // };
+
+    return {
+      labels: this.props.voting.options,
+      datasets: [
+        {
+          data: votesData,
+          backgroundColor: ["#FF6384", "#36A2EB", "#36A22B"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#36A22B"]
+        }
+      ]
+    };
+  }
+
   render() {
     const { voting, activeUser } = this.props;
-    const { showEditVotingModal, input } = this.state;
+    const { showEditVotingModal, showVoteModal, selectedOption } = this.state;
 
     const styles = {
       row: {
@@ -164,6 +248,28 @@ export default class VotingComponent extends Component {
       }
     };
 
+    // Creates a an options labels array from voting.options
+    let labelsArr = voting.options.map(item => {
+      return item.label;
+    });
+    let labelsArrToString = labelsArr.join(", ");
+
+    // let votesCount = [];
+    // for (let i = 0; i < labelsArr; i++) {}
+
+    var scoreArr = [30, 40, 30];
+
+    const chartData = {
+      labels: labelsArr,
+      datasets: [
+        {
+          data: scoreArr,
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+        }
+      ]
+    };
+
     // adds important/information icon to each issue according to its priority
     let activeImage;
     if (voting.isActive === true) {
@@ -171,6 +277,17 @@ export default class VotingComponent extends Component {
     } else if (voting.isActive === false) {
       activeImage = require("./images/red-circle.png");
     }
+
+    // let votedVotingIndicator;
+    // if (voting.votedByUser === undefined && voting.isActive) {
+    //   votedVotingIndicator = "Didn't Vote Yet";
+    // } else if (
+    //   voting.votedByUser &&
+    //   voting.votedByUser.includes(this.props.activeUser.id) &&
+    //   voting.isActive
+    // ) {
+    //   votedVotingIndicator = "Already Voted";
+    // } else votedVotingIndicator = "Didn't Vote Yet";
 
     // sets read/unread class to issues
     let readClass = "voting-title-unread";
@@ -185,29 +302,58 @@ export default class VotingComponent extends Component {
     //   voting.dueDate.toLocaleString()
     // );
 
-    const votingResultsGraphTitle =
-      activeUser.isCommitteeMember && voting.isActive ? (
-        "Results"
-      ) : (
-        <div className="tenant-vote">
-          <div>Your vote:</div>
-          <div className="vote-select">
-            <Select
-              className="vote-select"
-              onChange={this.handleSelectChange}
-              options={this.props.voting.options}
-              placeholder="Vote options"
-              // defaultValue={{ label: "Clear Filter", value: "" }}
-            />
-          </div>
-        </div>
-      );
-    const graph1 = activeUser.isCommitteeMember ? "graph1" : null;
+    // const votingResultsGraphTitle =
+    //   activeUser.isCommitteeMember && voting.isActive ? (
+    //     "Results"
+    //   ) : (
+    //     <div className="tenant-vote">
+    //       <div>Your vote:</div>
+    //       <div className="vote-select">
+    //         <Select
+    //           className="vote-select"
+    //           onChange={this.handleSelectChange}
+    //           options={this.props.voting.options}
+    //           placeholder="Vote options"
+    //           // defaultValue={{ label: "Clear Filter", value: "" }}
+    //         />
+    //       </div>
+    //     </div>
+    //   );
 
-    const votingResultsPercentage = activeUser.isCommitteeMember
-      ? "Voting Percentage"
-      : null;
-    const graph2 = activeUser.isCommitteeMember ? "graph2" : null;
+    let votingResultsGraph;
+    if (activeUser.isCommitteeMember && voting.isActive) {
+      votingResultsGraph = (
+        <Col lg="2" className="graph">
+          <div className="voting-first-row">Voting Results</div>
+          <Pie className="voting-chart" data={chartData} />
+        </Col>
+      );
+    } else if (!voting.isActive) {
+      votingResultsGraph = (
+        <Col lg="2" className="graph">
+          <div className="voting-first-row">Voting Results</div>
+          <Pie className="voting-chart" data={chartData} />
+        </Col>
+      );
+    }
+
+    let votingPercentageGraph;
+    if (activeUser.isCommitteeMember && voting.isActive) {
+      votingPercentageGraph = (
+        <Col lg="2" className="graph">
+          <div className="voting-first-row">Voting Percentage</div>
+
+          <Pie className="voting-chart" data={chartData} />
+        </Col>
+      );
+    } else if (!voting.isActive) {
+      votingPercentageGraph = (
+        <Col lg="2" className="graph">
+          <div className="voting-first-row">Voting Percentage</div>
+          <Pie className="voting-chart" data={chartData} />
+        </Col>
+      );
+    }
 
     let showUpdateDeleteVotingBtn;
     if (activeUser && activeUser.isCommitteeMember) {
@@ -240,6 +386,61 @@ export default class VotingComponent extends Component {
       );
     } else showUpdateDeleteVotingBtn = null;
 
+    let votedVotingIndicator;
+    let votedByUserCheck;
+    if (voting.votedByUser === undefined) {
+      votedByUserCheck = true;
+    } else if (voting.votedByUser.includes(this.props.activeUser.id)) {
+      votedByUserCheck = false;
+    } else votedByUserCheck = true;
+
+    let showVoteBtn;
+    if (voting.isActive && votedByUserCheck) {
+      showVoteBtn = (
+        <div className="vote-button-selection">
+          <div>Your Vote:</div>
+          <Select
+            className="vote-select"
+            value={selectedOption}
+            onChange={this.handleSelectChange}
+            options={voting.options}
+          />
+          <Button
+            className="vote-btn"
+            type="button"
+            // variant=""
+            size="sm"
+            onClick={this.handleVote}
+          >
+            Vote
+          </Button>
+        </div>
+      );
+      votedVotingIndicator = "Didn't Vote Yet";
+    } else if (voting.isActive && !votedByUserCheck) {
+      showVoteBtn = null;
+      votedVotingIndicator = "Already Voted";
+    } else if (!voting.isActive && votedByUserCheck) {
+      showVoteBtn = null;
+      votedVotingIndicator = "Didn't Vote";
+    } else {
+      showVoteBtn = null;
+      votedVotingIndicator = "Voted";
+    }
+    //   <div>
+    //   <Button
+    //     className="vote-btn"
+    //     type="button"
+    //     // variant=""
+    //     size="sm"
+    //     onClick={() => {
+    //       this.setState({ showVoteModal: true });
+    //     }}
+    //   >
+    //     Vote
+    //   </Button>
+    // </div>
+
     return (
       <Card className="voting-comp">
         <Accordion.Toggle
@@ -257,6 +458,7 @@ export default class VotingComponent extends Component {
               Created at {voting.createdAt.toLocaleString()}
             </span>
           </div>
+          <div className="vote-indicator">{votedVotingIndicator}</div>
           <div>
             <img src={activeImage} alt="Voting status icon" height="25px"></img>
           </div>
@@ -271,7 +473,7 @@ export default class VotingComponent extends Component {
                 </Row>
                 <Row className="voting-second-row">
                   <Col lg="4">Options: </Col>
-                  {/* <Col lg="8">{voting && voting.options}</Col> */}
+                  <Col lg="8">>{labelsArrToString}</Col>
                 </Row>
                 <Row>
                   <Col lg="4">End Date: </Col>
@@ -282,47 +484,23 @@ export default class VotingComponent extends Component {
                   </Col>
                 </Row>
               </Col>
-              <Col lg="2" className="graph results-graph">
-                <div className="voting-first-row">
-                  {votingResultsGraphTitle}
-                </div>
-                <div>{graph1}</div>
-              </Col>
-              <Col lg="2" className="graph">
-                <div className="voting-first-row">
-                  {votingResultsPercentage}
-                </div>
-                <div>{graph2}</div>
-              </Col>
+              {votingResultsGraph}
+              {votingPercentageGraph}
             </Row>
             <Row style={styles.row} className="voting-btns-row">
               <div className="voting-update-delete">
                 {showUpdateDeleteVotingBtn}
               </div>
-              <div>
-                <Button
-                  className="vote-btn"
-                  type="button"
-                  // variant=""
-                  size="sm"
-                  onClick={() => {
-                    // const deleteVoting = this.props.deleteVoting;
-                    // deleteVoting(voting.id);
-                    // console.log(voting.id);
-                  }}
-                >
-                  Vote
-                </Button>
-              </div>
+              {showVoteBtn}
             </Row>
           </Card.Body>
         </Accordion.Collapse>
-        {/* <VoteModal
+        <VoteModal
           show={showVoteModal}
           handleClose={this.handleClose}
           handleEditVote={this.handleEditVote}
-          Voting={this.props.voting}
-        /> */}
+          Voting={voting}
+        />
 
         <EditVotingModal
           show={showEditVotingModal}

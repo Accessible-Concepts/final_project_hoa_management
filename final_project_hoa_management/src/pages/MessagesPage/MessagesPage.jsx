@@ -217,6 +217,24 @@ export default class MessagesPage extends Component {
       <div className="messages-page">
         <Container fluid className="mp-cont">
           <Form.Group>
+            <Row style={styles.row}>
+              <h4 className="message-page-title">Messages</h4>
+            </Row>
+            <Row className="btn-input-row" style={styles.row}>
+              <div className="message-title-table">
+                &nbsp;&nbsp;Community: {community.get("community")}
+              </div>
+              <Button
+                size="sm"
+                onClick={() => {
+                  this.setState({ showNewMessageModal: true });
+                }}
+              >
+                New Message
+              </Button>
+            </Row>
+          </Form.Group>
+          <Form.Group>
             <Row className="message-input-row" style={styles.row}>
               <Col lg="6" style={styles.col}>
                 <FormControl
@@ -268,19 +286,7 @@ export default class MessagesPage extends Component {
               </Col>
             </Row>
           </Form.Group>
-          <Row className="btn-input-row" style={styles.row}>
-            <div className="message-title-table">
-              Community: {community.get("community")}
-            </div>
-            <Button
-              size="sm"
-              onClick={() => {
-                this.setState({ showNewMessageModal: true });
-              }}
-            >
-              New Message
-            </Button>
-          </Row>
+
           <Row style={styles.row}>
             <Accordion defaultActiveKey="1" className="messages-accord">
               {messagesView}

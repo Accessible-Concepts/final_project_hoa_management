@@ -1,5 +1,6 @@
 .messages-page {
   background-color: #585753;
+  margin-top: 80px;
 }
 
 .mp-cont {
@@ -39,4 +40,8 @@
 .message-input-row {
   display: flex;
   justify-content: space-between !important;
+}
+
+.message-page-title {
+  color: #585753;
 }
