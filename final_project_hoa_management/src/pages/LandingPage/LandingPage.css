@@ -36,11 +36,11 @@
   /* background-color: white; */
 }
 
-span>a:link {
+span > a:link {
   color: white;
 }
 
-span>a:hover {
+span > a:hover {
   color: white;
   font-weight: bold;
   text-decoration: none;
@@ -48,9 +48,9 @@ span>a:hover {
 
 .login-button {
   border-radius: 5px;
-  background-color: #0069D9;
+  background-color: #0069d9;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   padding: 7px;
   width: 100px;
@@ -67,7 +67,7 @@ span>a:hover {
 }
 
 .login-button span:after {
-  content: '\00bb';
+  content: "\00bb";
   position: absolute;
   opacity: 0;
   top: 0;

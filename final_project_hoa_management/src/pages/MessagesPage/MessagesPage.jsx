@@ -207,7 +207,7 @@ export default class MessagesPage extends Component {
       />
     ));
 
-    const community = this.props.activeUser.community;
+    const community = activeUser && activeUser.community;
 
     if (!activeUser) {
       return <Redirect to="/" />;
