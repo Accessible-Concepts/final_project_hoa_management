@@ -194,20 +194,21 @@ export default class IssueComponent extends Component {
     //Checks if an active issue is overdue
     const currentDate = new Date();
     const issueCreateat = issue.createdAt;
-    const overdue = Math.floor(
+    const issueLifetime = Math.floor(
       (currentDate - issueCreateat) / (1000 * 60 * 60 * 24)
     );
 
-    if (issue.issueActive && overdue >= 6) {
-      issue.isOverdue = true;
-    } else issue.isOverdue = false;
+    let overdueCheck;
+    if (issue.issueActive && issueLifetime >= 6) {
+      overdueCheck = true;
+    } else overdueCheck = false;
 
-    const isOverdue = issue.isOverdue ? "Issue is overdue" : null;
+    const isOverdue = overdueCheck ? "Issue is overdue" : null;
 
     // const cloneIssues = this.state.issues;
     // this.setState({
-    //   issues: this.state.issues
-    // issues: cloneIssues
+    //   // issues: this.state.issues
+    //   issues: cloneIssues
     // });
 
     // TODO: Check how to update Parse and state with overdue issues
