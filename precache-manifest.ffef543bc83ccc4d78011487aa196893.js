@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "628e3733fdb6a6e24f2a57a7c2b46348",
+    "revision": "95b694ad529f6f6c1d4dd500a7ed9659",
     "url": "/final_project_hoa_management/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css"
   },
   {
-    "revision": "f2601d94356755011cb4",
+    "revision": "4e2489815cdd5868dac6",
     "url": "/final_project_hoa_management/static/css/main.ec970ac3.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js.LICENSE"
   },
   {
-    "revision": "f2601d94356755011cb4",
-    "url": "/final_project_hoa_management/static/js/main.41e4f214.chunk.js"
+    "revision": "4e2489815cdd5868dac6",
+    "url": "/final_project_hoa_management/static/js/main.22c2818a.chunk.js"
   },
   {
     "revision": "2c2a8eb6f22c62c9ed31",

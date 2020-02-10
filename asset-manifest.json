@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/final_project_hoa_management/static/css/main.ec970ac3.chunk.css",
-    "main.js": "/final_project_hoa_management/static/js/main.41e4f214.chunk.js",
-    "main.js.map": "/final_project_hoa_management/static/js/main.41e4f214.chunk.js.map",
+    "main.js": "/final_project_hoa_management/static/js/main.22c2818a.chunk.js",
+    "main.js.map": "/final_project_hoa_management/static/js/main.22c2818a.chunk.js.map",
     "runtime-main.js": "/final_project_hoa_management/static/js/runtime-main.256994f9.js",
     "runtime-main.js.map": "/final_project_hoa_management/static/js/runtime-main.256994f9.js.map",
     "static/css/2.a295cc11.chunk.css": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css",
     "static/js/2.a97c032a.chunk.js": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js",
     "static/js/2.a97c032a.chunk.js.map": "/final_project_hoa_management/static/js/2.a97c032a.chunk.js.map",
     "index.html": "/final_project_hoa_management/index.html",
-    "precache-manifest.31a2c841b7b85ade650175074a8342b5.js": "/final_project_hoa_management/precache-manifest.31a2c841b7b85ade650175074a8342b5.js",
+    "precache-manifest.ffef543bc83ccc4d78011487aa196893.js": "/final_project_hoa_management/precache-manifest.ffef543bc83ccc4d78011487aa196893.js",
     "service-worker.js": "/final_project_hoa_management/service-worker.js",
     "static/css/2.a295cc11.chunk.css.map": "/final_project_hoa_management/static/css/2.a295cc11.chunk.css.map",
     "static/css/main.ec970ac3.chunk.css.map": "/final_project_hoa_management/static/css/main.ec970ac3.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.a295cc11.chunk.css",
     "static/js/2.a97c032a.chunk.js",
     "static/css/main.ec970ac3.chunk.css",
-    "static/js/main.41e4f214.chunk.js"
+    "static/js/main.22c2818a.chunk.js"
   ]
 }
