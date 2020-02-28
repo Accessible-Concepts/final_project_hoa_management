@@ -166,7 +166,7 @@ export default class IssueComponent extends Component {
 
     // adds important/information icon to each issue according to its priority
     let priorityImage;
-    // let priorityImageTooltip;
+    let priorityImageTooltip;
 
     if (issue.selectedOption.value === "Normal") {
       priorityImage = require("./images/green-circle.png");
@@ -176,13 +176,13 @@ export default class IssueComponent extends Component {
       priorityImage = require("./images/red-circle.png");
     }
 
-    // if (issue.selectedOption.value === "Normal") {
-    //   priorityImageTooltip = "Normal Priority Issue";
-    // } else if (issue.selectedOption.value === "Important") {
-    //   priorityImageTooltip = "Important Priority Issue";
-    // } else if (issue.selectedOption.value === "Urgent") {
-    //   priorityImageTooltip = "Urgent Priority Issue";
-    // }
+    if (issue.selectedOption.value === "Normal") {
+      priorityImageTooltip = "Normal Priority";
+    } else if (issue.selectedOption.value === "Important") {
+      priorityImageTooltip = "Important Priority";
+    } else if (issue.selectedOption.value === "Urgent") {
+      priorityImageTooltip = "Urgent Priority";
+    }
 
     // sets read/unread class to issues
     let readClass = "issue-title-unread";
@@ -297,7 +297,6 @@ export default class IssueComponent extends Component {
           onClick={() => {
             const changeReadIssueState = this.changeReadIssueState;
             changeReadIssueState(issue);
-            // console.log(issue);
           }}
         >
           <div className="issue-title">
@@ -312,11 +311,8 @@ export default class IssueComponent extends Component {
               src={priorityImage}
               alt="Issue priority icon"
               height="25px"
+              title={priorityImageTooltip}
             ></img>
-            {/* <div className="tooltip">
-              abcbcbcb
-              <span className="tooltiptext">{priorityImageTooltip}</span>
-            </div> */}
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={this.props.ind}>
@@ -347,7 +343,6 @@ export default class IssueComponent extends Component {
                   </Col>
                 </Row>
               </Col>
-              {/* //TODO: gdgdf */}
               <Col lg="6" style={styles.col}>
                 <Row style={styles.row}>
                   <Col lg="8">

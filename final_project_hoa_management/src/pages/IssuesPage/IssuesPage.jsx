@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import "./IssuesPage.css";
 import IssueComponent from "../../components/Issues/IssueComponent";
 import NewIssueModal from "../../components/Issues/Modals/NewIssueModal";
-
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import {
   Container,
   Row,

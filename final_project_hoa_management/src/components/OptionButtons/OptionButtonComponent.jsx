@@ -19,7 +19,10 @@ export default class OptionButtonComponent extends Component {
         <div className="option-name">{option.value}</div>
         <button
           className="option-del-btn"
-          onClick={this.props.deleteOption(index)}
+          // onClick={this.props.deleteOption(index)}
+          onClick={() => {
+            this.props.deleteOption(index);
+          }}
         >
           x
         </button>
