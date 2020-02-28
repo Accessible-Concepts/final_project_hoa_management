@@ -134,11 +134,15 @@ export default class MessageComponent extends Component {
     };
 
     // adds important/information icon to each message according to its priority
-    let priorityImage = "";
+    let priorityImage;
+    let priorityImageTooltip;
+
     if (message.selectedOption.value === "Important") {
       priorityImage = require("./images/exclamation.png");
+      priorityImageTooltip = "Important Priority";
     } else {
       priorityImage = require("./images/info.png");
+      priorityImageTooltip = "Information Priority";
     }
 
     // debugger;
@@ -173,6 +177,7 @@ export default class MessageComponent extends Component {
               src={priorityImage}
               alt="Message priority icon"
               width="25px"
+              title={priorityImageTooltip}
             ></img>
           </div>
         </Accordion.Toggle>

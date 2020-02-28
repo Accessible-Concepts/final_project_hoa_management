@@ -170,17 +170,12 @@ export default class IssueComponent extends Component {
 
     if (issue.selectedOption.value === "Normal") {
       priorityImage = require("./images/green-circle.png");
-    } else if (issue.selectedOption.value === "Important") {
-      priorityImage = require("./images/yellow-circle.png");
-    } else if (issue.selectedOption.value === "Urgent") {
-      priorityImage = require("./images/red-circle.png");
-    }
-
-    if (issue.selectedOption.value === "Normal") {
       priorityImageTooltip = "Normal Priority";
     } else if (issue.selectedOption.value === "Important") {
+      priorityImage = require("./images/yellow-circle.png");
       priorityImageTooltip = "Important Priority";
     } else if (issue.selectedOption.value === "Urgent") {
+      priorityImage = require("./images/red-circle.png");
       priorityImageTooltip = "Urgent Priority";
     }
 
@@ -191,7 +186,7 @@ export default class IssueComponent extends Component {
       readClass = "issue-title-read";
     } else readClass = "issue-title-unread";
 
-    //Checks if an active issue is overdue
+    // Checks if an active issue is overdue
     const currentDate = new Date();
     const issueCreateat = issue.createdAt;
     const issueLifetime = Math.floor(
