@@ -172,7 +172,7 @@ export default class IssuesPage extends Component {
     // Filters the issues array according to the
     // selectedOption (priority)
     let priorityFilteredIssues = inputFilteredIssues.filter(iss => {
-      let boolResultofPriority = iss.priority.includes(
+      let boolResultofPriority = iss.selectedOption.value.includes(
         this.state.selectedOption.value
       );
       return boolResultofPriority;
