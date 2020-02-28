@@ -168,13 +168,13 @@ export default class IssueComponent extends Component {
     let priorityImage;
     let priorityImageTooltip;
 
-    if (issue.selectedOption.value === "Normal") {
+    if (issue.selectedOption.label === "Normal") {
       priorityImage = require("./images/green-circle.png");
       priorityImageTooltip = "Normal Priority";
-    } else if (issue.selectedOption.value === "Important") {
+    } else if (issue.selectedOption.label === "Important") {
       priorityImage = require("./images/yellow-circle.png");
       priorityImageTooltip = "Important Priority";
-    } else if (issue.selectedOption.value === "Urgent") {
+    } else if (issue.selectedOption.label === "Urgent") {
       priorityImage = require("./images/red-circle.png");
       priorityImageTooltip = "Urgent Priority";
     }

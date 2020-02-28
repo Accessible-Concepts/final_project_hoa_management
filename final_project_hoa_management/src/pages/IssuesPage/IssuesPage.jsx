@@ -141,9 +141,9 @@ export default class IssuesPage extends Component {
 
     const options = [
       { value: "", label: "Clear Priority Filter" },
-      { value: "Normal", label: "Normal" },
-      { value: "Important", label: "Important" },
-      { value: "Urgent", label: "Urgent" }
+      { value: "1", label: "Normal" },
+      { value: "2", label: "Important" },
+      { value: "3", label: "Urgent" }
     ];
 
     const styles = {
